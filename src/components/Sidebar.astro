@@ -15,7 +15,7 @@ const menuItems = [
   style="padding: 4px 10px;"
   aria-label="Toggle sidebar"
 >
-  ☰
+  <span id="toggle-icon">☰</span>
 </button>
 
 <aside
@@ -59,21 +59,24 @@ const menuItems = [
           class="block px-3 py-2 text-sm text-gray-700 hover:text-blue-600"
           >Demo en Vivo</a
         >
-        <a
-          href="/changelog"
-          class="block px-3 py-2 text-sm text-gray-700 hover:text-blue-600"
-          >Changelog</a
-        >
       </div>
     </div>
   </nav>
 </aside>
 
 <script>
-  const btn = document.getElementById("btnToggleSidebar");
-  const sidebar = document.getElementById("sidebar");
+  const $ = (selector: string) => document.getElementById(selector);
+
+  const btn = $("btnToggleSidebar");
+  const sidebar = $("sidebar");
+  const toggleIcon = $("toggle-icon");
 
   btn?.addEventListener("click", () => {
     sidebar?.classList.toggle("-translate-x-full");
+    if (toggleIcon?.innerHTML === "☰") {
+      toggleIcon.innerHTML = "✖";
+    } else {
+      if (toggleIcon) toggleIcon.innerHTML = "☰";
+    }
   });
 </script>
