@@ -1,17 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Sidebar from '../components/Sidebar.astro';
-import CodeBlock from '../components/CodeBlock.astro';
+import Layout from "../layouts/Layout.astro";
+import Sidebar from "../components/Sidebar.astro";
+import CodeBlock from "../components/CodeBlock.astro";
 ---
 
 <Layout title="Instalación - Perseo Ecommerce">
   <div class="flex min-h-screen bg-gray-50">
     <Sidebar currentPage="installation" />
-    
-    <main class="flex-1 p-8 ml-64">
-      <div class="max-w-[1300px] mx-auto">
+
+    <main class="flex-1 py-8 px-16 ml-64">
+      <div class="mx-auto">
         <h1 class="text-4xl font-bold text-gray-900 mb-8">Instalación</h1>
-        
+
         <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 class="text-2xl font-semibold mb-4">Requisitos del Sistema</h2>
           <ul class="list-disc list-inside space-y-2 text-gray-700">
@@ -27,7 +27,7 @@ import CodeBlock from '../components/CodeBlock.astro';
           <p class="text-gray-700 mb-4">
             Clona el repositorio e instala las dependencias:
           </p>
-          
+
           <CodeBlock
             language="bash"
             code={`# Clonar el repositorio
@@ -49,11 +49,15 @@ npm run dev`}
         </div>
 
         <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 class="text-2xl font-semibold mb-4">Configuración de Base de Datos</h2>
+          <h2 class="text-2xl font-semibold mb-4">
+            Configuración de Base de Datos
+          </h2>
           <p class="text-gray-700 mb-4">
-            Configura tu base de datos MongoDB en el archivo <code class="bg-gray-100 px-2 py-1 rounded">.env</code>:
+            Configura tu base de datos MongoDB en el archivo <code
+              class="bg-gray-100 px-2 py-1 rounded">.env</code
+            >:
           </p>
-          
+
           <CodeBlock
             language="env"
             code={`# Base de datos
@@ -78,9 +82,10 @@ STRIPE_SECRET_KEY=sk_test_...`}
         <div class="bg-white rounded-lg shadow-sm p-8">
           <h2 class="text-2xl font-semibold mb-4">Verificar Instalación</h2>
           <p class="text-gray-700 mb-4">
-            Una vez completada la instalación, verifica que todo funcione correctamente:
+            Una vez completada la instalación, verifica que todo funcione
+            correctamente:
           </p>
-          
+
           <CodeBlock
             language="bash"
             code={`# Ejecutar tests
@@ -89,10 +94,11 @@ npm test
 # Verificar que el servidor esté funcionando
 curl http://localhost:3000/api/health`}
           />
-          
+
           <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
             <p class="text-green-800">
-              <strong>✅ ¡Perfecto!</strong> Si ves una respuesta JSON con status "ok", tu instalación está completa.
+              <strong>✅ ¡Perfecto!</strong> Si ves una respuesta JSON con status
+              "ok", tu instalación está completa.
             </p>
           </div>
         </div>

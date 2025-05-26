@@ -1,21 +1,22 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Sidebar from '../components/Sidebar.astro';
-import ComponentExample from '../components/ComponentExample.astro';
+import Layout from "../layouts/Layout.astro";
+import Sidebar from "../components/Sidebar.astro";
+import ComponentExample from "../components/ComponentExample.astro";
 ---
 
 <Layout title="Componentes - Perseo Ecommerce">
   <div class="flex min-h-screen bg-gray-50">
     <Sidebar currentPage="components" />
-    
-    <main class="flex-1 p-8 ml-64">
-      <div class="max-w-[1300px] mx-auto">
+
+    <main class="flex-1 py-8 px-16 ml-64">
+      <div class="mx-auto">
         <h1 class="text-4xl font-bold text-gray-900 mb-8">Componentes</h1>
-        
+
         <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
           <h2 class="text-2xl font-semibold mb-4">Componentes Reutilizables</h2>
           <p class="text-gray-700">
-            Perseo incluye una biblioteca completa de componentes React reutilizables para construir tu interfaz de ecommerce rápidamente.
+            Perseo incluye una biblioteca completa de componentes React
+            reutilizables para construir tu interfaz de ecommerce rápidamente.
           </p>
         </div>
 
@@ -24,9 +25,21 @@ import ComponentExample from '../components/ComponentExample.astro';
             title="ProductCard"
             description="Componente para mostrar información de productos en grillas o listas"
             props={[
-              { name: "product", type: "Product", description: "Objeto del producto" },
-              { name: "onAddToCart", type: "function", description: "Callback al agregar al carrito" },
-              { name: "showQuickView", type: "boolean", description: "Mostrar botón de vista rápida" }
+              {
+                name: "product",
+                type: "Product",
+                description: "Objeto del producto",
+              },
+              {
+                name: "onAddToCart",
+                type: "function",
+                description: "Callback al agregar al carrito",
+              },
+              {
+                name: "showQuickView",
+                type: "boolean",
+                description: "Mostrar botón de vista rápida",
+              },
             ]}
             usage={`import { ProductCard } from '@perseo/components';
 
@@ -41,10 +54,26 @@ import ComponentExample from '../components/ComponentExample.astro';
             title="ShoppingCart"
             description="Componente del carrito de compras con funcionalidad completa"
             props={[
-              { name: "items", type: "CartItem[]", description: "Items del carrito" },
-              { name: "onUpdateQuantity", type: "function", description: "Actualizar cantidad" },
-              { name: "onRemoveItem", type: "function", description: "Remover item" },
-              { name: "onCheckout", type: "function", description: "Proceder al checkout" }
+              {
+                name: "items",
+                type: "CartItem[]",
+                description: "Items del carrito",
+              },
+              {
+                name: "onUpdateQuantity",
+                type: "function",
+                description: "Actualizar cantidad",
+              },
+              {
+                name: "onRemoveItem",
+                type: "function",
+                description: "Remover item",
+              },
+              {
+                name: "onCheckout",
+                type: "function",
+                description: "Proceder al checkout",
+              },
             ]}
             usage={`import { ShoppingCart } from '@perseo/components';
 
@@ -60,9 +89,21 @@ import ComponentExample from '../components/ComponentExample.astro';
             title="ProductFilter"
             description="Componente de filtros para productos con categorías, precios y más"
             props={[
-              { name: "categories", type: "Category[]", description: "Lista de categorías" },
-              { name: "priceRange", type: "PriceRange", description: "Rango de precios" },
-              { name: "onFilterChange", type: "function", description: "Callback al cambiar filtros" }
+              {
+                name: "categories",
+                type: "Category[]",
+                description: "Lista de categorías",
+              },
+              {
+                name: "priceRange",
+                type: "PriceRange",
+                description: "Rango de precios",
+              },
+              {
+                name: "onFilterChange",
+                type: "function",
+                description: "Callback al cambiar filtros",
+              },
             ]}
             usage={`import { ProductFilter } from '@perseo/components';
 
@@ -77,9 +118,21 @@ import ComponentExample from '../components/ComponentExample.astro';
             title="CheckoutForm"
             description="Formulario completo de checkout con validación"
             props={[
-              { name: "onSubmit", type: "function", description: "Callback al enviar formulario" },
-              { name: "loading", type: "boolean", description: "Estado de carga" },
-              { name: "paymentMethods", type: "PaymentMethod[]", description: "Métodos de pago disponibles" }
+              {
+                name: "onSubmit",
+                type: "function",
+                description: "Callback al enviar formulario",
+              },
+              {
+                name: "loading",
+                type: "boolean",
+                description: "Estado de carga",
+              },
+              {
+                name: "paymentMethods",
+                type: "PaymentMethod[]",
+                description: "Métodos de pago disponibles",
+              },
             ]}
             usage={`import { CheckoutForm } from '@perseo/components';
 
@@ -95,8 +148,16 @@ import ComponentExample from '../components/ComponentExample.astro';
             description="Componente de perfil de usuario con edición"
             props={[
               { name: "user", type: "User", description: "Datos del usuario" },
-              { name: "onUpdate", type: "function", description: "Callback al actualizar perfil" },
-              { name: "editable", type: "boolean", description: "Permitir edición" }
+              {
+                name: "onUpdate",
+                type: "function",
+                description: "Callback al actualizar perfil",
+              },
+              {
+                name: "editable",
+                type: "boolean",
+                description: "Permitir edición",
+              },
             ]}
             usage={`import { UserProfile } from '@perseo/components';
 
