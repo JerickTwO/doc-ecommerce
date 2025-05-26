@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+---
+
+<Layout title="Instalación - Perseo Ecommerce">
+  <div class="flex min-h-screen bg-gray-50">
+    <Sidebar currentPage="installation" />
+    
+    <main class="flex-1 p-8 ml-64">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold text-gray-900 mb-8">Instalación</h1>
+        
+        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <h2 class="text-2xl font-semibold mb-4">Requisitos del Sistema</h2>
+          <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <li>Node.js 18.0 o superior</li>
+            <li>npm 8.0 o superior</li>
+            <li>MongoDB 5.0 o superior</li>
+            <li>Redis (opcional, para cache)</li>
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <h2 class="text-2xl font-semibold mb-4">Instalación Rápida</h2>
+          <p class="text-gray-700 mb-4">
+            Clona el repositorio e instala las dependencias:
+          </p>
+          
+          <CodeBlock
+            language="bash"
+            code={`# Clonar el repositorio
+git clone https://github.com/perseo/ecommerce.git
+cd perseo-ecommerce
+
+# Instalar dependencias
+npm install
+
+# Configurar variables de entorno
+cp .env.example .env
+
+# Ejecutar migraciones
+npm run migrate
+
+# Iniciar el servidor de desarrollo
+npm run dev`}
+          />
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+          <h2 class="text-2xl font-semibold mb-4">Configuración de Base de Datos</h2>
+          <p class="text-gray-700 mb-4">
+            Configura tu base de datos MongoDB en el archivo <code class="bg-gray-100 px-2 py-1 rounded">.env</code>:
+          </p>
+          
+          <CodeBlock
+            language="env"
+            code={`# Base de datos
+MONGODB_URI=mongodb://localhost:27017/perseo_ecommerce
+DB_NAME=perseo_ecommerce
+
+# JWT Secret
+JWT_SECRET=tu_jwt_secret_muy_seguro
+
+# Configuración de email
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=tu_email@gmail.com
+SMTP_PASS=tu_password
+
+# Stripe (opcional)
+STRIPE_PUBLIC_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...`}
+          />
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-8">
+          <h2 class="text-2xl font-semibold mb-4">Verificar Instalación</h2>
+          <p class="text-gray-700 mb-4">
+            Una vez completada la instalación, verifica que todo funcione correctamente:
+          </p>
+          
+          <CodeBlock
+            language="bash"
+            code={`# Ejecutar tests
+npm test
+
+# Verificar que el servidor esté funcionando
+curl http://localhost:3000/api/health`}
+          />
+          
+          <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+            <p class="text-green-800">
+              <strong>✅ ¡Perfecto!</strong> Si ves una respuesta JSON con status "ok", tu instalación está completa.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>

@@ -1,0 +1,27 @@
+---
+const { language, code } = Astro.props;
+---
+
+<div class="relative">
+  <div class="flex items-center justify-between bg-gray-800 text-white px-4 py-2 rounded-t-lg">
+    <span class="text-sm font-medium">{language}</span>
+    <button class="text-sm text-gray-300 hover:text-white" onclick="copyToClipboard(this)">
+      Copiar
+    </button>
+  </div>
+  <pre class="bg-gray-900 text-gray-100 p-4 rounded-b-lg overflow-x-auto"><code>{code}</code></pre>
+</div>
+
+<script>
+  function copyToClipboard(button) {
+    const codeBlock = button.closest('.relative').querySelector('code');
+    const text = codeBlock.textContent;
+    
+    navigator.clipboard.writeText(text).then(() => {
+      button.textContent = '¡Copiado!';
+      setTimeout(() => {
+        button.textContent = 'Copiar';
+      }, 2000);
+    });
+  }
+</script>

@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+---
+
+<Layout title="Perseo Ecommerce - Documentación">
+  <Hero />
+  
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Características Principales</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          Perseo es una plataforma de ecommerce completa diseñada para ofrecer la mejor experiencia tanto para desarrolladores como para usuarios finales.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <FeatureCard
+          title="API REST Completa"
+          description="API robusta con endpoints para productos, usuarios, pedidos y pagos"
+          icon="🚀"
+        />
+        <FeatureCard
+          title="Panel de Administración"
+          description="Dashboard intuitivo para gestionar productos, inventario y ventas"
+          icon="📊"
+        />
+        <FeatureCard
+          title="Carrito de Compras"
+          description="Sistema de carrito avanzado con persistencia y cálculo automático"
+          icon="🛒"
+        />
+        <FeatureCard
+          title="Gestión de Usuarios"
+          description="Autenticación, perfiles de usuario y sistema de roles"
+          icon="👥"
+        />
+        <FeatureCard
+          title="Procesamiento de Pagos"
+          description="Integración con múltiples pasarelas de pago"
+          icon="💳"
+        />
+        <FeatureCard
+          title="Responsive Design"
+          description="Diseño adaptable para todos los dispositivos"
+          icon="📱"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-blue-600 rounded-2xl p-8 text-center text-white">
+        <h2 class="text-3xl font-bold mb-4">¿Listo para comenzar?</h2>
+        <p class="text-xl mb-8 opacity-90">
+          Sigue nuestra guía de instalación y ten tu ecommerce funcionando en minutos
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/installation" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            Guía de Instalación
+          </a>
+          <a href="/api" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+            Ver API Reference
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
