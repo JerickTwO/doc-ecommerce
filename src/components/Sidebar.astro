@@ -2,48 +2,78 @@
 const { currentPage } = Astro.props;
 
 const menuItems = [
-  { href: '/', label: 'Inicio', id: 'home' },
-  { href: '/installation', label: 'Instalación', id: 'installation' },
-  // { href: '/configuration', label: 'Configuración', id: 'configuration' },
-  { href: '/api', label: 'API Reference', id: 'api' },
-  { href: '/components', label: 'Componentes', id: 'components' },
-  // { href: '/examples', label: 'Ejemplos', id: 'examples' },
-  // { href: '/deployment', label: 'Deployment', id: 'deployment' },
+  { href: "/", label: "Inicio", id: "home" },
+  { href: "/installation", label: "Instalación", id: "installation" },
+  { href: "/api", label: "API Reference", id: "api" },
+  { href: "/components", label: "Componentes", id: "components" },
 ];
 ---
 
-<aside class="fixed left-0 top-16 h-full w-64 bg-white border-r border-gray-200 overflow-y-auto">
+<button
+  id="btnToggleSidebar"
+  class="md:hidden fixed top-4 left-4 p-2 bg-gray-100 rounded z-50"
+  style="padding: 4px 10px;"
+  aria-label="Toggle sidebar"
+>
+  ☰
+</button>
+
+<aside
+  id="sidebar"
+  class="fixed left-0 top-16 h-full w-64 bg-white border-r border-gray-200 overflow-y-auto
+         transform -translate-x-full transition-transform duration-300 ease-in-out
+         md:translate-x-0 md:static md:block"
+>
   <nav class="p-6">
     <div class="space-y-1">
-      {menuItems.map((item) => (
-        <a
-          href={item.href}
-          class={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-            currentPage === item.id
-              ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
-              : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-          }`}
-        >
-          {item.label}
-        </a>
-      ))}
+      {
+        menuItems.map((item) => (
+          <a
+            href={item.href}
+            class={`block px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              currentPage === item.id
+                ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700"
+                : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+            }`}
+          >
+            {item.label}
+          </a>
+        ))
+      }
     </div>
-    
+
     <div class="mt-8 pt-8 border-t border-gray-200">
-      <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
+      <h3
+        class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3"
+      >
         Enlaces Útiles
       </h3>
       <div class="space-y-1">
-        <a href="https://github.com/perseo/ecommerce" class="block px-3 py-2 text-sm text-gray-700 hover:text-blue-600">
-          GitHub Repository
-        </a>
-        <a href="https://demo.perseo.com" class="block px-3 py-2 text-sm text-gray-700 hover:text-blue-600">
-          Demo en Vivo
-        </a>
-        <a href="/changelog" class="block px-3 py-2 text-sm text-gray-700 hover:text-blue-600">
-          Changelog
-        </a>
+        <a
+          href="https://github.com/perseo/ecommerce"
+          class="block px-3 py-2 text-sm text-gray-700 hover:text-blue-600"
+          >GitHub Repository</a
+        >
+        <a
+          href="https://demo.perseo.com"
+          class="block px-3 py-2 text-sm text-gray-700 hover:text-blue-600"
+          >Demo en Vivo</a
+        >
+        <a
+          href="/changelog"
+          class="block px-3 py-2 text-sm text-gray-700 hover:text-blue-600"
+          >Changelog</a
+        >
       </div>
     </div>
   </nav>
 </aside>
+
+<script>
+  const btn = document.getElementById("btnToggleSidebar");
+  const sidebar = document.getElementById("sidebar");
+
+  btn?.addEventListener("click", () => {
+    sidebar?.classList.toggle("-translate-x-full");
+  });
+</script>
