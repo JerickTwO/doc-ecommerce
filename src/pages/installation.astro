@@ -5,100 +5,311 @@ import CodeBlock from "../components/CodeBlock.astro";
 ---
 
 <Layout title="Instalación - Perseo Ecommerce">
-  <div class="flex min-h-screen bg-white">    <Sidebar currentPage="installation" />
+  <div class="flex min-h-screen bg-white">
+    <Sidebar currentPage="installation" />
 
-    <main class="flex-1 py-8 px-16 ">
+    <main class="flex-1 py-8 px-16">
       <div class="mx-auto">
         <h1 class="text-4xl font-bold text-gray-900 mb-8">Instalación</h1>
 
-        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 class="text-2xl font-semibold mb-4">Requisitos del Sistema</h2>
-          <ul class="list-disc list-inside space-y-2 text-gray-700">
-            <li>Node.js 18.0 o superior</li>
-            <li>npm 8.0 o superior</li>
-            <li>MongoDB 5.0 o superior</li>
-            <li>Redis (opcional, para cache)</li>
-          </ul>
+        <!-- Proceso de Implementación -->
+        <div class="bg-white rounded-lg shadow-sm px-8 mb-8">
+          <div class="space-y-8">
+            <div class="flex items-start space-x-4">
+              <div class="flex-1">
+                <h3 class="text-2xl font-semibold mb-6">Personalización</h3>
+                <p class="text-gray-700 mb-4">
+                  Adaptación del diseño y funcionalidades según las necesidades
+                  específicas de tu negocio.
+                </p>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-blue-900 mb-2">
+                    ¿Qué incluye esta fase?
+                  </h4>
+                  <ul class="text-blue-800 space-y-1">
+                    <li>• Configuración de colores y logotipo corporativo</li>
+                    <li>
+                      • Adaptación de la estructura de categorías de productos
+                    </li>
+                    <li>
+                      • Personalización de campos de productos según tu
+                      industria
+                    </li>
+                    <li>
+                      • Configuración de políticas de venta y términos de uso
+                    </li>
+                    <li>• Ajustes de moneda y configuración regional</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="flex-1">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                  Carga de Productos
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  Sincronización automática en tiempo real con el sistema
+                  contable Perseo.
+                </p>
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-green-900 mb-2">
+                    Características de la sincronización:
+                  </h4>
+                  <ul class="text-green-800 space-y-1">
+                    <li>• Importación automática de catálogo de productos</li>
+                    <li>• Actualización de inventarios en tiempo real</li>
+                    <li>• Sincronización de precios y promociones</li>
+                    <li>• Gestión automática de stock y disponibilidad</li>
+                    <li>• Integración de códigos de barras y SKUs</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="flex-1">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                  Configuración de Pagos y Envíos
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  Integración completa de pasarelas de pago y métodos de entrega
+                  adaptados a tu región.
+                </p>
+                <div
+                  class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4"
+                >
+                  <h4 class="font-semibold text-purple-900 mb-2">
+                    Métodos de Pago Disponibles:
+                  </h4>
+                  <ul class="text-purple-800 space-y-1">
+                    <li>
+                      • Tarjetas de crédito y débito (Visa, Mastercard, Diners)
+                    </li>
+                    <li>• Transferencias bancarias</li>
+                    <li>• Pago contra entrega</li>
+                    <li>• Billeteras digitales (PagoPlux, DataFast)</li>
+                    <li>• Pagos fraccionados y financiamiento</li>
+                  </ul>
+                </div>
+                <div
+                  class="bg-purple-50 border border-purple-200 rounded-lg p-4"
+                >
+                  <h4 class="font-semibold text-purple-900 mb-2">
+                    Opciones de Envío:
+                  </h4>
+                  <ul class="text-purple-800 space-y-1">
+                    <li>• Envío a domicilio con empresas courier</li>
+                    <li>• Retiro en punto de venta</li>
+                    <li>• Envío express y programado</li>
+                    <li>• Cálculo automático de costos de envío</li>
+                    <li>• Seguimiento de pedidos en tiempo real</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="flex-1">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                  Lanzamiento
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  Pruebas exhaustivas y puesta en producción con acompañamiento
+                  completo.
+                </p>
+                <div
+                  class="bg-orange-50 border border-orange-200 rounded-lg p-4"
+                >
+                  <h4 class="font-semibold text-orange-900 mb-2">
+                    Actividades de lanzamiento:
+                  </h4>
+                  <ul class="text-orange-800 space-y-1">
+                    <li>
+                      • Pruebas de funcionalidad en ambiente de desarrollo
+                    </li>
+                    <li>• Validación de procesos de compra completos</li>
+                    <li>
+                      • Verificación de integraciones con sistemas externos
+                    </li>
+                    <li>• Capacitación del equipo administrativo</li>
+                    <li>• Migración a producción y monitoreo inicial</li>
+                    <li>• Soporte técnico durante las primeras semanas</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 class="text-2xl font-semibold mb-4">Instalación Rápida</h2>
-          <p class="text-gray-700 mb-4">
-            Clona el repositorio e instala las dependencias:
-          </p>
+        <!-- Información Adicional -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div class="bg-white rounded-lg shadow-sm p-8">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">
+              Tiempo de Implementación
+            </h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <span class="text-gray-700">Carga de Productos</span>
+                <span
+                  class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm"
+                  >1-2 días</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-700">Personalización</span>
+                <span
+                  class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
+                  >4-6 días</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-700">Config. Pagos/Envíos</span>
+                <span
+                  class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm"
+                  >1-2 días</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-700">Lanzamiento</span>
+                <span
+                  class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm"
+                  >1-2 días</span
+                >
+              </div>
+              <div class="border-t pt-3 mt-4">
+                <div class="flex justify-between items-center font-semibold">
+                  <span class="text-gray-900">Tiempo Total</span>
+                  <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full"
+                    >7-13 días</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <CodeBlock
-            language="bash"
-            code={`# Clonar el repositorio
-git clone https://github.com/perseo/ecommerce.git
-cd perseo-ecommerce
+          <div class="bg-white rounded-lg shadow-sm p-8">
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">
+              Soporte Incluido
+            </h3>
+            <div class="space-y-4">
+              <div class="flex items-start space-x-3">
+                <div class="bg-green-500 rounded-full p-1 mt-1">
+                  <svg
+                    class="w-3 h-3 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">
+                    Capacitación Completa
+                  </h4>
+                  <p class="text-gray-600 text-sm">
+                    Entrenamiento para tu equipo en el uso de la plataforma
+                  </p>
+                </div>
+              </div>
 
-# Instalar dependencias
-npm install
+              <div class="flex items-start space-x-3">
+                <div class="bg-green-500 rounded-full p-1 mt-1">
+                  <svg
+                    class="w-3 h-3 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">
+                    Soporte Técnico 24/7
+                  </h4>
+                  <p class="text-gray-600 text-sm">
+                    Asistencia técnica disponible durante el lanzamiento
+                  </p>
+                </div>
+              </div>
 
-# Configurar variables de entorno
-cp .env.example .env
+              <div class="flex items-start space-x-3">
+                <div class="bg-green-500 rounded-full p-1 mt-1">
+                  <svg
+                    class="w-3 h-3 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">
+                    Documentación Detallada
+                  </h4>
+                  <p class="text-gray-600 text-sm">
+                    Manuales de usuario y guías de administración
+                  </p>
+                </div>
+              </div>
 
-# Ejecutar migraciones
-npm run migrate
-
-# Iniciar el servidor de desarrollo
-npm run dev`}
-          />
+              <div class="flex items-start space-x-3">
+                <div class="bg-green-500 rounded-full p-1 mt-1">
+                  <svg
+                    class="w-3 h-3 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">
+                    Actualizaciones Gratuitas
+                  </h4>
+                  <p class="text-gray-600 text-sm">
+                    Mejoras y nuevas características sin costo adicional
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <h2 class="text-2xl font-semibold mb-4">
-            Configuración de Base de Datos
-          </h2>
-          <p class="text-gray-700 mb-4">
-            Configura tu base de datos MongoDB en el archivo <code
-              class="bg-gray-100 px-2 py-1 rounded">.env</code
-            >:
+        <!-- Call to Action -->
+        <div
+          class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20 rounded-lg shadow-sm p-8 text-center text-white"
+        >
+          <h3 class="text-2xl font-semibold mb-4">¿Listo para comenzar?</h3>
+          <p class="text-blue-100 mb-6 max-w-2xl mx-auto">
+            Nuestro equipo de expertos está listo para implementar tu tienda
+            online de manera rápida y eficiente. Contacta con nosotros para
+            comenzar el proceso de implementación.
           </p>
-
-          <CodeBlock
-            language="env"
-            code={`# Base de datos
-MONGODB_URI=mongodb://localhost:27017/perseo_ecommerce
-DB_NAME=perseo_ecommerce
-
-# JWT Secret
-JWT_SECRET=tu_jwt_secret_muy_seguro
-
-# Configuración de email
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=tu_email@gmail.com
-SMTP_PASS=tu_password
-
-# Stripe (opcional)
-STRIPE_PUBLIC_KEY=pk_test_...
-STRIPE_SECRET_KEY=sk_test_...`}
-          />
-        </div>
-
-        <div class="bg-white rounded-lg shadow-sm p-8">
-          <h2 class="text-2xl font-semibold mb-4">Verificar Instalación</h2>
-          <p class="text-gray-700 mb-4">
-            Una vez completada la instalación, verifica que todo funcione
-            correctamente:
-          </p>
-
-          <CodeBlock
-            language="bash"
-            code={`# Ejecutar tests
-npm test
-
-# Verificar que el servidor esté funcionando
-curl http://localhost:3000/api/health`}
-          />
-
-          <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p class="text-green-800">
-              <strong>✅ ¡Perfecto!</strong> Si ves una respuesta JSON con status
-              "ok", tu instalación está completa.
-            </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              class="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              Solicitar Implementación
+            </button>
+            <button
+              class="border-2 border-white font-semibold py-3 px-8 rounded-lg hover-lift-alt"
+            >
+              Agendar Consulta
+            </button>
           </div>
         </div>
       </div>
