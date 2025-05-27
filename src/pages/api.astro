@@ -5,9 +5,10 @@ import ApiEndpoint from "../components/ApiEndpoint.astro";
 ---
 
 <Layout title="API Reference - Perseo Ecommerce">
-  <div class="flex min-h-screen bg-white">    <Sidebar currentPage="api" />
+  <div class="flex min-h-screen bg-white">
+    <Sidebar currentPage="api" />
 
-    <main class="flex-1 py-8 px-1 ml-2 ">
+    <main class="flex-1 py-8 px-1 ml-2">
       <div class="mx-auto">
         <h1 class="text-4xl font-bold text-gray-900 mb-8">API Reference</h1>
 
@@ -54,25 +55,26 @@ import ApiEndpoint from "../components/ApiEndpoint.astro";
                 },
               ]}
               response={`{
-  "products": [
-    {
-      "id": "64f8a1b2c3d4e5f6a7b8c9d0",
-      "name": "Smartphone Galaxy S23",
-      "description": "Último modelo con cámara de 108MP",
-      "price": 899.99,
-      "category": "electronics",
-      "stock": 50,
-      "images": ["image1.jpg", "image2.jpg"],
-      "createdAt": "2023-09-06T10:30:00Z"
-    }
-  ],
-  "pagination": {
-    "page": 1,
-    "limit": 20,
-    "total": 150,
-    "pages": 8
-  }
-}`}
+              "products": 
+                [
+                  {
+                    "id": "64f8a1b2c3d4e5f6a7b8c9d0",
+                    "name": "Smartphone Galaxy S23",
+                    "description": "Último modelo con cámara de 108MP",
+                    "price": 899.99,
+                    "category": "electronics",
+                    "stock": 50,
+                    "images": ["image1.jpg", "image2.jpg"],
+                    "createdAt": "2023-09-06T10:30:00Z"
+                  }
+                ],
+                "pagination": {
+                  "page": 1,
+                  "limit": 20,
+                  "total": 150,
+                  "pages": 8
+                }
+              }`}
             />
 
             <ApiEndpoint
