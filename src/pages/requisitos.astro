@@ -1,0 +1,286 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Sidebar from "../components/Sidebar.astro";
+import { Image } from "astro:assets";
+import imageRequirements from "../assets/requirements.png";
+import twoImageRequirements from "../assets/requirementsTwo.png";
+---
+
+<Layout title="Requisitos - Perseo Ecommerce">
+    <div class="flex min-h-screen bg-white">
+        <Sidebar currentPage="requisitos" />
+        <main class="flex-1 py-8 px-16 bg-gray-50 antialiased">
+            <div class="mx-auto flex flex-col gap-6">
+                <h1 class="text-3xl font-bold text-gray-900">Requisitos</h1>
+
+                <!-- Proceso de Requisitos -->
+                <div class="bg-white rounded-lg shadow-sm p-8">
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-1">
+                                <h3
+                                    class="text-xl font-semibold text-gray-900 mb-3"
+                                >
+                                    Productos parametrizados
+                                </h3>
+                                <p class="text-gray-700 mb-4">
+                                    Es decir debe tener los productos
+                                    parametrizados con imágenes, categorías o
+                                    líneas, precios y ficha técnica para una
+                                    correcta visualización en el ecommerce.
+                                </p>
+                                <div class="p-4 w-full flex flex-col">
+                                    <h4 class="font-semibold mb-2">
+                                        Ejemplo de parametrización de producto:
+                                    </h4>
+                                    <Image
+                                        src={imageRequirements}
+                                        class="w-[600px] border-4 border-gray-400 rounded-xl self-center"
+                                        alt="imagen de ejemplo de requerimientos."
+                                    />
+                                </div>
+                                <div class="p-4 w-full flex flex-col">
+                                    <h4 class="font-semibold mb-2">
+                                        Ejemplo de parametrización de ficha
+                                        técnica:
+                                    </h4>
+                                    <Image
+                                        src={twoImageRequirements}
+                                        class="w-[600px] border-4 border-gray-400 rounded-xl self-center"
+                                        alt="segunda imagen de ejemplo de requerimientos."
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-x-6 gap-y-6">
+                    <div class="col-span-1 bg-white rounded-lg shadow-sm p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                            Imagenes
+                        </h3>
+                        <p class="text-gray-700 mb-4">
+                            Los productos deben tener una configuración para las
+                            imágenes, puede ser fondo blanco<span
+                                class="font-bold"
+                            >
+                                o sin fondo
+                            </span> , esto es discutido de acuerdo a la personalización
+                            de la página. Y la <span class="font-bold">
+                                resolución mínima
+                            </span> permitida es
+                            <span class="font-bold"> 800x600 </span>
+                            en formato webp de preferencia
+                        </p>
+                    </div>
+                    <div class="col-span-1 bg-white rounded-lg shadow-sm p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                            Nombres de Producto
+                        </h3>
+                        <p class="text-gray-700 mb-4">
+                            Los productos deben tener nombres cortos no tan
+                            extensos, <span class="font-bold">
+                                máximo 58 caracteres
+                            </span> incluyendo espacios y signos de puntuación.
+                        </p>
+                    </div>
+                    <div class="col-span-2 bg-white rounded-lg shadow-sm p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                            Configuración de categorías
+                        </h3>
+                        <ul class="space-y-1">
+                            <li class="text-gray-700">
+                                • Deben ser nombres claros y precisos, además de
+                                no ser tan extensos y de preferencia que tengan
+                                <span class="font-bold"> 2 a 3 palabras</span>
+                            </li>
+                            <li class="text-gray-700">
+                                • La imagen que represente la categoría debe ser
+                                mínimo en <span class="font-bold">800x600</span>
+                            </li>
+                            <h3
+                                class="font-semibold text-md text-gray-900 mb-3"
+                            >
+                                Adicionales:
+                            </h3>
+                            <li class="text-gray-700">
+                                • Debe contar con un logo de empresa, esto es
+                                necesario para desarrollar los recursos de la
+                                página
+                            </li>
+                            <li class="text-gray-700">
+                                • En caso de ser Perseo PC debe contar con IP
+                                pública apuntada al servidor local, además de
+                                tener el
+                                <span class="font-bold"> API KEY </span>
+                                previamente instalada por el técnico a cargo.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Información Adicional -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                            Tiempo de Requisitos
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700"
+                                    >Carga de Productos</span
+                                >
+                                <span
+                                    class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm"
+                                    >1-2 días</span
+                                >
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700"
+                                    >Personalización</span
+                                >
+                                <span
+                                    class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
+                                    >4-6 días</span
+                                >
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700"
+                                    >Config. Pagos/Envíos</span
+                                >
+                                <span
+                                    class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm"
+                                    >1-2 días</span
+                                >
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-700">Lanzamiento</span>
+                                <span
+                                    class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm"
+                                    >1-2 días</span
+                                >
+                            </div>
+                            <div class="border-t pt-3 mt-4">
+                                <div
+                                    class="flex justify-between items-center font-semibold"
+                                >
+                                    <span class="text-gray-900"
+                                        >Tiempo Total</span
+                                    >
+                                    <span
+                                        class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full"
+                                        >7-13 días</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                            Soporte Incluido
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-green-500 rounded-full p-1 mt-1">
+                                    <svg
+                                        class="w-3 h-3 text-white"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">
+                                        Capacitación Completa
+                                    </h4>
+                                    <p class="text-gray-600 text-sm">
+                                        Entrenamiento para tu equipo en el uso
+                                        de la plataforma
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-green-500 rounded-full p-1 mt-1">
+                                    <svg
+                                        class="w-3 h-3 text-white"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">
+                                        Soporte Técnico 24/7
+                                    </h4>
+                                    <p class="text-gray-600 text-sm">
+                                        Asistencia técnica disponible durante el
+                                        lanzamiento
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-green-500 rounded-full p-1 mt-1">
+                                    <svg
+                                        class="w-3 h-3 text-white"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">
+                                        Documentación Detallada
+                                    </h4>
+                                    <p class="text-gray-600 text-sm">
+                                        Manuales de usuario y guías de
+                                        administración
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-green-500 rounded-full p-1 mt-1">
+                                    <svg
+                                        class="w-3 h-3 text-white"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">
+                                        Actualizaciones Gratuitas
+                                    </h4>
+                                    <p class="text-gray-600 text-sm">
+                                        Mejoras y nuevas Requisitos sin costo
+                                        adicional
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</Layout>
