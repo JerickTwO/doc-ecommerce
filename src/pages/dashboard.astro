@@ -11,7 +11,7 @@ const user = token ? verifyToken(token) : null;
 
 // Si no hay usuario válido (aunque el middleware debería redirigir)
 if (!user) {
-    return Astro.redirect("/3141592653589793");
+    return Astro.redirect("/login");
 }
 ---
 
@@ -298,7 +298,7 @@ if (!user) {
                         });
 
                         if (response.ok) {
-                            window.location.href = "/3141592653589793";
+                            window.location.href = "/login";
                         } else {
                             alert(
                                 "Error al cerrar sesión. Inténtalo de nuevo.",
