@@ -302,30 +302,21 @@ chmod -R 775 bootstrap/cache</code></pre>
     <script>
         // Esperar a que el DOM esté completamente cargado
         document.addEventListener("DOMContentLoaded", function () {
-            console.log("DOM cargado, configurando botones de copia");
-
-            // Obtener todos los botones de copia
             const copyButtons = document.querySelectorAll(".copy-btn");
-            console.log("Botones encontrados:", copyButtons.length);
 
             // Agregar event listener a cada botón
             copyButtons.forEach((button) => {
                 button.addEventListener("click", function () {
                     copyCode(this);
                 });
-                console.log(
-                    "Event listener agregado a botón:",
-                    button.dataset.copy,
-                );
+               
             });
         });
 
         function copyCode(button) {
-            console.log("Botón clickeado:", button);
 
             // Encontrar el contenedor específico del botón
             const container = button.closest(".bg-gray-100");
-            console.log("Contenedor encontrado:", container);
 
             if (!container) {
                 console.error("No se encontró el contenedor");
@@ -334,7 +325,6 @@ chmod -R 775 bootstrap/cache</code></pre>
 
             // Buscar el bloque de código dentro del mismo contenedor del botón
             const preElement = container.querySelector("pre");
-            console.log("Elemento pre encontrado:", preElement);
 
             if (!preElement) {
                 console.error("No se encontró el elemento pre");
@@ -342,7 +332,6 @@ chmod -R 775 bootstrap/cache</code></pre>
             }
 
             const codeElement = preElement.querySelector("code");
-            console.log("Elemento code encontrado:", codeElement);
 
             if (!codeElement) {
                 console.error("No se encontró el elemento code");
@@ -352,7 +341,6 @@ chmod -R 775 bootstrap/cache</code></pre>
             // Obtener el texto del código
             let codeText = codeElement.textContent || codeElement.innerText;
             codeText = codeText.trim();
-            console.log("Texto a copiar:", codeText);
 
             if (!codeText) {
                 console.error("No hay texto para copiar");
@@ -364,7 +352,6 @@ chmod -R 775 bootstrap/cache</code></pre>
                 navigator.clipboard
                     .writeText(codeText)
                     .then(() => {
-                        console.log("Copiado exitosamente con clipboard API");
                         showCopySuccess(button);
                     })
                     .catch((err) => {
@@ -372,7 +359,6 @@ chmod -R 775 bootstrap/cache</code></pre>
                         fallbackCopyTextToClipboard(codeText, button);
                     });
             } else {
-                console.log("Usando método fallback");
                 fallbackCopyTextToClipboard(codeText, button);
             }
         }
@@ -414,7 +400,6 @@ chmod -R 775 bootstrap/cache</code></pre>
 
                 const successful = document.execCommand("copy");
                 if (successful) {
-                    console.log("Copiado exitosamente con execCommand");
                     showCopySuccess(button);
                 } else {
                     console.error("execCommand copy falló");
