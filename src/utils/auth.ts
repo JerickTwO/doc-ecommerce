@@ -21,7 +21,7 @@ const users: User[] = [
         id: 1,
         username: 'admin',
         email: 'admin@perseo.com',
-        password: '$2a$12$OkGZ8/jCERkDZxspeNpm4u2lwfZ2VV9c4WHk/NSa6eRxKzM/cgxWi',
+        password: '$2a$12$/rkFcpZVO7mfpQukmWMQY.1NFrUViuU76UEA3xwhuAf48SJsvRti2',
         role: 'admin',
         createdAt: new Date()
     },
@@ -29,7 +29,7 @@ const users: User[] = [
         id: 2,
         username: 'usuario',
         email: 'user@perseo.com',
-        password: '$2a$12$OkGZ8/jCERkDZxspeNpm4u2lwfZ2VV9c4WHk/NSa6eRxKzM/cgxWi',
+        password: '$2a$12$/rkFcpZVO7mfpQukmWMQY.1NFrUViuU76UEA3xwhuAf48SJsvRti2',
         role: 'user',
         createdAt: new Date()
     }

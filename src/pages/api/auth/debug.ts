@@ -30,8 +30,8 @@ export const GET: APIRoute = async () => {
                 }
             },
             currentHashes: {
-                admin: '$2a$12$OkGZ8/jCERkDZxspeNpm4u2lwfZ2VV9c4WHk/NSa6eRxKzM/cgxWi',
-                user: '$2a$12$OkGZ8/jCERkDZxspeNpm4u2lwfZ2VV9c4WHk/NSa6eRxKzM/cgxWi'
+                admin: '$2a$12$OOn793k31Y4VbYbuCD0Qjeup6enS1sDZxR0fs5kaTmN1MID2fhcC6',
+                user: '$2a$12$OOn793k31Y4VbYbuCD0Qjeup6enS1sDZxR0fs5kaTmN1MID2fhcC6'
             }
         };
 
