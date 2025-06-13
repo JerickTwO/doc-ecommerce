@@ -87,7 +87,7 @@ const text = "{REQUEST_FILENAME}";
                             </div>
                             <div class="relative">
                                 <pre
-                                    class="bg-gray-800 text-sky-500 p-4 rounded-lg"><code># Comandos  para el despliegue
+                                    class="bg-gray-800 text-white p-4 rounded-lg"><code># Comandos  para el despliegue
 composer2 install
 composer2 update
 php artisan storage:link
@@ -95,334 +95,335 @@ php artisan optimize:clear</code></pre>
                             </div>
                         </div>
 
-                                               <!-- Configuración de PHP -->
+                        <!-- Configuración de PHP -->
                         <div class="bg-gray-100 p-6 rounded-lg shadow-sm">
-                            <div class="flex items-center justify-between mb-4">
-                                <h4 class="text-xl font-semibold text-gray-900">
-                                    Configuración PHP
-                                </h4>
-                                <button 
-                                    class="copy-btn p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-md transition-colors duration-200"
-                                    data-copy="php-config"
-                                    title="Copiar código"
-                                >
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                            <p class="text-gray-700 mb-4">
-                                <strong>Extensiones requeridas:</strong> bcmath,
+                            <h4
+                                class="text-xl font-semibold text-gray-900 mb-4"
+                            >
+                                Configuración PHP
+                            </h4>
+                            <p class="text-gray-700">
+                                <h3 class="font-bold text-base">Extensiones requeridas:</h3> bcmath,
                                 dom, fileinfo, gd, gmp, imagick, imap, mbstring,
                                 mysqlnd, nd_mysqli, nd_pdo_mysql, opcache, pdo, pdo_sqlite,
                                 posix, soap, sockets, sysvsem, sysvshm, sysvmsg,
                                 xmlreader, xmlrpc, xmlwriter, xsl, zip, igbinary,
                                 intl, timezonedb, tidy.
                             </p>
-                            <p class="text-gray-700 mb-4">
-                                <strong>Opciones de configuración:</strong>
+                            <p class="text-gray-700">
+                                <h3 class="font-bold text-base">Opciones de configuración:</h3>
                                 allowUrlFopen, exposePhp, fileUploads.
                             </p>
-                            <p class="text-gray-700 mb-4">
-                                <strong>Configuración funcional:</strong>
+                            <p class="text-gray-700">
+                                <h3 class="font-bold text-base">Configuración funcional:</h3>
+
+                                
+                                <ul>
+                                    <li><span class="font-bold">date.timezone:</span> UTC</li>
+                                    <li>
+                                        <span class="font-bold">disableFunctions:</span> shell_exec
+                                    </li>
+                                    <li>
+                                        <span class="font-bold">errorReporting:</span> E_ERROR
+                                        | E_WARNING | E_PARSE | E_NOTICE | E_CORE_ERROR
+                                        | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING
+                                        | E_USER_ERROR | E_USER_WARNING | E_USER_NOTICE
+                                        | E_RECOVERABLE_ERROR | E_USER_DEPRECATED
+                                    </li>
+                                    <li>
+                                        <span class="font-bold">includePath:</span> .:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php
+                                    </li>
+                                    <li>
+                                        <span
+                                            >mail.forceExtraParameters:</span
+                                        > no value
+                                    </li>
+                                    <li>
+                                        <span class="font-bold">maxExecutionTime:</span> 360
+                                    </li>
+                                    <li><span class="font-bold">maxFileUploads:</span> 20</li>
+                                    <li><span class="font-bold">maxInputTime:</span> 360</li>
+                                    <li><span class="font-bold">maxInputVars:</span> 5000</li>
+                                    <li><span class="font-bold">memoryLimit:</span> 2048M</li>
+                                    <li>
+                                        <span class="font-bold">openBasedir:</span> no value
+                                    </li>
+                                    <li><span class="font-bold">postMaxSize:</span> 2048M</li>
+                                    <li>
+                                        <span class="font-bold">session.cookieLifetime:</span>
+                                        0
+                                    </li>
+                                    <li>
+                                        <span class="font-bold">session.cookieSamesite:</span>
+                                        None
+                                    </li>
+                                    <li>
+                                        <span class="font-bold">session.gcMaxlifetime:</span> 1440
+                                    </li>
+                                    <li>
+                                        <span class="font-bold">session.savePath:</span> /opt/alt/php82/var/lib/php/session
+                                    </li>
+                                    <li>
+                                        <span class="font-bold">uploadMaxFilesize:</span> 2048M
+                                    </li>
+                                </ul>
                             </p>
-                            <div class="relative">
-                                <pre class="bg-gray-800 text-sky-500 p-4 rounded-lg"><code>date.timezone: UTC
-disableFunctions: shell_exec
-errorReporting: E_ERROR | E_WARNING
-                | E_PARSE | E_NOTICE 
-                | E_CORE_ERROR | E_CORE_WARNING 
-                | E_COMPILE_ERROR 
-                | E_COMPILE_WARNING | E_USER_ERROR 
-                | E_USER_WARNING | E_USER_NOTICE 
-                | E_RECOVERABLE_ERROR 
-                | E_USER_DEPRECATED
-includePath: .:/opt/alt/php82/usr/share/pear
-                :/opt/alt/php82/usr/share/php
-                :/usr/share/pear:/usr/share/php
-mail.forceExtraParameters: no value
-maxExecutionTime: 360
-maxFileUploads: 20
-maxInputTime: 360
-maxInputVars: 5000
-memoryLimit: 2048M
-openBasedir: no value
-postMaxSize: 2048M
-session.cookieLifetime: 0
-session.cookieSamesite: None
-session.gcMaxlifetime: 1440
-session.savePath: /opt/alt/php82/var/lib/php/session
-uploadMaxFilesize: 2048M</code></pre>
-                            </div>
                         </div>
-                            <!-- Configuración .htaccess -->
-                            <div class="bg-gray-100 p-6 rounded-lg shadow-sm">
-                                <div
-                                    class="flex items-center justify-between mb-4"
+
+                        <!-- Configuración .htaccess -->
+                        <div class="bg-gray-100 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-xl font-semibold text-gray-900">
+                                    Configuración .htaccess
+                                </h4>
+                                <button
+                                    class="copy-btn p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-md transition-colors duration-200"
+                                    data-copy="htaccess"
+                                    title="Copiar código"
                                 >
-                                    <h4
-                                        class="text-xl font-semibold text-gray-900"
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
                                     >
-                                        Configuración .htaccess
-                                    </h4>
-                                    <button
-                                        class="copy-btn p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-md transition-colors duration-200"
-                                        data-copy="htaccess"
-                                        title="Copiar código"
-                                    >
-                                        <svg
-                                            width="20"
-                                            height="20"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-                                            <rect
-                                                x="9"
-                                                y="9"
-                                                width="13"
-                                                height="13"
-                                                rx="2"
-                                                ry="2"></rect>
-                                            <path
-                                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                                            ></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <div class="relative">
-                                    <pre
-                                        class="bg-gray-800 text-white p-4 rounded-lg"><code class="text-sky-500 w-full text-start"># .htaccess básico
+                                        <rect
+                                            x="9"
+                                            y="9"
+                                            width="13"
+                                            height="13"
+                                            rx="2"
+                                            ry="2"></rect>
+                                        <path
+                                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                                        ></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="relative">
+                                <pre
+                                    class="bg-gray-800 text-white p-4 rounded-lg"><code class="text-white w-full text-start"># .htaccess básico
 RewriteEngine On
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{text} !-f
 RewriteCond %{text} !-d
 RewriteRule . /index.php [L]</code></pre>
-                                </div>
                             </div>
+                        </div>
 
-                            <!-- Creación de base de datos -->
-                            <div class="bg-gray-100 p-6 rounded-lg shadow-sm">
-                                <h4
-                                    class="text-xl font-semibold text-gray-900 mb-4"
-                                >
-                                    Crear Base de Datos
+                        <!-- Creación de base de datos -->
+                        <div class="bg-gray-100 p-6 rounded-lg shadow-sm">
+                            <h4
+                                class="text-xl font-semibold text-gray-900 mb-4"
+                            >
+                                Crear Base de Datos
+                            </h4>
+                            <p class="text-gray-700">
+                                Debes crear una base de datos en tu servidor,
+                                asignar un usuario con permisos adecuados y
+                                configurar los detalles en el archivo .env.
+                            </p>
+                        </div>
+
+                        <!-- Configuración de permisos -->
+                        <div class="bg-gray-100 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-xl font-semibold text-gray-900">
+                                    Configurar Permisos de Carpetas
                                 </h4>
-                                <p class="text-gray-700">
-                                    Debes crear una base de datos en tu
-                                    servidor, asignar un usuario con permisos
-                                    adecuados y configurar los detalles en el
-                                    archivo .env.
-                                </p>
-                            </div>
-
-                            <!-- Configuración de permisos -->
-                            <div class="bg-gray-100 p-6 rounded-lg shadow-sm">
-                                <div
-                                    class="flex items-center justify-between mb-4"
+                                <button
+                                    class="copy-btn p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-md transition-colors duration-200"
+                                    data-copy="permissions"
+                                    title="Copiar código"
                                 >
-                                    <h4
-                                        class="text-xl font-semibold text-gray-900"
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
                                     >
-                                        Configurar Permisos de Carpetas
-                                    </h4>
-                                    <button
-                                        class="copy-btn p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-md transition-colors duration-200"
-                                        data-copy="permissions"
-                                        title="Copiar código"
-                                    >
-                                        <svg
-                                            width="20"
-                                            height="20"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-                                            <rect
-                                                x="9"
-                                                y="9"
-                                                width="13"
-                                                height="13"
-                                                rx="2"
-                                                ry="2"></rect>
-                                            <path
-                                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                                            ></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <p class="text-gray-700 mb-4">
-                                    Utiliza FTP o la terminal para otorgar
-                                    permisos de lectura, escritura y ejecución a
-                                    las carpetas necesarias. Por ejemplo:
-                                </p>
-                                <div class="relative">
-                                    <pre
-                                        class="bg-gray-800 text-sky-500 p-4 rounded-lg"><code># Otorgar permisos de escritura en las carpetas storage y bootstrap/cache
+                                        <rect
+                                            x="9"
+                                            y="9"
+                                            width="13"
+                                            height="13"
+                                            rx="2"
+                                            ry="2"></rect>
+                                        <path
+                                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                                        ></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="text-gray-700 mb-4">
+                                Utiliza FTP o la terminal para otorgar permisos
+                                de lectura, escritura y ejecución a las carpetas
+                                necesarias. Por ejemplo:
+                            </p>
+                            <div class="relative">
+                                <pre
+                                    class="bg-gray-800 text-white p-4 rounded-lg"><code># Otorgar permisos de escritura en las carpetas storage y bootstrap/cache
 chmod -R 775 storage
 chmod -R 775 bootstrap/cache</code></pre>
-                                </div>
                             </div>
+                        </div>
 
-                            <!-- Iniciar configuración -->
-                            <div class="bg-gray-100 p-6 rounded-lg shadow-sm">
-                                <h4
-                                    class="text-xl font-semibold text-gray-900 mb-4"
-                                >
-                                    Iniciar Configuración
-                                </h4>
-                                <p class="text-gray-700">
-                                    Una vez completados los pasos anteriores,
-                                    puedes empezar con la configuración
-                                    adicional de tu proyecto según sea
-                                    necesario, como la configuración de
-                                    variables de entorno, dependencias y ajustes
-                                    finales del servidor.
-                                </p>
-                            </div>
+                        <!-- Iniciar configuración -->
+                        <div class="bg-gray-100 p-6 rounded-lg shadow-sm">
+                            <h4
+                                class="text-xl font-semibold text-gray-900 mb-4"
+                            >
+                                Iniciar Configuración
+                            </h4>
+                            <p class="text-gray-700">
+                                Una vez completados los pasos anteriores, puedes
+                                empezar con la configuración adicional de tu
+                                proyecto según sea necesario, como la
+                                configuración de variables de entorno,
+                                dependencias y ajustes finales del servidor.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+    </div>
 
-        <!-- JavaScript para funcionalidad de copiar -->
-        <script>
-            // Esperar a que el DOM esté completamente cargado
-            document.addEventListener("DOMContentLoaded", function () {
-                console.log("DOM cargado, configurando botones de copia");
+    <!-- JavaScript para funcionalidad de copiar -->
+    <script>
+        // Esperar a que el DOM esté completamente cargado
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("DOM cargado, configurando botones de copia");
 
-                // Obtener todos los botones de copia
-                const copyButtons = document.querySelectorAll(".copy-btn");
-                console.log("Botones encontrados:", copyButtons.length);
+            // Obtener todos los botones de copia
+            const copyButtons = document.querySelectorAll(".copy-btn");
+            console.log("Botones encontrados:", copyButtons.length);
 
-                // Agregar event listener a cada botón
-                copyButtons.forEach((button) => {
-                    button.addEventListener("click", function () {
-                        copyCode(this);
-                    });
-                    console.log(
-                        "Event listener agregado a botón:",
-                        button.dataset.copy,
-                    );
+            // Agregar event listener a cada botón
+            copyButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    copyCode(this);
                 });
+                console.log(
+                    "Event listener agregado a botón:",
+                    button.dataset.copy,
+                );
             });
+        });
 
-            function copyCode(button) {
-                console.log("Botón clickeado:", button);
+        function copyCode(button) {
+            console.log("Botón clickeado:", button);
 
-                // Encontrar el contenedor específico del botón
-                const container = button.closest(".bg-gray-100");
-                console.log("Contenedor encontrado:", container);
+            // Encontrar el contenedor específico del botón
+            const container = button.closest(".bg-gray-100");
+            console.log("Contenedor encontrado:", container);
 
-                if (!container) {
-                    console.error("No se encontró el contenedor");
-                    return;
-                }
-
-                // Buscar el bloque de código dentro del mismo contenedor del botón
-                const preElement = container.querySelector("pre");
-                console.log("Elemento pre encontrado:", preElement);
-
-                if (!preElement) {
-                    console.error("No se encontró el elemento pre");
-                    return;
-                }
-
-                const codeElement = preElement.querySelector("code");
-                console.log("Elemento code encontrado:", codeElement);
-
-                if (!codeElement) {
-                    console.error("No se encontró el elemento code");
-                    return;
-                }
-
-                // Obtener el texto del código
-                let codeText = codeElement.textContent || codeElement.innerText;
-                codeText = codeText.trim();
-                console.log("Texto a copiar:", codeText);
-
-                if (!codeText) {
-                    console.error("No hay texto para copiar");
-                    return;
-                }
-
-                // Intentar copiar usando la API moderna
-                if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard
-                        .writeText(codeText)
-                        .then(() => {
-                            console.log(
-                                "Copiado exitosamente con clipboard API",
-                            );
-                            showCopySuccess(button);
-                        })
-                        .catch((err) => {
-                            console.error("Error con clipboard API:", err);
-                            fallbackCopyTextToClipboard(codeText, button);
-                        });
-                } else {
-                    console.log("Usando método fallback");
-                    fallbackCopyTextToClipboard(codeText, button);
-                }
+            if (!container) {
+                console.error("No se encontró el contenedor");
+                return;
             }
 
-            function showCopySuccess(button) {
-                // Guardar el HTML original
-                const originalHTML = button.innerHTML;
+            // Buscar el bloque de código dentro del mismo contenedor del botón
+            const preElement = container.querySelector("pre");
+            console.log("Elemento pre encontrado:", preElement);
 
-                // Cambiar a ícono de éxito
-                button.innerHTML = `
+            if (!preElement) {
+                console.error("No se encontró el elemento pre");
+                return;
+            }
+
+            const codeElement = preElement.querySelector("code");
+            console.log("Elemento code encontrado:", codeElement);
+
+            if (!codeElement) {
+                console.error("No se encontró el elemento code");
+                return;
+            }
+
+            // Obtener el texto del código
+            let codeText = codeElement.textContent || codeElement.innerText;
+            codeText = codeText.trim();
+            console.log("Texto a copiar:", codeText);
+
+            if (!codeText) {
+                console.error("No hay texto para copiar");
+                return;
+            }
+
+            // Intentar copiar usando la API moderna
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard
+                    .writeText(codeText)
+                    .then(() => {
+                        console.log("Copiado exitosamente con clipboard API");
+                        showCopySuccess(button);
+                    })
+                    .catch((err) => {
+                        console.error("Error con clipboard API:", err);
+                        fallbackCopyTextToClipboard(codeText, button);
+                    });
+            } else {
+                console.log("Usando método fallback");
+                fallbackCopyTextToClipboard(codeText, button);
+            }
+        }
+
+        function showCopySuccess(button) {
+            // Guardar el HTML original
+            const originalHTML = button.innerHTML;
+
+            // Cambiar a ícono de éxito
+            button.innerHTML = `
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="20,6 9,17 4,12"></polyline>
                 </svg>
             `;
-                button.classList.add("text-green-600");
+            button.classList.add("text-green-600");
 
-                // Restaurar después de 2 segundos
-                setTimeout(() => {
-                    button.innerHTML = originalHTML;
-                    button.classList.remove("text-green-600");
-                }, 2000);
-            }
+            // Restaurar después de 2 segundos
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.classList.remove("text-green-600");
+            }, 2000);
+        }
 
-            function fallbackCopyTextToClipboard(text, button) {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
 
-                // Hacer el textarea invisible pero accesible
-                textArea.style.position = "absolute";
-                textArea.style.left = "-9999px";
-                textArea.style.top = "0";
+            // Hacer el textarea invisible pero accesible
+            textArea.style.position = "absolute";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
 
-                document.body.appendChild(textArea);
+            document.body.appendChild(textArea);
 
-                try {
-                    textArea.focus();
-                    textArea.select();
-                    textArea.setSelectionRange(0, 99999); // Para dispositivos móviles
+            try {
+                textArea.focus();
+                textArea.select();
+                textArea.setSelectionRange(0, 99999); // Para dispositivos móviles
 
-                    const successful = document.execCommand("copy");
-                    if (successful) {
-                        console.log("Copiado exitosamente con execCommand");
-                        showCopySuccess(button);
-                    } else {
-                        console.error("execCommand copy falló");
-                    }
-                } catch (err) {
-                    console.error("Error en fallback copy:", err);
-                } finally {
-                    document.body.removeChild(textArea);
+                const successful = document.execCommand("copy");
+                if (successful) {
+                    console.log("Copiado exitosamente con execCommand");
+                    showCopySuccess(button);
+                } else {
+                    console.error("execCommand copy falló");
                 }
+            } catch (err) {
+                console.error("Error en fallback copy:", err);
+            } finally {
+                document.body.removeChild(textArea);
             }
-        </script>
-    </div>
+        }
+    </script>
 </Layout>
