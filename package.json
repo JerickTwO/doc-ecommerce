@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/node": "^9.2.2",
     "@astrojs/tailwind": "^5.0.0",
+    "@astrojs/vercel": "^8.1.5",
     "astro": "^5.8.0",
     "bcryptjs": "^3.0.2",
     "jsonwebtoken": "^9.0.2",

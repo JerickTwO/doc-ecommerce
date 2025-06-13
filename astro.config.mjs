@@ -9,7 +9,5 @@ export default defineConfig({
   site: 'https://docs.perseo.com',
   base: '/',
   output: 'server',
-  adapter: node({
-    mode: 'production'
-  }),
+  adapter: vercel(),
 });
