@@ -1,0 +1,291 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { Cliente } from "../../utils/cliente";
+
+const res = await fetch(Astro.url.origin + "/api/clientes");
+const json = await res.json();
+
+if (!Array.isArray(json)) {
+  throw new Error(
+    "La respuesta no es un arreglo. Recibido: " + JSON.stringify(json)
+  );
+}
+
+const clientes: Cliente[] = json;
+---
+
+<Layout title="Gestión de Clientes">
+  <div class="min-h-screen bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6 py-8">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl font-light text-gray-900 tracking-tight mb-2">
+          Gestión de Clientes
+        </h1>
+        <p class="text-gray-600">
+          Administra tu cartera de clientes de forma sencilla
+        </p>
+      </div>
+
+      <!-- Formulario de Creación -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-100 mb-8">
+        <div class="px-6 py-4 border-b border-gray-100">
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-gray-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            <h2 class="text-lg font-medium text-gray-900">Nuevo Cliente</h2>
+          </div>
+          <p class="text-sm text-gray-600 mt-1">
+            Ingresa los datos del nuevo cliente
+          </p>
+        </div>
+
+        <div class="p-6">
+          <form id="createForm" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <label
+                  for="razon_social"
+                  class="block text-sm font-medium text-gray-700"
+                >
+                  Razón Social
+                </label>
+                <input
+                  id="razon_social"
+                  name="razon_social"
+                  type="text"
+                  placeholder="Ingrese la razón social"
+                  required
+                  class="w-full px-3 py-2 border border-gray-200 rounded-md shadow-sm
+                   focus:outline-none focus:ring-2 focus:ring-gray-400
+                   focus:border-gray-400 transition-colors"
+                />
+              </div>
+              <div class="space-y-2">
+                <label
+                  for="ruc"
+                  class="block text-sm font-medium text-gray-700"
+                >
+                  RUC
+                </label>
+                <input
+                  id="ruc"
+                  name="ruc"
+                  type="text"
+                  placeholder="Ingrese el RUC (13 dígitos)"
+                  required
+                  minlength="13"
+                  maxlength="13"
+                  pattern="[0-9]{13}"
+                  inputmode="numeric"
+                  title="El RUC debe contener exactamente 13 dígitos numéricos"
+                  class="w-full px-3 py-2 border border-gray-200 rounded-md shadow-sm
+         focus:outline-none focus:ring-2 focus:ring-gray-400
+         focus:border-gray-400 transition-colors"
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+              Crear Cliente
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Lista de Clientes -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-100">
+        <div class="px-6 py-4 border-b border-gray-100">
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-gray-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+              ></path>
+            </svg>
+            <h2 class="text-lg font-medium text-gray-900">
+              Clientes Registrados
+            </h2>
+          </div>
+          <p class="text-sm text-gray-600 mt-1">
+            {clientes.length}
+            {
+              clientes.length === 1
+                ? "cliente registrado"
+                : "clientes registrados"
+            }
+          </p>
+        </div>
+
+        {
+          clientes.length === 0 ? (
+            <div class="text-center py-12">
+              <svg
+                class="w-12 h-12 mx-auto mb-4 text-gray-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                />
+              </svg>
+              <p class="text-gray-500 mb-1">No hay clientes registrados</p>
+              <p class="text-sm text-gray-400">
+                Crea tu primer cliente usando el formulario de arriba
+              </p>
+            </div>
+          ) : (
+            <div class="divide-y divide-gray-100">
+              {clientes.map((cliente) => (
+                <div class="px-6 py-4 hover:bg-gray-50 transition-colors">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3 flex-1 min-w-0">
+                      <div class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                        <svg
+                          class="w-5 h-5 text-gray-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                          />
+                        </svg>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <a
+                          href={`/clientes/${cliente.id}`}
+                          class="block hover:text-gray-900 transition-colors"
+                        >
+                          <h3 class="text-sm font-medium text-gray-900 truncate">
+                            {cliente.razon_social}
+                          </h3>
+                          <p class="text-sm text-gray-500">
+                            RUC: {cliente.ruc}
+                          </p>
+                        </a>
+                      </div>
+                    </div>
+                    <button
+                      onclick={`deleteCliente(${cliente.id})`}
+                      title="Eliminar cliente"
+                      class="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                    >
+                      <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    document
+      .querySelector("#createForm")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const data = Object.fromEntries(new FormData(form));
+        data.ruc = (data.ruc || "").trim();
+        data.razon_social = (data.razon_social || "").trim();
+
+        if (!/^\d{13}$/.test(data.ruc)) {
+          alert("El RUC debe contener exactamente 13 dígitos numéricos");
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/clientes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            location.reload();
+          } else {
+            // si tu API devuelve mensaje, muéstralo para depurar
+            const { message } = await response.json().catch(() => ({}));
+            alert(message || "Error al crear el cliente");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Error de red o servidor");
+        }
+      });
+
+    window.deleteCliente = async (id) => {
+      if (!confirm("¿Está seguro de eliminar este cliente?")) return;
+
+      try {
+        const response = await fetch("/api/clientes/" + id, {
+          method: "DELETE",
+        });
+
+        if (response.ok) {
+          location.reload();
+        } else {
+          alert("Error al eliminar el cliente");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Error al eliminar el cliente");
+      }
+    };
+  </script>
+</Layout>

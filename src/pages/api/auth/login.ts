@@ -6,7 +6,6 @@ export const prerender = false;
 
 export const POST: APIRoute = async ({ request, cookies }) => {
     try {
-        // Verificar que el request tenga contenido
         const contentType = request.headers.get('content-type');
         if (!contentType || !contentType.includes('application/json')) {
             return new Response(
@@ -20,9 +19,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
                 }
             );
         }
-
-        // Obtener y validar el body
-        let body;
+        let body: any;
         try {
             const text = await request.text();
             if (!text) {

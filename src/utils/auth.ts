@@ -1,108 +1,106 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
-// Configuración
-const JWT_SECRET = import.meta.env.JWT_SECRET || 'tu-clave-secreta-super-segura-aqui';
+import { query } from './db';
+const JWT_SECRET = import.meta.env.JWT_SECRET as string;
 const SALT_ROUNDS = 12;
 
-// Interfaz de usuario
+// Tipos
 export interface User {
-    id: number;
-    username: string;
-    email: string;
-    password: string;
-    role: 'admin' | 'user';
-    createdAt: Date;
+  id: number;
+  username: string;
+  email: string;
+  role: 'admin' | 'user' | 'cliente';
+  createdAt: Date;
 }
 
-// Base de datos simulada (en producción usa una BD real)
-const users: User[] = [
-    {
-        id: 1,
-        username: 'admin',
-        email: 'admin@perseo.com',
-        password: '$2a$12$/rkFcpZVO7mfpQukmWMQY.1NFrUViuU76UEA3xwhuAf48SJsvRti2',
-        role: 'admin',
-        createdAt: new Date()
-    },
-    {
-        id: 2,
-        username: 'usuario',
-        email: 'user@perseo.com',
-        password: '$2a$12$/rkFcpZVO7mfpQukmWMQY.1NFrUViuU76UEA3xwhuAf48SJsvRti2',
-        role: 'user',
-        createdAt: new Date()
-    }
-];
-
-// Funciones de utilidad para contraseñas
+// --- Funciones de hashing ---
 export async function hashPassword(password: string): Promise<string> {
-    return await bcrypt.hash(password, SALT_ROUNDS);
+  return bcrypt.hash(password, SALT_ROUNDS);
 }
 
-export async function verifyPassword(password: string, hashedPassword: string): Promise<boolean> {
-    return await bcrypt.compare(password, hashedPassword);
+export async function verifyPassword(password: string, hash: string): Promise<boolean> {
+  return bcrypt.compare(password, hash);
 }
 
-// Funciones JWT
-export function generateToken(user: Omit<User, 'password'>): string {
-    return jwt.sign(
-        {
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            role: user.role
-        },
-        JWT_SECRET,
-        { expiresIn: '24h' }
-    );
+// --- JWT ---
+export function generateToken(payload: Omit<User, 'createdAt'>): string {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
 }
 
-export function verifyToken(token: string): any {
-    try {
-        return jwt.verify(token, JWT_SECRET);
-    } catch (error) {
-        return null;
-    }
+export function verifyToken(token: string): Omit<User, 'createdAt'> | null {
+  try {
+    return jwt.verify(token, JWT_SECRET) as Omit<User, 'createdAt'>;
+  } catch {
+    return null;
+  }
 }
 
-// Funciones de base de datos
-export async function findUserByEmail(email: string): Promise<User | null> {
-    return users.find(user => user.email === email) || null;
+// --- Usuarios (Admin / User) ---
+export async function findUserByEmail(email: string): Promise<null | (User & { password: string })> {
+  const rows = await query<(User & { password: string })[]>(
+    'SELECT id, username, email, contrasenia AS password, role, createdAt FROM usuarios WHERE email = ?',
+    [email]
+  );
+  return rows[0] || null;
 }
 
-export async function findUserByUsername(username: string): Promise<User | null> {
-    return users.find(user => user.username === username) || null;
+export async function findUserByUsername(username: string): Promise<null | (User & { password: string })> {
+  const rows = await query<(User & { password: string })[]>(
+    'SELECT id, username, email, contrasenia AS password, role, createdAt FROM usuarios WHERE username = ?',
+    [username]
+  );
+  return rows[0] || null;
 }
 
-export async function createUser(userData: Omit<User, 'id' | 'createdAt'>): Promise<User> {
-    const newUser: User = {
-        ...userData,
-        id: users.length + 1,
-        createdAt: new Date()
-    };
-    users.push(newUser);
-    return newUser;
+export async function createUser(data: {
+  username: string;
+  email: string;
+  password: string;
+  role: 'admin' | 'user';
+}): Promise<User> {
+  const hashed = await hashPassword(data.password);
+  const result = await query<{ insertId: number }>(
+    'INSERT INTO usuarios (username, email, contrasenia, role, createdAt) VALUES (?, ?, ?, ?, NOW())',
+    [data.username, data.email, hashed, data.role]
+  );
+  return {
+    id: (result as any).insertId,
+    username: data.username,
+    email: data.email,
+    role: data.role,
+    createdAt: new Date()
+  };
 }
 
-// Función de autenticación
-export async function authenticateUser(identifier: string, password: string): Promise<Omit<User, 'password'> | null> {
-    // Buscar por email o username
-    let user = await findUserByEmail(identifier);
-    if (!user) {
-        user = await findUserByUsername(identifier);
-    }
+export async function authenticateUser(identifier: string, password: string): Promise<Omit<User, 'createdAt'> | null> {
+  // intentamos email primero, si no, username
+  let record = await findUserByEmail(identifier);
+  if (!record) record = await findUserByUsername(identifier);
+  if (!record) return null;
 
-    if (!user) {
-        return null;
-    }
+  const isValid = await verifyPassword(password, record.password);
+  if (!isValid) return null;
 
-    const isValidPassword = await verifyPassword(password, user.password);
-    if (!isValidPassword) {
-        return null;
-    }
+  const { password: _, ...user } = record;
+  return user;
+}
 
-    // Retornar usuario sin contraseña
-    const { password: _, ...userWithoutPassword } = user;
-    return userWithoutPassword;
+// --- Clientes (solo RUC) ---
+export async function findClientByRuc(ruc: string): Promise<null | { id: number; razon_social: string; ruc: string }> {
+  const rows = await query<{ id: number; razon_social: string; ruc: string }[]>(
+    'SELECT id, razon_social, ruc FROM clientes WHERE ruc = ?',
+    [ruc]
+  );
+  return rows[0] || null;
+}
+
+export async function authenticateClient(ruc: string): Promise<Omit<User, 'createdAt'> | null> {
+  const cli = await findClientByRuc(ruc);
+  if (!cli) return null;
+  return {
+    id: cli.id,
+    username: cli.razon_social,
+    email: '',        // no aplicable, o podrías añadir campo email en clientes
+    role: 'cliente'
+  };
 }

@@ -1,0 +1,65 @@
+---
+import Layout from "../layouts/Layout.astro";
+import type { Naruto } from "../utils/naruto";
+
+// ⚠️ Esto se ejecuta DEL LADO DEL SERVIDOR en cada request.
+const res = await fetch(Astro.url.origin + "/api/naruto");
+const json = await res.json();
+console.log("✅ Datos crudos de /api/naruto:", json);
+
+if (!Array.isArray(json)) {
+  throw new Error(
+    "La respuesta no es un arreglo. Recibido: " + JSON.stringify(json)
+  );
+}
+
+const narutos: Naruto[] = json;
+---
+
+<Layout title="CRUD Naruto">
+  <h1>Personajes</h1>
+
+  <!-- Lista ---------------------------------------------------->
+  <ul>
+    {
+      narutos.map((n) => (
+        <a href={`/${n.id}`}>
+          <strong>{n.nombre}</strong> – clan {n.clan} – {n.edad} años
+          <button onclick={`deleteNaruto(${n.id})`}>🗑</button>
+        </a>
+      ))
+    }
+  </ul>
+
+  <!-- Formulario crear ---------------------------------------->
+  <h2>Nuevo personaje</h2>
+  <form id="createForm">
+    <input name="nombre" placeholder="Nombre" required />
+    <input name="clan" placeholder="Clan" required />
+    <input name="edad" type="number" placeholder="Edad" required />
+    <button>Crear</button>
+  </form>
+
+  <script type="module">
+    // Crear
+    document
+      .querySelector("#createForm")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const data = Object.fromEntries(new FormData(form));
+        await fetch("/api/naruto", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...data, edad: Number(data.edad) }),
+        });
+        location.reload(); // recarga lista rápida
+      });
+
+    // Eliminar
+    window.deleteNaruto = async (id) => {
+      await fetch("/api/naruto/" + id, { method: "DELETE" });
+      location.reload();
+    };
+  </script>
+</Layout>

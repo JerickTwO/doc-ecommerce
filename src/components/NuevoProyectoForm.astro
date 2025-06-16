@@ -1,0 +1,39 @@
+---
+const { clienteId } = Astro.props;
+---
+
+<form id="nuevoProyectoForm" data-cliente-id={clienteId} class="space-y-4">
+  <input
+    class="w-full border px-3 py-2 rounded"
+    name="nombreProyecto"
+    placeholder="Nombre"
+    type="text"
+    required
+  />
+  <textarea
+    class="w-full border px-3 py-2 rounded"
+    name="observacion"
+    placeholder="Observación"></textarea>
+  <button class="bg-blue-600 text-white px-4 py-2 rounded"
+    >Crear Proyecto</button
+  >
+</form>
+
+<script is:inline>
+  const form = document.getElementById("nuevoProyectoForm");
+  const clienteId = form.dataset.clienteId;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
+
+    const res = await fetch(`/api/clientes/${clienteId}/proyectos`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok) location.reload();
+    else alert("Error al crear el proyecto");
+  });
+</script>

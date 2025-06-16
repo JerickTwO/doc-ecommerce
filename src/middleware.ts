@@ -10,7 +10,7 @@ declare module 'astro' {
     }
 }
 
-const protectedRoutes = ['/dashboard', '/admin', '/profile','/despliegue'];
+const protectedRoutes = ['/dashboard', '/admin', '/profile','/despliegue', 'proyecto'];
 const publicRoutes = ['/login', '/'];
 
 export const onRequest: MiddlewareHandler = async (context, next) => {
