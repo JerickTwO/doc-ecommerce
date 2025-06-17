@@ -1,0 +1,41 @@
+---
+const { user } = Astro.props;
+---
+
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto flex items-center justify-between py-2 px-4 sm:px-6 lg:px-8">
+    <!-- Lado izquierdo: título -->
+    <h1 class="text-xl sm:text-2xl font-bold text-gray-900">
+      Dashboard
+    </h1>
+
+    <!-- Lado derecho: perfil de usuario -->
+    <nav class="flex items-center gap-4">
+      <!-- Avatar -->
+      <div class="flex items-center gap-2">
+        <div class="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center">
+          <span class="text-sm font-medium text-white">
+            {(user?.username ?? '?').charAt(0).toUpperCase()}
+          </span>
+        </div>
+        <div class="hidden sm:block leading-tight">
+          <p class="text-sm font-medium text-gray-900 truncate max-w-[10rem]">
+            {user?.username ?? 'Usuario'}
+          </p>
+          <p class="text-xs text-gray-500 capitalize">
+            {user?.role ?? ''}
+          </p>
+        </div>
+      </div>
+
+      <!-- Botón (diseño solamente) -->
+      <button
+        type="button"
+        class="inline-flex items-center px-2.5 py-1.5 rounded-md text-xs font-medium
+               text-white bg-red-600 hover:bg-red-700 transition-colors"
+      >
+        Cerrar Sesión
+      </button>
+    </nav>
+  </div>
+</header>

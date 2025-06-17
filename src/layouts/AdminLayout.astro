@@ -1,10 +1,24 @@
 ---
 import Footer from "../components/Footer.astro";
+import AdminNavbar from "../components/AdminNavbar.astro";
+import { verifyToken } from "../utils/auth";
 
 export interface Props {
+  [x: string]: unknown;
   title: string;
 }
 
+// Forzar server-side rendering para esta página
+export const prerender = false;
+
+// Esta página está protegida por middleware, pero podemos obtener info del usuario
+const token = Astro.cookies.get("auth-token")?.value;
+const user = token ? verifyToken(token) : null;
+
+// Si no hay usuario válido (aunque el middleware debería redirigir)
+if (!user) {
+  return Astro.redirect("/login");
+}
 const { title } = Astro.props;
 ---
 
@@ -20,46 +34,12 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="bg-gray-50">
-    <nav class="bg-white border-b border-gray-200 fixed w-full z-10 top-0">
-      <div class="mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-          <div class="flex items-center">
-            <a href="/" class="flex items-center space-x-2 ml-10 md:ml-0">
-              <div
-                class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center"
-              >
-                <span class="text-white font-bold text-lg">P</span>
-              </div>
-              <span class="text-xl font-bold text-gray-900"
-                >Ecommerce - Perseo</span
-              >
-            </a>
-          </div>
+  <body class="bg-gray-50 min-h-screen flex flex-col">
+    <AdminNavbar user={user} />
 
-          <div class="hidden md:flex items-center space-x-4">
-            <!-- <a
-              href="/"
-              class="text-gray-900 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Inicio
-            </a> -->
-
-            <a
-              href="https://ecommerce-demo.com"
-              target="_blank"
-              class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-800"
-            >
-              Demo
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <div class="pt-16">
+    <main class="flex-1">
       <slot />
-    </div>
+    </main>
     <Footer />
   </body>
 </html>
