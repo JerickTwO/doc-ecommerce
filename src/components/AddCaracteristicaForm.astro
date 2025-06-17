@@ -1,4 +1,22 @@
 ---
+import { pool } from "../utils/db";
+interface CaracteristicaRow {
+  id: number;
+  titulo: string;
+  es_general: number;
+}
+
+let caracteristicas: CaracteristicaRow[] = [];
+
+try {
+  caracteristicas = await pool.query<CaracteristicaRow[]>(
+    `SELECT id, titulo, es_general
+       FROM vw_caracteristicas_mostrables`
+  );
+} catch (err) {
+  console.error("❌ No se pudieron cargar las características", err);
+}
+
 export interface Props {
   proyectoId: string;
   onSaved?: string;
@@ -7,132 +25,172 @@ export interface Props {
 const { proyectoId, onSaved } = Astro.props;
 ---
 
-<div class="mb-6 p-4 bg-gray-50 rounded-lg border">
-  <h3 class="text-md font-medium text-gray-900 mb-4">
-    Agregar Característica
-  </h3>
-  
-  <form data-add-caracteristica class="space-y-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Select de características existentes -->
-      <div>
-        <label 
-          for="caracteristicas_ecommerceid" 
-          class="block text-sm font-medium text-gray-700 mb-1"
-        >
-          Seleccionar característica existente
-        </label>
-        <select
-          name="caracteristicas_ecommerceid"
-          id="caracteristicas_ecommerceid"
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        >
-          <option value="">-- Seleccionar característica --</option>
-          <!-- Las opciones se cargan dinámicamente con JavaScript -->
-        </select>
+<div class="bg-white border border-gray-200 rounded-lg mb-8">
+  <!-- Header -->
+  <div class="px-6 py-4 border-b border-gray-200">
+    <div class="flex items-center gap-3">
+      <svg
+        class="w-5 h-5 text-gray-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+      <h3 class="text-lg font-medium text-gray-900">Nuevo Característica</h3>
+    </div>
+    <p class="text-sm text-gray-600 mt-1">
+      Agrega una nueva característica al proyecto
+    </p>
+  </div>
+
+  <!-- Form Content -->
+  <div class="p-6">
+    <form data-add-caracteristica class="space-y-6">
+      <!-- Selection Options -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Existing Characteristic -->
+        <div>
+          <label
+            for="caracteristicas_ecommerceid"
+            class="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Seleccionar característica existente
+          </label>
+          <select
+            name="caracteristicas_ecommerceid"
+            id="caracteristicas_ecommerceid"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500"
+          >
+            <option value="">-- Seleccionar característica --</option>
+
+            {
+              caracteristicas.map((c) => (
+                // Muestra ⭐ en las generales; quítalo si no lo quieres
+                <option value={c.id} >
+                  {c.es_general ? "⭐ " : ""}
+                  {c.titulo}
+                </option>
+              ))
+            }
+          </select>
+        </div>
+
+        <!-- New Characteristic -->
+        <div>
+          <label
+            for="tituloNuevo"
+            class="block text-sm font-medium text-gray-700 mb-2"
+          >
+            O crear nueva característica 
+          </label>
+          <input
+            type="text"
+            name="tituloNuevo"
+            id="tituloNuevo"
+            placeholder="Nombre de la nueva característica"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500"
+          />
+        </div>
       </div>
 
-      <!-- Input para nueva característica -->
+      <!-- Observation -->
       <div>
-        <label 
-          for="tituloNuevo" 
-          class="block text-sm font-medium text-gray-700 mb-1"
+        <label
+          for="observacion"
+          class="block text-sm font-medium text-gray-700 mb-2"
         >
-          O crear nueva característica
+          Observación (opcional)
         </label>
-        <input
-          type="text"
-          name="tituloNuevo"
-          id="tituloNuevo"
-          placeholder="Nombre de la nueva característica"
-          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        />
+        <textarea
+          name="observacion"
+          id="observacion"
+          rows="3"
+          placeholder="Observaciones adicionales..."
+          class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500 resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-3 pt-2">
+        <button
+          type="button"
+          onclick="document.querySelector('[data-add-caracteristica]').reset()"
+          class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-gray-500"
+        >
+          Limpiar
+        </button>
+        <button
+          type="submit"
+          class="px-4 py-2 text-sm font-medium text-white bg-gray-900 border border-transparent rounded-md hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500"
+        >
+          + Crear Característica
+        </button>
+      </div>
+    </form>
+
+    <!-- Status Message -->
+    <div id="mensaje-estado" class="mt-6 hidden">
+      <div class="p-3 rounded-md text-sm">
+        <span class="mensaje-texto"></span>
       </div>
     </div>
-
-    <!-- Observación -->
-    <div>
-      <label 
-        for="observacion" 
-        class="block text-sm font-medium text-gray-700 mb-1"
-      >
-        Observación (opcional)
-      </label>
-      <textarea
-        name="observacion"
-        id="observacion"
-        rows="3"
-        placeholder="Observaciones adicionales..."
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-      ></textarea>
-    </div>
-
-    <!-- Botones -->
-    <div class="flex justify-end space-x-3">
-      <button
-        type="button"
-        onclick="document.querySelector('[data-add-caracteristica]').reset()"
-        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Limpiar
-      </button>
-      <button
-        type="submit"
-        class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Agregar Característica
-      </button>
-    </div>
-  </form>
-
-  <!-- Mensaje de estado -->
-  <div id="mensaje-estado" class="mt-4 hidden">
-    <div class="p-3 rounded-md text-sm"></div>
   </div>
 </div>
 
 <script define:vars={{ proyectoId, onSaved }}>
   // Esta función se ejecutará cuando el componente se hidrate
-  window.refrescarDetalles = function() {
+  window.refrescarDetalles = function () {
     if (onSaved === "refrescarDetalles") {
-      location.reload(); // Recargar la página para mostrar los nuevos datos
+      location.reload();
     }
   };
 
   // Función para mostrar mensajes
-  function mostrarMensaje(texto, tipo = 'success') {
-    const mensajeDiv = document.getElementById('mensaje-estado');
-    const contenido = mensajeDiv.querySelector('div');
-    
-    contenido.textContent = texto;
-    contenido.className = `p-3 rounded-md text-sm ${
-      tipo === 'success' 
-        ? 'bg-green-100 text-green-800' 
-        : 'bg-red-100 text-red-800'
-    }`;
-    
-    mensajeDiv.classList.remove('hidden');
-    
+  function mostrarMensaje(texto, tipo = "success") {
+    const mensajeDiv = document.getElementById("mensaje-estado");
+    const contenido = mensajeDiv.querySelector("div");
+    const textoSpan = contenido.querySelector(".mensaje-texto");
+
+    textoSpan.textContent = texto;
+
+    if (tipo === "success") {
+      contenido.className =
+        "p-3 rounded-md text-sm bg-green-50 text-green-800 border border-green-200";
+    } else {
+      contenido.className =
+        "p-3 rounded-md text-sm bg-red-50 text-red-800 border border-red-200";
+    }
+
+    mensajeDiv.classList.remove("hidden");
+
     // Ocultar después de 5 segundos
     setTimeout(() => {
-      mensajeDiv.classList.add('hidden');
+      mensajeDiv.classList.add("hidden");
     }, 5000);
   }
 
+  // Hacer la función global
+  window.mostrarMensaje = mostrarMensaje;
+
   // Limpiar inputs cuando se selecciona una opción
-  document.addEventListener('DOMContentLoaded', () => {
-    const selectCarac = document.getElementById('caracteristicas_ecommerceid');
-    const inputNuevo = document.getElementById('tituloNuevo');
-    
-    selectCarac?.addEventListener('change', () => {
+  document.addEventListener("DOMContentLoaded", () => {
+    const selectCarac = document.getElementById("caracteristicas_ecommerceid");
+    const inputNuevo = document.getElementById("tituloNuevo");
+
+    selectCarac?.addEventListener("change", () => {
       if (selectCarac.value) {
-        inputNuevo.value = '';
+        inputNuevo.value = "";
       }
     });
-    
-    inputNuevo?.addEventListener('input', () => {
+
+    inputNuevo?.addEventListener("input", () => {
       if (inputNuevo.value.trim()) {
-        selectCarac.value = '';
+        selectCarac.value = "";
       }
     });
   });

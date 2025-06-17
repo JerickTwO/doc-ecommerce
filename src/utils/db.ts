@@ -10,6 +10,18 @@ export const pool = mariadb.createPool({
   database: process.env.DB_NAME,
   connectionLimit: 5,
 });
+export async function query<T = any[]>(
+  sql: string,
+  params?: any[]
+): Promise<T> {
+  const conn = await pool.getConnection();
+  try {
+    const result = await conn.query(sql, params);
+    return result as T;
+  } finally {
+    conn.release();
+  }
+}
 
 export async function fetchProyectos(clienteId: number) {
   /* — proyectos + detalles — */
