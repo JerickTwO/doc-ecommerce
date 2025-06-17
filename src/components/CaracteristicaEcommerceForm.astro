@@ -1,0 +1,81 @@
+---
+const { proyectoId, onSaved = null, caracteristica = null } = Astro.props;
+const isEdit = !!caracteristica;
+const formId = `caracEcomForm-${proyectoId}`;
+---
+
+<form id={formId} class="space-y-4">
+  <h3 class="text-base font-medium text-gray-900">
+    {isEdit ? "Editar característica" : "Nueva característica"}
+  </h3>
+
+  <div class="space-y-1">
+    <label class="block text-xs font-medium text-gray-500 uppercase"
+      >Título</label
+    >
+    <input
+      name="titulo"
+      type="text"
+      class="w-full border px-3 py-2 rounded"
+      value={caracteristica?.titulo ?? ""}
+      maxlength="255"
+      required
+    />
+  </div>
+
+  <div class="space-y-1">
+    <label class="block text-xs font-medium text-gray-500 uppercase"
+      >Descripción</label
+    >
+    <textarea
+      name="descripcion"
+      class="w-full border px-3 py-2 rounded"
+      rows="3">{caracteristica?.descripcion ?? ""}</textarea
+    >
+  </div>
+
+  <button
+    type="submit"
+    class="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors"
+  >
+    {isEdit ? "Guardar cambios" : "Crear"}
+  </button>
+</form><script is:inline>
+  (() => {
+    const form = document.getElementById("{formId}");
+    if (!form) return;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+
+      // 1️⃣  crear característica global
+      const resCar = await fetch("/api/caracteristicas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!resCar.ok) return alert("Error al crear característica");
+      const nueva = await resCar.json(); // { id, titulo, … }
+
+      // 2️⃣  vincularla al proyecto
+      await fetch("/api/detalles", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          proyectoId: { proyectoId },
+          caracteristicas_ecommerceid: nueva.id,
+        }),
+      });
+
+      form.reset();
+
+      // 3️⃣  avisar al padre
+      const cb = "{onSaved}";
+      if (cb && window[cb]) window[cb]();
+    });
+  })();
+</script>
+<script is:inline>
+  window.refrescarDetalles = () => location.reload();   // o fetch dinámico
+</script>

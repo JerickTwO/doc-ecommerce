@@ -1,19 +1,38 @@
-import type { APIRoute } from 'astro';
-import { crearProyecto, fetchProyectos } from '../../../../utils/db';
+import type { APIRoute } from "astro";
+import {
+  getProyectosByCliente,
+  createProyectoParaCliente,
+} from "../../../../utils/proyectos-clientes";
+export const GET: APIRoute = async ({ params }) => {
+  const clienteId = params.id!;
+  const proyectos = await getProyectosByCliente(clienteId);
 
-export const get: APIRoute = async ({ params }) => {
-  const clienteId = Number(params.id);
-  const proyectos  = await fetchProyectos(clienteId);
-  return new Response(JSON.stringify(proyectos));
+  return new Response(JSON.stringify(proyectos), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 };
+export const POST: APIRoute = async ({ request, params }) => {
+  const clienteId = params.id!;
+  const body = await request.json();
 
-export const post: APIRoute = async ({ params, request }) => {
-  const clienteId = Number(params.id);
-  const { nombreProyecto, observacion } = await request.json();
+  try {
+    const nuevo = await createProyectoParaCliente(clienteId, body);
 
-  if (!nombreProyecto)
-    return new Response(JSON.stringify({ error: 'nombreProyecto es requerido' }), { status: 400 });
+    // 🔑 BigInt → string
+    const json = JSON.stringify(nuevo, (_, v) =>
+      typeof v === "bigint" ? v.toString() : v
+    );
 
-  const nuevo = await crearProyecto(clienteId, nombreProyecto, observacion ?? '');
-  return new Response(JSON.stringify(nuevo), { status: 201 });
+    return new Response(json, {
+      status: 201,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err: any) {
+    console.error(err);
+    return new Response(
+      JSON.stringify({ error: err.code, sqlMessage: err.sqlMessage }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
 };

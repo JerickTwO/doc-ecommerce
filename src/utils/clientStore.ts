@@ -12,7 +12,7 @@ export const getAllClientes = async (): Promise<Cliente[]> => {
 };
 
 export const getClienteById = async (
-  id: number
+  id: string
 ): Promise<Cliente | undefined> => {
   const conn = await pool.getConnection();
   try {
@@ -39,7 +39,7 @@ export const createCliente = async (
 };
 
 export const updateCliente = async (
-  id: number,
+  id: string,
   data: Partial<Omit<Cliente, "id">>
 ): Promise<Cliente | null> => {
   const conn = await pool.getConnection();
@@ -60,13 +60,28 @@ export const updateCliente = async (
   }
 };
 
-export const removeCliente = async (id: number): Promise<boolean> => {
+export const removeCliente = async (id: string): Promise<boolean> => {
   const conn = await pool.getConnection();
   try {
     const res: any = await conn.query("DELETE FROM clientes WHERE id = ?", [
       id,
     ]);
     return res.affectedRows > 0;
+  } finally {
+    conn.release();
+  }
+};
+export const getProyectosByCliente = async (
+  clienteId: string
+): Promise<any[]> => {
+  const conn = await pool.getConnection();
+  try {
+    const rows = await conn.query(
+      // antes  →  "SELECT * FROM proyectos WHERE cliente_id = ?"
+      "SELECT * FROM proyectos_clientes WHERE clientesid = ?",
+      [clienteId]
+    );
+    return rows;
   } finally {
     conn.release();
   }

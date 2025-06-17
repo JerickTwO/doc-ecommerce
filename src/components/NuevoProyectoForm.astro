@@ -6,34 +6,49 @@ const { clienteId } = Astro.props;
   <input
     class="w-full border px-3 py-2 rounded"
     name="nombreProyecto"
-    placeholder="Nombre"
-    type="text"
+    placeholder="Nombre del proyecto"
+    maxlength="60"
     required
   />
   <textarea
     class="w-full border px-3 py-2 rounded"
     name="observacion"
-    placeholder="Observación"></textarea>
-  <button class="bg-blue-600 text-white px-4 py-2 rounded"
-    >Crear Proyecto</button
+    placeholder="Observación (opcional)"
+    maxlength="125"></textarea>
+  <button
+    class="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
   >
+    Crear Proyecto
+  </button>
 </form>
 
 <script is:inline>
   const form = document.getElementById("nuevoProyectoForm");
-  const clienteId = form.dataset.clienteId;
+  const clienteId = parseInt(form.dataset.clienteId);
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(form));
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+
+    const payload = {
+      clientesid: clienteId,
+      nombreProyecto: data.nombreProyecto,
+      observacion: data.observacion || null,
+    };
 
     const res = await fetch(`/api/clientes/${clienteId}/proyectos`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     });
 
-    if (res.ok) location.reload();
-    else alert("Error al crear el proyecto");
+    if (res.ok) {
+      form.reset(); // limpiar
+      location.reload(); // o actualiza proyectos dinámicamente
+    } else {
+      alert("Error al crear el proyecto");
+    }
   });
 </script>
