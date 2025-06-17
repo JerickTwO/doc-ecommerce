@@ -1,0 +1,78 @@
+---
+import { fetchProyectos } from '../utils/db';
+
+// 1. Verificamos autenticación
+const user = Astro.locals.user;
+if (!user?.sub || user.role !== 'cliente') {
+  return Astro.redirect('/login-cliente');
+}
+
+// 2. Obtenemos todos los proyectos con sus detalles para este cliente
+const proyectos = await fetchProyectos(user.sub); // sub = id del cliente
+---
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis proyectos</title>
+  </head>
+  <body class="bg-gray-50 min-h-screen p-6 font-sans">
+    <section class="max-w-6xl mx-auto space-y-8">
+      <h1 class="text-2xl font-bold text-indigo-700 mb-4">
+        Proyectos registrados para RUC {user.ruc}
+      </h1>
+
+      {proyectos.length === 0 && (
+        <p class="text-gray-600">No tienes proyectos aún.</p>
+      )}
+
+      {proyectos.map(p => (
+        <div class="bg-white shadow rounded-xl p-6 border border-gray-200" key={p.id}>
+          <header class="mb-4">
+            <h2 class="text-xl font-semibold text-indigo-600">
+              {p.nombreProyecto}
+            </h2>
+            <p class="text-sm text-gray-500 italic">{p.observacion}</p>
+            <p class="text-sm mt-1">
+              Estado: <span class={p.estado ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'}>
+                {p.estado ? 'Activo' : 'Inactivo'}
+              </span>
+            </p>
+          </header>
+
+          {p.detalles.length > 0 ? (
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-sm border-t border-gray-200">
+                <thead class="bg-gray-100 text-left">
+                  <tr>
+                    <th class="py-2 px-3">#</th>
+                    <th class="py-2 px-3">Característica</th>
+                    <th class="py-2 px-3">Observación</th>
+                    <th class="py-2 px-3">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {p.detalles.map((d, idx) => (
+                    <tr class="border-b last:border-0" key={d.id}>
+                      <td class="py-2 px-3">{idx + 1}</td>
+                      <td class="py-2 px-3">{d.caracteristica.titulo}</td>
+                      <td class="py-2 px-3">{d.observacion ?? '-'}</td>
+                      <td class="py-2 px-3">
+                        <span class={d.estado ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
+                          {d.estado ? 'Activo' : 'Inactivo'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p class="text-gray-500 italic">No hay detalles registrados para este proyecto.</p>
+          )}
+        </div>
+      ))}
+    </section>
+  </body>
+</html>

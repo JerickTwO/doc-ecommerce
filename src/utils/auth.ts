@@ -14,6 +14,23 @@ export interface User {
   createdAt: Date;
 }
 
+// NUEVA ➊
+export interface Client {
+  id: number;
+  razon_social: string;
+  ruc: string;
+}
+
+/* ───────── CLIENTES ───────── */
+// NUEVA ➋  — Busca al cliente por RUC
+export async function authenticateClient(ruc: string): Promise<Client | null> {
+  const rows = await query<Client[]>(
+    "SELECT id, razon_social, ruc FROM clientes WHERE ruc = ?",
+    [ruc]
+  );
+  return rows[0] || null;
+}
+
 // 🔐 Hash de contraseñas
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, SALT_ROUNDS);
@@ -39,6 +56,13 @@ export function verifyToken(token: string): Omit<User, "createdAt"> | null {
   }
 }
 
+export function generateClientToken(cliente: Client): string {
+  return jwt.sign(
+    { sub: cliente.id, ruc: cliente.ruc, role: "cliente" },
+    JWT_SECRET,
+    { expiresIn: "24h" }
+  );
+}
 // 📦 Buscar usuarios
 export async function findUserByEmail(
   email: string
