@@ -1,16 +1,12 @@
 ---
 import AdminLayout from "../layouts/AdminLayout.astro";
 import { verifyToken } from "../utils/auth";
-import DashboardCard from "../components/DashboardCard.astro";
+import UserIcon from "../components/icons/UserIcon.astro";
 
-// Forzar server-side rendering para esta página
 export const prerender = false;
-
-// Esta página está protegida por middleware, pero podemos obtener info del usuario
 const token = Astro.cookies.get("auth-token")?.value;
 const user = token ? verifyToken(token) : null;
 
-// Si no hay usuario válido (aunque el middleware debería redirigir)
 if (!user) {
   return Astro.redirect("/login");
 }
@@ -39,19 +35,7 @@ if (!user) {
           <div class="p-5">
             <div class="flex items-center">
               <div class="flex-shrink-0">
-                <svg
-                  class="h-6 w-6 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  ></path>
-                </svg>
+                <UserIcon class="h-6 w-6 text-gray-400" />
               </div>
               <div class="ml-5 w-0 flex-1">
                 <dl>
@@ -144,7 +128,7 @@ if (!user) {
           </h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <a
-              href="/profile"
+              href="/clientes"
               class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <svg
@@ -160,13 +144,13 @@ if (!user) {
                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                 ></path>
               </svg>
-              Ver Perfil
+              Ver Clientes
             </a>
 
             {
               user.role === "admin" && (
                 <a
-                  href="/admin"
+                  href="/caracteristicas-proyecto"
                   class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   <svg
@@ -188,7 +172,7 @@ if (!user) {
                       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                   </svg>
-                  Panel Admin
+                  Caracteristicas
                 </a>
               )
             }
@@ -218,33 +202,3 @@ if (!user) {
     </div>
   </section>
 </AdminLayout>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    if (logoutBtn) {
-      logoutBtn.addEventListener("click", async function () {
-        if (confirm("¿Estás seguro de que quieres cerrar sesión?")) {
-          try {
-            const response = await fetch("/api/auth/logout", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            });
-
-            if (response.ok) {
-              window.location.href = "/login";
-            } else {
-              alert("Error al cerrar sesión. Inténtalo de nuevo.");
-            }
-          } catch (error) {
-            console.error("Error:", error);
-            alert("Error de conexión. Inténtalo de nuevo.");
-          }
-        }
-      });
-    }
-  });
-</script>

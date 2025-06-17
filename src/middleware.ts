@@ -15,6 +15,8 @@ const protectedRoutes = [
   "/profile",
   "/despliegue",
   "/proyecto",
+  "/clientes",
+  "/caracteristicas-proyecto",
 ];
 const publicRoutes = ["/login", "/"];
 

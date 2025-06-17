@@ -31,6 +31,7 @@ const { user } = Astro.props;
       <!-- Botón (diseño solamente) -->
       <button
         type="button"
+        id="logout-btn"
         class="inline-flex items-center px-2.5 py-1.5 rounded-md text-xs font-medium
                text-white bg-red-600 hover:bg-red-700 transition-colors"
       >
@@ -39,3 +40,28 @@ const { user } = Astro.props;
     </nav>
   </div>
 </header>
+
+<!-- Script inline para enganchar el listener -->
+<script is:inline>
+  async function handleLogout() {
+    try {
+      const res = await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        window.location.href = '/login';
+      } else {
+        alert('Error al cerrar sesión');
+      }
+    } catch (err) {
+      console.error('Error al cerrar sesión:', err);
+      alert('Error al cerrar sesión');
+    }
+  }
+
+  // Conecta el botón al handler cuando el script se ejecuta
+  document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
+</script>
