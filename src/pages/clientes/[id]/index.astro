@@ -1,8 +1,8 @@
 ---
-import Layout from "../../layouts/Layout.astro"
-import ProyectoCard from "../../components/ProyectoCard.astro";
-import { getClienteById,getProyectosByCliente} from '../../utils/clientStore';
-import NuevoProyectoForm from "../../components/NuevoProyectoForm.astro"
+import Layout from "../../../layouts/Layout.astro"
+import ProyectoCard from "../../../components/ProyectoCard.astro";
+import { getClienteById,getProyectosByCliente} from "../../../utils/clientStore";
+import NuevoProyectoForm from "../../../components/NuevoProyectoForm.astro"
 const { id } = Astro.params;
 if (!id) {
   throw new Error("Cliente ID is required");

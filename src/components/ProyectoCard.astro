@@ -1,44 +1,42 @@
 ---
 import CaracteristicaEcommerceForm from "./CaracteristicaEcommerceForm.astro";
-
-const { proyecto } = Astro.props;
+const { proyecto } = Astro.props;          // proyecto.clientesid existe
+const url = `/clientes/${proyecto.clientesid}/proyectos/${proyecto.id}`;
 ---
 
-<div class="p-6">
+<div class="px-4 py-2">
   <!-- Header del Proyecto -->
-  <div class="flex items-start justify-between mb-4">
-    <div class="flex-1 min-w-0">
-      <div class="flex items-center gap-3 mb-2">
+  <div class="flex items-start justify-between">
+    <!-- Enlace a la vista de características -->
+    <a href={url} class="flex-1 min-w-0 hover:underline">
+      <div class="flex items-center gap-3">
         <h3 class="text-lg font-medium text-gray-900">
           {proyecto.nombre_proyecto}
         </h3>
-        <span
-          class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-            proyecto.estado
-              ? "bg-green-100 text-green-800"
-              : "bg-red-100 text-red-800"
-          }`}
-        >
-          {proyecto.estado ? "Activo" : "Inactivo"}
+        <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+          proyecto.estado
+            ? 'bg-green-100 text-green-800'
+            : 'bg-red-100 text-red-800'
+        }`}>
+          {proyecto.estado ? 'Activo' : 'Inactivo'}
         </span>
       </div>
-      {
-        proyecto.observacion && (
-          <p class="text-sm text-gray-600">{proyecto.observacion}</p>
-        )
-      }
-    </div>
+      {proyecto.observacion && (
+        <p class="text-sm text-gray-600">{proyecto.observacion}</p>
+      )}
+    </a>
 
+    <!-- Botones de acción (fuera del enlace) -->
     <div class="flex items-center gap-2 ml-4">
       <button
         onclick={`toggleProyecto(${proyecto.id}, ${proyecto.estado})`}
         class={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
           proyecto.estado
-            ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
-            : "bg-green-100 text-green-800 hover:bg-green-200"
+            ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
+            : 'bg-green-100 text-green-800 hover:bg-green-200'
         }`}
       >
-        {proyecto.estado ? "Desactivar" : "Activar"}
+        {proyecto.estado ? 'Desactivar' : 'Activar'}
       </button>
       <button
         onclick={`eliminarProyecto(${proyecto.id})`}
@@ -47,85 +45,5 @@ const { proyecto } = Astro.props;
         Eliminar
       </button>
     </div>
-  </div>
-
-  <!-- Características del Proyecto -->
-  <div class="bg-gray-50 rounded-lg p-4">
-    <div class="flex items-center justify-between mb-3">
-      <h4 class="text-sm font-medium text-gray-900">Características</h4>
-    </div>
-
-    <CaracteristicaEcommerceForm
-      proyectoId={proyecto.id}
-      onSaved="refrescarDetalles"
-      client:load
-    />
-
-    {
-      (proyecto.detalles?.length ?? 0) === 0 ? (
-        <p class="text-sm text-gray-500 text-center py-4">
-          Sin características asignadas
-        </p>
-      ) : (
-        <div class="space-y-2">
-          {proyecto.detalles.map((detalle) => (
-            <div class="bg-white rounded-md p-3 border border-gray-200">
-              <div class="flex items-start justify-between">
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center gap-2 mb-1">
-                    <h5 class="text-sm font-medium text-gray-900">
-                      {detalle.caracteristica.titulo}
-                    </h5>
-                    <span
-                      class={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                        detalle.estado
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
-                    >
-                      {detalle.estado ? "Activo" : "Inactivo"}
-                    </span>
-                  </div>
-                  {detalle.observacion && (
-                    <p class="text-xs text-gray-600">{detalle.observacion}</p>
-                  )}
-                </div>
-
-                <div class="flex items-center gap-1 ml-3">
-                  <button
-                    onclick={`toggleDetalle(${detalle.id}, ${proyecto.id}, ${detalle.estado})`}
-                    class={`px-2 py-1 text-xs font-medium rounded transition-colors ${
-                      detalle.estado
-                        ? "text-yellow-700 hover:bg-yellow-100"
-                        : "text-green-700 hover:bg-green-100"
-                    }`}
-                  >
-                    {detalle.estado ? "Desactivar" : "Activar"}
-                  </button>
-                  <button
-                    onclick={`eliminarDetalle(${detalle.id}, ${proyecto.id})`}
-                    class="px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100 rounded transition-colors"
-                  >
-                    <svg
-                      class="w-3 h-3"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )
-    }
   </div>
 </div>

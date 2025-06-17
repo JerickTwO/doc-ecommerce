@@ -1,0 +1,139 @@
+---
+export interface Props {
+  proyectoId: string;
+  onSaved?: string;
+}
+
+const { proyectoId, onSaved } = Astro.props;
+---
+
+<div class="mb-6 p-4 bg-gray-50 rounded-lg border">
+  <h3 class="text-md font-medium text-gray-900 mb-4">
+    Agregar Característica
+  </h3>
+  
+  <form data-add-caracteristica class="space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Select de características existentes -->
+      <div>
+        <label 
+          for="caracteristicas_ecommerceid" 
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Seleccionar característica existente
+        </label>
+        <select
+          name="caracteristicas_ecommerceid"
+          id="caracteristicas_ecommerceid"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        >
+          <option value="">-- Seleccionar característica --</option>
+          <!-- Las opciones se cargan dinámicamente con JavaScript -->
+        </select>
+      </div>
+
+      <!-- Input para nueva característica -->
+      <div>
+        <label 
+          for="tituloNuevo" 
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          O crear nueva característica
+        </label>
+        <input
+          type="text"
+          name="tituloNuevo"
+          id="tituloNuevo"
+          placeholder="Nombre de la nueva característica"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+      </div>
+    </div>
+
+    <!-- Observación -->
+    <div>
+      <label 
+        for="observacion" 
+        class="block text-sm font-medium text-gray-700 mb-1"
+      >
+        Observación (opcional)
+      </label>
+      <textarea
+        name="observacion"
+        id="observacion"
+        rows="3"
+        placeholder="Observaciones adicionales..."
+        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      ></textarea>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-end space-x-3">
+      <button
+        type="button"
+        onclick="document.querySelector('[data-add-caracteristica]').reset()"
+        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        Limpiar
+      </button>
+      <button
+        type="submit"
+        class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        Agregar Característica
+      </button>
+    </div>
+  </form>
+
+  <!-- Mensaje de estado -->
+  <div id="mensaje-estado" class="mt-4 hidden">
+    <div class="p-3 rounded-md text-sm"></div>
+  </div>
+</div>
+
+<script define:vars={{ proyectoId, onSaved }}>
+  // Esta función se ejecutará cuando el componente se hidrate
+  window.refrescarDetalles = function() {
+    if (onSaved === "refrescarDetalles") {
+      location.reload(); // Recargar la página para mostrar los nuevos datos
+    }
+  };
+
+  // Función para mostrar mensajes
+  function mostrarMensaje(texto, tipo = 'success') {
+    const mensajeDiv = document.getElementById('mensaje-estado');
+    const contenido = mensajeDiv.querySelector('div');
+    
+    contenido.textContent = texto;
+    contenido.className = `p-3 rounded-md text-sm ${
+      tipo === 'success' 
+        ? 'bg-green-100 text-green-800' 
+        : 'bg-red-100 text-red-800'
+    }`;
+    
+    mensajeDiv.classList.remove('hidden');
+    
+    // Ocultar después de 5 segundos
+    setTimeout(() => {
+      mensajeDiv.classList.add('hidden');
+    }, 5000);
+  }
+
+  // Limpiar inputs cuando se selecciona una opción
+  document.addEventListener('DOMContentLoaded', () => {
+    const selectCarac = document.getElementById('caracteristicas_ecommerceid');
+    const inputNuevo = document.getElementById('tituloNuevo');
+    
+    selectCarac?.addEventListener('change', () => {
+      if (selectCarac.value) {
+        inputNuevo.value = '';
+      }
+    });
+    
+    inputNuevo?.addEventListener('input', () => {
+      if (inputNuevo.value.trim()) {
+        selectCarac.value = '';
+      }
+    });
+  });
+</script>

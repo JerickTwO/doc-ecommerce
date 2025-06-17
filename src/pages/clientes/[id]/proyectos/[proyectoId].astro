@@ -1,0 +1,267 @@
+---
+// src/pages/clientes/[id]/proyectos/[proyectoId].astro
+//
+// 1.- IMPORTS ────────────────────────────────────────────
+import Layout from "../../../../layouts/Layout.astro";
+import { getProyectoConDetalles } from "../../../../utils/proyectos-clientes";
+import { getClienteById } from "../../../../utils/clientStore";
+import AddCaracteristicaForm from "../../../../components/AddCaracteristicaForm.astro";
+
+// 2.- PARAMS ─────────────────────────────────────────────
+const { id: clienteId, proyectoId } = Astro.params;
+
+// 3.- LECTURA DE DATOS ───────────────────────────────────
+// 3.1  cliente (por si quieres un breadcrumb)
+const cliente = await getClienteById(clienteId);
+
+// 3.2  proyecto + sus detalles
+const proyecto = await getProyectoConDetalles(proyectoId);
+
+if (!proyecto) {
+  throw new Error("Proyecto no encontrado");
+}
+---
+
+<!-- 4.- UI ───────────────────────────────────────────────-->
+<Layout title={`Proyecto: ${proyecto.nombre_proyecto}`}>
+  <section class="min-h-screen bg-white mx-auto px-6 py-8">
+    <!-- breadcrumb / volver -->
+    <a
+      href={`/clientes/${clienteId}`}
+      class="text-sm text-gray-600 hover:underline flex items-center gap-1"
+    >
+      ← Volver a «{cliente.razon_social}»
+    </a>
+
+    <!-- encabezado -->
+    <header class="mt-4 mb-8">
+      <h1
+        class="text-3xl font-semibold text-gray-900 inline-flex items-center gap-3"
+      >
+        {proyecto.nombre_proyecto}
+        <span
+          class={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+            proyecto.estado
+              ? "bg-green-100 text-green-800"
+              : "bg-red-100 text-red-800"
+          }`}
+        >
+          {proyecto.estado ? "Activo" : "Inactivo"}
+        </span>
+      </h1>
+
+      {
+        proyecto.observacion && (
+          <p class="mt-2 text-gray-600">{proyecto.observacion}</p>
+        )
+      }
+    </header>
+
+    <!-- formulario para agregar características -->
+    <AddCaracteristicaForm
+      proyectoId={proyectoId}
+      onSaved="refrescarDetalles"
+      client:load
+    />
+
+    <!-- listado de características -->
+    <h2 class="text-lg font-medium text-gray-900 mb-4">Características Asignadas</h2>
+    {
+      (proyecto.detalles?.length ?? 0) === 0 ? (
+        <p class="text-gray-500 italic">Sin características asignadas.</p>
+      ) : (
+        <ul class="space-y-3">
+          {proyecto.detalles.map((d) => (
+            <li class="p-4 bg-gray-50 rounded border flex justify-between items-start">
+              <div class="flex-1">
+                <strong class="block text-gray-900">{d.caracteristica.titulo}</strong>
+                {d.observacion && (
+                  <span class="block text-sm text-gray-600 mt-1">
+                    {d.observacion}
+                  </span>
+                )}
+              </div>
+
+              <div class="flex items-center gap-2 ml-4">
+                <span
+                  class={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                    d.estado
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {d.estado ? "Activo" : "Inactivo"}
+                </span>
+                
+                <!-- Botón para editar/eliminar (opcional) -->
+                <button
+                  type="button"
+                  data-detalle-id={d.id}
+                  class="text-gray-400 hover:text-red-600 transition-colors"
+                  title="Eliminar característica"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</Layout>
+
+<script is:inline define:vars={{ proyectoId }}>
+(() => {
+  // Función global para refrescar página
+  window.refrescarDetalles = function() {
+    location.reload();
+  };
+
+  // Esperar a que el DOM esté listo
+  document.addEventListener('DOMContentLoaded', function() {
+    // Buscar el formulario
+    const form = document.querySelector('form[data-add-caracteristica]');
+    if (!form) return;
+
+    const selBox = form.querySelector('select[name="caracteristicas_ecommerceid"]');
+    if (!selBox) return;
+
+    /* ───────────────── 1. Cargar opciones ───────────────── */
+    fetch('/api/caracteristicas?estado=1')
+      .then(r => r.json())
+      .then(list => {
+        // Limpiar opciones existentes (excepto la primera)
+        selBox.innerHTML = '<option value="">-- Seleccionar característica --</option>';
+        
+        list.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.id;
+          opt.textContent = c.titulo;
+          selBox.appendChild(opt);
+        });
+      })
+      .catch(err => {
+        console.error('Error cargando características:', err);
+      });
+
+    /* ───────────────── 2. Submit ───────────────── */
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+
+      let caracId = data.caracteristicas_ecommerceid;
+
+      try {
+        /* 2.1 crea característica nueva si es necesario */
+        if (!caracId && data.tituloNuevo?.trim()) {
+          const resCar = await fetch('/api/caracteristicas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              titulo: data.tituloNuevo.trim(), 
+              descripcion: '' 
+            })
+          });
+          
+          if (!resCar.ok) {
+            const error = await resCar.json();
+            throw new Error(error.error || 'Error al crear característica');
+          }
+          
+          const nueva = await resCar.json();
+          caracId = nueva.id;
+        }
+
+        if (!caracId) {
+          throw new Error('Selecciona una característica existente o escribe el nombre de una nueva');
+        }
+
+        /* 2.2 enlace proyecto-característica */
+        const detallePayload = {
+          proyectoId: proyectoId,
+          caracteristicas_ecommerceid: Number(caracId),
+          observacion: data.observacion || ''
+        };
+
+        const resDet = await fetch('/api/detalles', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(detallePayload)
+        });
+        
+        if (!resDet.ok) {
+          const error = await resDet.json();
+          throw new Error(error.error || 'Error al vincular característica');
+        }
+
+        // Éxito
+        form.reset();
+        
+        // Mostrar mensaje de éxito
+        if (typeof window.mostrarMensaje === 'function') {
+          window.mostrarMensaje('Característica agregada correctamente', 'success');
+        }
+        
+        // Refrescar datos
+        setTimeout(() => {
+          window.refrescarDetalles?.();
+        }, 1000);
+
+      } catch (error) {
+        console.error('Error:', error);
+        
+        // Mostrar mensaje de error
+        if (typeof window.mostrarMensaje === 'function') {
+          window.mostrarMensaje(error.message, 'error');
+        } else {
+          alert(error.message);
+        }
+      }
+    });
+
+    /* ───────────────── 3. Eliminar características ───────────────── */
+    document.addEventListener('click', async (e) => {
+      const botonEliminar = e.target.closest('[data-detalle-id]');
+      if (!botonEliminar) return;
+
+      if (!confirm('¿Estás seguro de que quieres eliminar esta característica del proyecto?')) {
+        return;
+      }
+
+      try {
+        const detalleId = botonEliminar.getAttribute('data-detalle-id');
+        const response = await fetch(`/api/detalles?id=${detalleId}`, {
+          method: 'DELETE'
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Error al eliminar característica');
+        }
+
+        // Mostrar mensaje de éxito
+        if (typeof window.mostrarMensaje === 'function') {
+          window.mostrarMensaje('Característica eliminada correctamente', 'success');
+        }
+
+        // Refrescar página
+        setTimeout(() => {
+          window.refrescarDetalles?.();
+        }, 1000);
+
+      } catch (error) {
+        console.error('Error:', error);
+        
+        if (typeof window.mostrarMensaje === 'function') {
+          window.mostrarMensaje(error.message, 'error');
+        } else {
+          alert(error.message);
+        }
+      }
+    });
+  });
+})();
+</script>

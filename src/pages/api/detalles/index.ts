@@ -1,9 +1,11 @@
-// src/pages/api/detalles/index.ts
 import type { APIRoute } from 'astro';
 import { pool } from '../../../utils/db';
 
 export const POST: APIRoute = async ({ request }) => {
   const { proyectoId, caracteristicas_ecommerceid, observacion = '' } = await request.json();
+
+  if (!proyectoId || !caracteristicas_ecommerceid)
+    return new Response(JSON.stringify({error:'Faltan campos'}), {status:400});
 
   const conn = await pool.getConnection();
   try {
