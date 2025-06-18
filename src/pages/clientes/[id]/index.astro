@@ -107,7 +107,7 @@ const proyectos = await getProyectosByCliente(id);
         <!-- Contenido Principal -->
         <div class="lg:col-span-2 space-y-8">
           <!-- Formulario Nuevo Proyecto -->
-          <NuevoProyectoForm clienteId={clienteId} client:load />
+          <NuevoProyectoForm clienteId={clienteId} />
 
           <!-- Lista de Proyectos -->
           <div class="bg-white rounded-lg shadow-sm border border-gray-100">
@@ -191,12 +191,9 @@ const proyectos = await getProyectosByCliente(id);
 
         if (response.ok) {
           location.reload();
-        } else {
-          alert("Error al crear el proyecto");
         }
       } catch (error) {
         console.error("Error:", error);
-        alert("Error al crear el proyecto");
       }
     });
 

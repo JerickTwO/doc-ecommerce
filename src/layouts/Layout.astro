@@ -1,6 +1,9 @@
 ---
 import Footer from "../components/Footer.astro";
+import { getAllClientes } from "../utils/clientStore";
+import type { Cliente } from "../utils/cliente";
 
+const clientes: Cliente[] = await getAllClientes();
 export interface Props {
   title: string;
 }

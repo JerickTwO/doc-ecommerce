@@ -1,42 +1,42 @@
 ---
-import CaracteristicaEcommerceForm from "./CaracteristicaEcommerceForm.astro";
-const { proyecto } = Astro.props;          // proyecto.clientesid existe
+const { proyecto } = Astro.props;
 const url = `/clientes/${proyecto.clientesid}/proyectos/${proyecto.id}`;
 ---
 
 <div class="px-4 py-2">
-  <!-- Header del Proyecto -->
   <div class="flex items-start justify-between">
-    <!-- Enlace a la vista de características -->
     <a href={url} class="flex-1 min-w-0 hover:underline">
       <div class="flex items-center gap-3">
         <h3 class="text-lg font-medium text-gray-900">
           {proyecto.nombre_proyecto}
         </h3>
-        <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-          proyecto.estado
-            ? 'bg-green-100 text-green-800'
-            : 'bg-red-100 text-red-800'
-        }`}>
-          {proyecto.estado ? 'Activo' : 'Inactivo'}
+        <span
+          class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+            proyecto.estado
+              ? "bg-green-100 text-green-800"
+              : "bg-red-100 text-red-800"
+          }`}
+        >
+          {proyecto.estado ? "Activo" : "Inactivo"}
         </span>
       </div>
-      {proyecto.observacion && (
-        <p class="text-sm text-gray-600">{proyecto.observacion}</p>
-      )}
+      {
+        proyecto.observacion && (
+          <p class="text-sm text-gray-600">{proyecto.observacion}</p>
+        )
+      }
     </a>
 
-    <!-- Botones de acción (fuera del enlace) -->
     <div class="flex items-center gap-2 ml-4">
       <button
         onclick={`toggleProyecto(${proyecto.id}, ${proyecto.estado})`}
         class={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
           proyecto.estado
-            ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
-            : 'bg-green-100 text-green-800 hover:bg-green-200'
+            ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+            : "bg-green-100 text-green-800 hover:bg-green-200"
         }`}
       >
-        {proyecto.estado ? 'Desactivar' : 'Activar'}
+        {proyecto.estado ? "Desactivar" : "Activar"}
       </button>
       <button
         onclick={`eliminarProyecto(${proyecto.id})`}

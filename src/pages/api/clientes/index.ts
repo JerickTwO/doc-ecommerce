@@ -4,11 +4,16 @@ const replacer = (_: string, value: any) =>
   typeof value === "bigint" ? value.toString() : value;
 
 export const GET: APIRoute = async () => {
-  const data = await getAllClientes();
-  return new Response(JSON.stringify(data, replacer), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  try {
+    const data = await getAllClientes();
+    return new Response(JSON.stringify(data, replacer), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (e) {
+    console.error(e);
+    return new Response("Error interno", { status: 500 });
+  }
 };
 
 export const POST: APIRoute = async ({ request }) => {

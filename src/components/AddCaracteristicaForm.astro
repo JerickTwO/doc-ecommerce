@@ -10,7 +10,7 @@ let caracteristicas: CaracteristicaRow[] = [];
 
 try {
   caracteristicas = await pool.query<CaracteristicaRow[]>(
-    `SELECT id, titulo, es_general
+    `SELECT id, titulo
        FROM vw_caracteristicas_mostrables`
   );
 } catch (err) {
@@ -71,7 +71,7 @@ const { proyectoId, onSaved } = Astro.props;
             {
               caracteristicas.map((c) => (
                 // Muestra ⭐ en las generales; quítalo si no lo quieres
-                <option value={c.id} >
+                <option value={c.id}>
                   {c.es_general ? "⭐ " : ""}
                   {c.titulo}
                 </option>
@@ -86,7 +86,7 @@ const { proyectoId, onSaved } = Astro.props;
             for="tituloNuevo"
             class="block text-sm font-medium text-gray-700 mb-2"
           >
-            O crear nueva característica 
+            O crear nueva característica
           </label>
           <input
             type="text"
@@ -171,7 +171,7 @@ const { proyectoId, onSaved } = Astro.props;
     // Ocultar después de 5 segundos
     setTimeout(() => {
       mensajeDiv.classList.add("hidden");
-    }, 5000);
+    }, 100);
   }
 
   // Hacer la función global

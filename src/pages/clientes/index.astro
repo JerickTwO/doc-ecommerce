@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import type { Cliente } from "../../utils/cliente";
 
 const res = await fetch(Astro.url.origin + "/api/clientes");
+
 const json = await res.json();
 
 if (!Array.isArray(json)) {

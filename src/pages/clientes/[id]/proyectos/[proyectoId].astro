@@ -1,32 +1,22 @@
 ---
-// src/pages/clientes/[id]/proyectos/[proyectoId].astro
-//
-// 1.- IMPORTS ────────────────────────────────────────────
 import Layout from "../../../../layouts/Layout.astro";
 import { getProyectoConDetalles } from "../../../../utils/proyectos-clientes";
 import { getClienteById } from "../../../../utils/clientStore";
 import AddCaracteristicaForm from "../../../../components/AddCaracteristicaForm.astro";
-
-// 2.- PARAMS ─────────────────────────────────────────────
 const { id: clienteId, proyectoId } = Astro.params;
 
-// 3.- LECTURA DE DATOS ───────────────────────────────────
-// 3.1  cliente (por si quieres un breadcrumb)
-const cliente = await getClienteById(clienteId);
+const cliente = await getClienteById(clienteId ?? "");
 
-// 3.2  proyecto + sus detalles
-const proyecto = await getProyectoConDetalles(proyectoId);
+const proyecto = await getProyectoConDetalles(proyectoId ?? "");
 
 if (!proyecto) {
   throw new Error("Proyecto no encontrado");
 }
 ---
 
-<!-- 4.- UI ───────────────────────────────────────────────-->
 <Layout title={`Proyecto: ${proyecto.nombre_proyecto}`}>
   <div class="min-h-screen bg-gray-50">
     <div class="max-w-6xl mx-auto px-6 py-8">
-      <!-- Breadcrumb Navigation -->
       <div class="mb-6">
         <a
           href={`/clientes/${clienteId}`}
@@ -46,7 +36,7 @@ if (!proyecto) {
           </svg>Volver al Proyecto
         </a>
       </div>
-      <header class="info-header w-full flex  items-center  justify-between mb-8">
+      <header class="info-header w-full flex items-center justify-between mb-8">
         <!-- Project Header -->
         <div class="info-header--text">
           <h1 class="text-3xl font-light text-gray-900 tracking-tight">
@@ -55,12 +45,6 @@ if (!proyecto) {
           <p class="text-sm text-gray-600 mb-1">
             Gestión de proyectos y características
           </p>
-
-          <!-- {proyecto.observacion && (
-          <p class="text-gray-700 mb-4">
-            {proyecto.observacion}
-          </p>
-            )} -->
         </div>
 
         <span
@@ -76,9 +60,8 @@ if (!proyecto) {
 
       <!-- Add Characteristic Form -->
       <AddCaracteristicaForm
-        proyectoId={proyectoId}
+        proyectoId={proyectoId ?? ""}
         onSaved="refrescarDetalles"
-        client:load
       />
 
       <!-- Characteristics List -->
@@ -306,7 +289,7 @@ if (!proyecto) {
           // Refrescar datos
           setTimeout(() => {
             window.refrescarDetalles?.();
-          }, 1000);
+          }, 100);
         } catch (error) {
           console.error("Error:", error);
 
@@ -354,7 +337,7 @@ if (!proyecto) {
           // Refrescar página
           setTimeout(() => {
             window.refrescarDetalles?.();
-          }, 1000);
+          }, 100);
         } catch (error) {
           console.error("Error:", error);
 

@@ -9,8 +9,14 @@ declare module "astro" {
 
 const ensureSlash = (r: string) => (r.startsWith("/") ? r : "/" + r);
 
-const publicRoutes = ["/", "/login", "/login-cliente", "/api/auth"].map(ensureSlash);
-const clientOnlyRoutes = ["/proyectos-clientes-detalles"].map(ensureSlash);
+const publicRoutes = [
+  "/",
+  "/login",
+  "/login-cliente",
+  "/api/auth",
+  "/api/clientes",
+  "/api/detalles",
+].map(ensureSlash);
 const adminOnlyRoutes = [
   "/dashboard",
   "/admin",

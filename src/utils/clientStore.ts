@@ -60,17 +60,19 @@ export const updateCliente = async (
   }
 };
 
-export const removeCliente = async (id: string): Promise<boolean> => {
+export async function removeCliente(id: number): Promise<boolean> {
   const conn = await pool.getConnection();
   try {
-    const res: any = await conn.query("DELETE FROM clientes WHERE id = ?", [
-      id,
-    ]);
+    const res: any = await conn.query(
+      "DELETE FROM clientes WHERE id = ?",
+      [id] // ← number
+    );
     return res.affectedRows > 0;
   } finally {
     conn.release();
   }
-};
+}
+
 export const getProyectosByCliente = async (
   clienteId: string
 ): Promise<any[]> => {

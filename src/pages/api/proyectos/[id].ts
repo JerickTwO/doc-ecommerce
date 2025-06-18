@@ -1,5 +1,6 @@
 import { APIRoute } from "astro";
 import { pool } from "../../../utils/db";
+import { removeProyecto } from "../../../utils/proyectoStore";
 
 export const put: APIRoute = async ({ params, request }) => {
   const id = Number(params.id);
@@ -25,4 +26,24 @@ export const put: APIRoute = async ({ params, request }) => {
       detalles: [],
     })
   );
+};
+
+export const DELETE: APIRoute = async ({ params }) => {
+  const id = Number(params.id);
+  if (!params.id || isNaN(id)) {
+    return new Response("ID inválido", { status: 400 });
+  }
+
+  try {
+    const eliminado = await removeProyecto(id);
+
+    if (!eliminado) {
+      return new Response("Proyecto no encontrado", { status: 404 });
+    }
+
+    return new Response(null, { status: 204 }); // No Content
+  } catch (error) {
+    console.error("Error al eliminar el proyecto:", error);
+    return new Response("Error interno del servidor", { status: 500 });
+  }
 };
