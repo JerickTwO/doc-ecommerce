@@ -1,18 +1,18 @@
 ---
-import { Fragment } from 'astro/jsx-runtime';
+import { Fragment } from "astro/jsx-runtime";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login de Cliente</title>
-    <!-- Si usas Tailwind vía CDN en dev ➜ quítalo cuando ya tengas tu build -->
-    <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body class="min-h-screen bg-gradient-to-br from-indigo-100 to-blue-50 flex items-center justify-center font-sans">
+  <body
+    class="min-h-screen bg-gray-50 flex items-center justify-center font-sans"
+  >
     <main class="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
       <header class="text-center mb-6">
         <h1 class="text-2xl font-bold text-indigo-700">Área de Clientes</h1>
@@ -20,8 +20,10 @@ import { Fragment } from 'astro/jsx-runtime';
       </header>
 
       <!-- Mensaje de feedback -->
-      <p id="mensaje"
-         class="mb-4 text-center text-sm font-medium transition-opacity duration-200 opacity-0">
+      <p
+        id="mensaje"
+        class="mb-4 text-center text-sm font-medium transition-opacity duration-200 opacity-0"
+      >
       </p>
 
       <!-- Formulario -->
@@ -46,10 +48,22 @@ import { Fragment } from 'astro/jsx-runtime';
         >
           <span>Ingresar</span>
           <!-- Spinner SVG (esconde/mostrar con JS) -->
-          <svg id="spinner" class="h-5 w-5 animate-spin hidden" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor"
-              d="M4 12a8 8 0 018-8v4l3.5-3.5L12 0v4a8 8 0 00-8 8h4z" />
+          <svg
+            id="spinner"
+            class="h-5 w-5 animate-spin hidden"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8v4l3.5-3.5L12 0v4a8 8 0 00-8 8h4z"></path>
           </svg>
         </button>
       </form>
@@ -57,48 +71,57 @@ import { Fragment } from 'astro/jsx-runtime';
 
     <!-- Script inline (is:inline para SSR) -->
     <script is:inline type="module">
-      const form       = document.getElementById('login-form');
-      const mensajeEl  = document.getElementById('mensaje');
-      const btn        = document.getElementById('submit-btn');
-      const spinner    = document.getElementById('spinner');
+      const form = document.getElementById("login-form");
+      const mensajeEl = document.getElementById("mensaje");
+      const btn = document.getElementById("submit-btn");
+      const spinner = document.getElementById("spinner");
 
-      const mostrarMensaje = (texto, tipo = 'error') => {
+      const mostrarMensaje = (texto, tipo = "error") => {
         mensajeEl.textContent = texto;
-        mensajeEl.classList.remove('opacity-0', 'text-red-500', 'text-green-600');
-        mensajeEl.classList.add('opacity-100', tipo === 'success' ? 'text-green-600' : 'text-red-500');
+        mensajeEl.classList.remove(
+          "opacity-0",
+          "text-red-500",
+          "text-green-600"
+        );
+        mensajeEl.classList.add(
+          "opacity-100",
+          tipo === "success" ? "text-green-600" : "text-red-500"
+        );
       };
 
-      form.addEventListener('submit', async (e) => {
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const ruc = form.ruc.value.trim();
-        if (!ruc) return mostrarMensaje('Ingrese su RUC');
+        if (!ruc) return mostrarMensaje("Ingrese su RUC");
 
         // UI: bloquea botón y muestra spinner
         btn.disabled = true;
-        spinner.classList.remove('hidden');
+        spinner.classList.remove("hidden");
 
         try {
-          const res  = await fetch('/api/auth/login-cliente', {
-            method : 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body   : JSON.stringify({ ruc })
+          const res = await fetch("/api/auth/login-cliente", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ruc }),
           });
           const data = await res.json();
 
           if (res.ok && data.success) {
-            mostrarMensaje(`Bienvenido, ${data.user.razon_social}`, 'success');
-            // Redirección opcional:
-            // setTimeout(() => { window.location.href = \`/panel-cliente?id=${data.user.id}\`; }, 800);
+            mostrarMensaje(`Bienvenido, ${data.user.razon_social}`, "success");
+
+            setTimeout(() => {
+              window.location.href = `/proyectos-clientes-detalles`;
+            }, 100);
           } else {
-            mostrarMensaje(data.message || 'RUC no encontrado');
+            mostrarMensaje(data.message || "RUC no encontrado");
           }
         } catch (err) {
           console.error(err);
-          mostrarMensaje('No se pudo contactar al servidor');
+          mostrarMensaje("No se pudo contactar al servidor");
         } finally {
           btn.disabled = false;
-          spinner.classList.add('hidden');
+          spinner.classList.add("hidden");
         }
       });
     </script>

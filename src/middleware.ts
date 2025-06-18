@@ -1,15 +1,17 @@
 import type { MiddlewareHandler } from "astro";
-
 import { verifyToken } from "./utils/auth";
 
-// Extend Locals type to include 'user'
 declare module "astro" {
   interface Locals {
     user?: ReturnType<typeof verifyToken>;
   }
 }
 
-const protectedRoutes = [
+const ensureSlash = (r: string) => (r.startsWith("/") ? r : "/" + r);
+
+const publicRoutes = ["/", "/login", "/login-cliente", "/api/auth"].map(ensureSlash);
+const clientOnlyRoutes = ["/proyectos-clientes-detalles"].map(ensureSlash);
+const adminOnlyRoutes = [
   "/dashboard",
   "/admin",
   "/profile",
@@ -17,39 +19,61 @@ const protectedRoutes = [
   "/proyecto",
   "/clientes",
   "/caracteristicas-proyecto",
-];
-const publicRoutes = ["/login", "/"];
+].map(ensureSlash);
 
-export const onRequest: MiddlewareHandler = async (context, next) => {
-  const { url, cookies, redirect } = context;
+/* Coincide si el pathname es EXACTAMENTE la ruta
+   o empieza por "ruta/" (evitamos que "/" coincida con todo) */
+const matchRoute = (routes: string[], pathname: string) =>
+  routes.some((route) => {
+    const r = route.startsWith("/") ? route : "/" + route;
+    return r === "/"
+      ? pathname === "/"
+      : pathname === r || pathname.startsWith(r + "/");
+  });
+
+/* ------------------ Middleware ------------------ */
+export const onRequest: MiddlewareHandler = async (ctx, next) => {
+  const { url, cookies, redirect, locals } = ctx;
   const pathname = new URL(url).pathname;
 
-  // Obtener token de las cookies
-  const token = cookies.get("auth-token")?.value;
+  /* 1. Verificar token (y manejar errores) */
+  const rawToken = cookies.get("auth-token")?.value;
+  let user: ReturnType<typeof verifyToken> | null = null;
 
-  // Si es una ruta protegida
-  if (protectedRoutes.some((route) => pathname.startsWith(route))) {
-    if (!token) {
-      return redirect("/login");
-    }
-
-    const user = verifyToken(token);
-    if (!user) {
-      cookies.delete("auth-token");
-      return redirect("/login");
-    }
-
-    // Añadir usuario al contexto (opcional)
-    context.locals.user = user;
-  }
-
-  // Si ya está logueado y trata de acceder al login
-  if (pathname === "/login" && token) {
-    const user = verifyToken(token);
-    if (user) {
-      return redirect("/dashboard");
+  if (rawToken) {
+    try {
+      user = verifyToken(rawToken);
+    } catch {
+      // Token corrupto o expirado ⇒ lo quitamos
+      cookies.delete("auth-token", { path: "/" });
     }
   }
 
-  return next();
+  /* 2. No autenticado → solo rutas públicas */
+  if (!user) {
+    if (!matchRoute(publicRoutes, pathname)) return redirect("/login");
+    return next();
+  }
+
+  /* 3. Autenticado */
+  locals.user = user;
+  const role = (user.role ?? "").toLowerCase();
+
+  /* --- ADMIN --- */
+  if (role === "admin") {
+    if (pathname === "/login") return redirect("/dashboard");
+    return next(); // acceso libre a todo
+  }
+
+  /* --- CLIENTE --- */
+  if (role === "cliente") {
+    if (matchRoute(adminOnlyRoutes, pathname))
+      return redirect("/proyectos-clientes-detalles");
+    if (pathname === "/login") return redirect("/proyectos-clientes-detalles");
+    return next();
+  }
+
+  /* 4. Rol desconocido → limpiar cookie y volver a /login */
+  cookies.delete("auth-token", { path: "/" });
+  return redirect("/login");
 };

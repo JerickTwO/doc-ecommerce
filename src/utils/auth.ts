@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { query } from "./db";
 
 const JWT_SECRET = import.meta.env.JWT_SECRET as string;
+console.log("JWT_SECRET:", JWT_SECRET);
 const SALT_ROUNDS = 12;
 
 export interface User {

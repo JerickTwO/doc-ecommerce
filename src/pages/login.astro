@@ -16,13 +16,13 @@ if (token) {
 ---
 
 <Layout title="Login - Perseo Ecommerce">
-  <div class="h-screen bg-gray-50 flex flex-col justify-center sm:px-6 lg:px-8">
+  <div class="items-center h-screen bg-gray-50 flex flex-col justify-center sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <div class="text-center">
-        <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+        <h2 class=" text-3xl font-extrabold text-gray-900">
           Iniciar Sesión
         </h2>
-        <p class="mt-2 text-sm text-gray-600">
+        <p class=" text-sm text-gray-600">
           Acceso a Información Privada | Perseo Ecommerce
         </p>
       </div>
@@ -206,7 +206,7 @@ if (token) {
           showMessage("¡Login exitoso! Redirigiendo...", false);
           setTimeout(() => {
             window.location.href = "/dashboard";
-          }, 1500);
+          }, 10);
         } else {
           showMessage(result.message, true);
         }

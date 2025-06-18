@@ -1,4 +1,3 @@
-// pages/api/auth/login.ts
 import type { APIRoute } from "astro";
 import { authenticateUser, generateToken } from "../../../utils/auth";
 
@@ -12,7 +11,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       return new Response(
         JSON.stringify({
           success: false,
-          message: "Email/usuario y contraseña requeridos",
+          message: "Email y contraseña requeridos",
         }),
         { status: 400 }
       );
@@ -30,6 +29,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }
 
     const token = generateToken(user);
+    console.log("Login exitoso:", token),
 
     cookies.set("auth-token", token, {
       httpOnly: true,

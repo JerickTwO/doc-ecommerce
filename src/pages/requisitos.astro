@@ -7,397 +7,397 @@ import twoImageRequirements from "../assets/requirementsTwo.png";
 ---
 
 <Layout title="Requisitos - Perseo Ecommerce">
-    <div class="flex min-h-screen bg-white">
-        <Sidebar currentPage="requisitos" />
-        <main class="flex-1 py-8 px-16 bg-gray-50 antialiased">
-            <div class="mx-auto flex flex-col gap-6">
-                <h1 class="text-3xl font-bold text-gray-900">Requisitos</h1>
+  <div class="flex min-h-screen bg-white">
+    <Sidebar currentPage="requisitos" />
+    <main class="flex-1 py-8 px-16 bg-gray-50 antialiased">
+      <div class="mx-auto flex flex-col gap-6">
+        <h1 class="text-3xl font-bold text-gray-900">Requisitos</h1>
 
-                <!-- Proceso de Requisitos -->
-                <div class="bg-white rounded-lg shadow-sm p-8">
-                    <div class="space-y-8">
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-1">
-                                <h3
-                                    class="text-xl font-semibold text-gray-900 mb-3"
-                                >
-                                    Productos parametrizados
-                                </h3>
-                                <p class="text-gray-700 mb-4">
-                                    Es decir debe tener los productos
-                                    parametrizados con imágenes, categorías o
-                                    líneas, precios y ficha técnica para una
-                                    correcta visualización en el ecommerce.
-                                </p>
-                                <div class="p-4">
-                                    <h4 class="font-semibold mb-2">
-                                        Ejemplo de parametrización de producto:
-                                    </h4>
-                                    <Image
-                                        src={imageRequirements}
-                                        class="w-full max-w-[700px] border-2 border-yellow-600 rounded-xl hover:scale-105 transition-transform duration-500 cursor-pointer zoom-image"
-                                        alt="imagen de ejemplo de requerimientos."
-                                        data-zoom-src={imageRequirements.src}
-                                    />
-                                </div>
-                                <div class="p-4">
-                                    <h4 class="font-semibold mb-2">
-                                        Ejemplo de parametrización de ficha
-                                        técnica:
-                                    </h4>
-                                    <Image
-                                        src={twoImageRequirements}
-                                        class="w-full max-w-[700px] border-2 border-yellow-600 rounded-xl hover:scale-105 transition-transform duration-500 cursor-pointer zoom-image"
-                                        alt="segunda imagen de ejemplo de requerimientos."
-                                        data-zoom-src={twoImageRequirements.src}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Proceso de Requisitos -->
+        <div class="bg-white rounded-lg shadow-sm p-8">
+          <div class="space-y-8">
+            <div class="flex items-start space-x-4">
+              <div class="flex-1">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                  Productos parametrizados
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  Es decir debe tener los productos parametrizados con imágenes,
+                  categorías o líneas, precios y ficha técnica para una correcta
+                  visualización en el ecommerce.
+                </p>
+                <div class="p-4">
+                  <h4 class="font-semibold mb-2">
+                    Ejemplo de parametrización de producto:
+                  </h4>
+                  <Image
+                    loading={"lazy"}
+                    src={imageRequirements}
+                    class="w-full max-w-[700px] border-2 border-yellow-600 rounded-xl hover:scale-105 transition-transform duration-500 cursor-pointer zoom-image"
+                    alt="imagen de ejemplo de requerimientos."
+                    data-zoom-src={imageRequirements.src}
+                  />
                 </div>
-
-                <div class="grid grid-cols-2 gap-x-6 gap-y-6">
-                    <div class="col-span-1 bg-white rounded-lg shadow-sm p-8">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                            Imagenes
-                        </h3>
-                        <p class="text-gray-700 mb-4">
-                            Los productos deben tener una configuración para las
-                            imágenes, puede ser fondo blanco<span
-                                class="font-bold"
-                            >
-                                o sin fondo
-                            </span> , esto es discutido de acuerdo a la personalización
-                            de la página. Y la <span class="font-bold">
-                                resolución mínima
-                            </span> permitida es
-                            <span class="font-bold"> 800x600 </span>
-                            en formato webp de preferencia
-                        </p>
-                    </div>
-                    <div class="col-span-1 bg-white rounded-lg shadow-sm p-8">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                            Nombres de Producto
-                        </h3>
-                        <p class="text-gray-700 mb-4">
-                            Los productos deben tener nombres cortos no tan
-                            extensos, <span class="font-bold">
-                                máximo 58 caracteres
-                            </span> incluyendo espacios y signos de puntuación.
-                        </p>
-                    </div>
-                    <div class="col-span-2 bg-white rounded-lg shadow-sm p-8">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                            Configuración de categorías
-                        </h3>
-                        <ul class="space-y-1">
-                            <li class="text-gray-700">
-                                • Deben ser nombres claros y precisos, además de
-                                no ser tan extensos y de preferencia que tengan
-                                <span class="font-bold"> 2 a 3 palabras</span>
-                            </li>
-                            <li class="text-gray-700">
-                                • La imagen que represente la categoría debe ser
-                                mínimo en <span class="font-bold">800x600</span>
-                            </li>
-                            <h3
-                                class="font-semibold text-md text-gray-900 mb-3"
-                            >
-                                Adicionales:
-                            </h3>
-                            <li class="text-gray-700">
-                                • Debe contar con un logo de empresa, esto es
-                                necesario para desarrollar los recursos de la
-                                página
-                            </li>
-                            <li class="text-gray-700">
-                                • En caso de ser Perseo PC debe contar con IP
-                                pública apuntada al servidor local, además de
-                                tener el
-                                <span class="font-bold"> API KEY </span>
-                                previamente instalada por el técnico a cargo.
-                            </li>
-                        </ul>
-                    </div>
+                <div class="p-4">
+                  <h4 class="font-semibold mb-2">
+                    Ejemplo de parametrización de ficha técnica:
+                  </h4>
+                  <Image
+                    loading={"lazy"}
+                    src={twoImageRequirements}
+                    class="w-full max-w-[700px] border-2 border-yellow-600 rounded-xl hover:scale-105 transition-transform duration-500 cursor-pointer zoom-image"
+                    alt="segunda imagen de ejemplo de requerimientos."
+                    data-zoom-src={twoImageRequirements.src}
+                  />
                 </div>
+              </div>
             </div>
+          </div>
+        </div>
 
-            <!-- Modal de Zoom -->
-            <div 
-                id="zoomModal" 
-                class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-20 opacity-0 invisible transition-all duration-300 ease-in-out touch-none"
+        <div class="grid grid-cols-2 gap-x-6 gap-y-6">
+          <div class="col-span-1 bg-white rounded-lg shadow-sm p-8">
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">Imagenes</h3>
+            <p class="text-gray-700 mb-4">
+              Los productos deben tener una configuración para las imágenes,
+              puede ser fondo blanco<span class="font-bold"> o sin fondo </span>
+              , esto es discutido de acuerdo a la personalización de la página. Y
+              la <span class="font-bold"> resolución mínima </span> permitida es
+              <span class="font-bold"> 800x600 </span>
+              en formato webp de preferencia
+            </p>
+          </div>
+          <div class="col-span-1 bg-white rounded-lg shadow-sm p-8">
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">
+              Nombres de Producto
+            </h3>
+            <p class="text-gray-700 mb-4">
+              Los productos deben tener nombres cortos no tan extensos, <span
+                class="font-bold"
+              >
+                máximo 58 caracteres
+              </span> incluyendo espacios y signos de puntuación.
+            </p>
+          </div>
+          <div class="col-span-2 bg-white rounded-lg shadow-sm p-8">
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">
+              Configuración de categorías
+            </h3>
+            <ul class="space-y-1">
+              <li class="text-gray-700">
+                • Deben ser nombres claros y precisos, además de no ser tan
+                extensos y de preferencia que tengan
+                <span class="font-bold"> 2 a 3 palabras</span>
+              </li>
+              <li class="text-gray-700">
+                • La imagen que represente la categoría debe ser mínimo en <span
+                  class="font-bold">800x600</span
+                >
+              </li>
+              <h3 class="font-semibold text-md text-gray-900 mb-3">
+                Adicionales:
+              </h3>
+              <li class="text-gray-700">
+                • Debe contar con un logo de empresa, esto es necesario para
+                desarrollar los recursos de la página
+              </li>
+              <li class="text-gray-700">
+                • En caso de ser Perseo PC debe contar con IP pública apuntada
+                al servidor local, además de tener el
+                <span class="font-bold"> API KEY </span>
+                previamente instalada por el técnico a cargo.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal de Zoom -->
+      <div
+        id="zoomModal"
+        class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-20 opacity-0 invisible transition-all duration-300 ease-in-out touch-none"
+      >
+        <div
+          class="w-full h-full md:max-w-[90vw] md:max-h-[90vh] md:w-auto md:h-auto p-2 md:p-4 flex items-center justify-center"
+        >
+          <!-- Botón de cerrar - Mejorado para móviles -->
+          <button
+            id="closeModal"
+            class="absolute top-4 right-4 md:top-2 md:right-2 bg-white rounded-full w-12 h-12 md:w-10 md:h-10 flex items-center justify-center text-gray-800 hover:bg-gray-100 active:bg-gray-200 transition-colors duration-200 z-10 shadow-lg touch-manipulation"
+            aria-label="Cerrar imagen"
+          >
+            <svg
+              class="w-6 h-6 md:w-5 md:h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-                <div class=" w-full h-full md:max-w-[90vw] md:max-h-[90vh] md:w-auto md:h-auto p-2 md:p-4 flex items-center justify-center">
-                    <!-- Botón de cerrar - Mejorado para móviles -->
-                    <button 
-                        id="closeModal"
-                        class="absolute top-4 right-4 md:top-2 md:right-2 bg-white rounded-full w-12 h-12 md:w-10 md:h-10 flex items-center justify-center text-gray-800 hover:bg-gray-100 active:bg-gray-200 transition-colors duration-200 z-10 shadow-lg touch-manipulation"
-                        aria-label="Cerrar imagen"
-                    >
-                        <svg class="w-6 h-6 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                    
-                    <!-- Imagen ampliada -->
-                    <img 
-                        id="zoomedImage" 
-                        src="" 
-                        alt="" 
-                        class="max-w-full max-h-full w-auto h-auto object-contain rounded-lg shadow-2xl select-none"
-                    />
-                </div>
-            </div>
-        </main>
-    </div>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+
+          <!-- Imagen ampliada -->
+          <img
+            id="zoomedImage"
+            src=""
+            loading="lazy"
+            alt=""
+            class="max-w-full max-h-full w-auto h-auto object-contain rounded-lg shadow-2xl select-none"
+          />
+        </div>
+      </div>
+    </main>
+  </div>
 </Layout>
 
 <style>
-    /* Estilos adicionales para el modal */
-    .zoom-modal-open {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
+  /* Estilos adicionales para el modal */
+  .zoom-modal-open {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
 
-    /* Prevenir scroll del body cuando el modal está abierto */
-    .modal-open {
-        overflow: hidden !important;
-        position: fixed !important;
-        width: 100% !important;
-        height: 100% !important;
-    }
+  /* Prevenir scroll del body cuando el modal está abierto */
+  .modal-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
 
-    /* Asegurar que el modal cubra toda la pantalla en móviles */
-    #zoomModal {
-        overscroll-behavior: contain;
-        -webkit-overflow-scrolling: touch;
-    }
+  /* Asegurar que el modal cubra toda la pantalla en móviles */
+  #zoomModal {
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
 
-    /* Efecto de carga para la imagen */
-    #zoomedImage {
-        transition: opacity 0.3s ease-in-out;
-        max-width: calc(100vw - 1rem);
-        max-height: calc(100vh - 1rem);
-    }
+  /* Efecto de carga para la imagen */
+  #zoomedImage {
+    transition: opacity 0.3s ease-in-out;
+    max-width: calc(100vw - 1rem);
+    max-height: calc(100vh - 1rem);
+  }
 
-    /* Hover effect mejorado para las imágenes */
+  /* Hover effect mejorado para las imágenes */
+  .zoom-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Mejoras para dispositivos táctiles */
+  @media (hover: none) and (pointer: coarse) {
     .zoom-image:hover {
-        transform: scale(1.02);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      transform: none;
+      box-shadow: none;
     }
 
-    /* Mejoras para dispositivos táctiles */
-    @media (hover: none) and (pointer: coarse) {
-        .zoom-image:hover {
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .zoom-image:active {
-            transform: scale(0.98);
-            transition: transform 0.1s ease;
-        }
+    .zoom-image:active {
+      transform: scale(0.98);
+      transition: transform 0.1s ease;
+    }
+  }
+
+  /* Responsividad para tablets */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    #zoomedImage {
+      max-width: calc(100vw - 2rem);
+      max-height: calc(100vh - 2rem);
     }
 
-    /* Responsividad para tablets */
-    @media (min-width: 768px) and (max-width: 1024px) {
-        #zoomedImage {
-            max-width: calc(100vw - 2rem);
-            max-height: calc(100vh - 2rem);
-        }
-        
-        .zoom-image {
-            max-width: 100%;
-            height: auto;
-        }
+    .zoom-image {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  /* Responsividad para móviles */
+  @media (max-width: 767px) {
+    .zoom-image {
+      max-width: 100%;
+      height: auto;
+      width: auto !important;
     }
 
-    /* Responsividad para móviles */
-    @media (max-width: 767px) {
-        .zoom-image {
-            max-width: 100%;
-            height: auto;
-            width: auto !important;
-        }
-        
-        #zoomedImage {
-            max-width: calc(100vw - 0.5rem);
-            max-height: calc(100vh - 0.5rem);
-        }
-        
-        /* Mejorar el área de toque del botón cerrar */
-        #closeModal {
-            min-width: 48px;
-            min-height: 48px;
-        }
+    #zoomedImage {
+      max-width: calc(100vw - 0.5rem);
+      max-height: calc(100vh - 0.5rem);
     }
 
-    /* Prevenir zoom no deseado en móviles */
-    #zoomModal img {
-        touch-action: pan-x pan-y;
-        user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
+    /* Mejorar el área de toque del botón cerrar */
+    #closeModal {
+      min-width: 48px;
+      min-height: 48px;
     }
+  }
+
+  /* Prevenir zoom no deseado en móviles */
+  #zoomModal img {
+    touch-action: pan-x pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
 </style>
 
 <script>
-    // Variables para controlar el scroll
-    let scrollPosition = 0;
+  // Variables para controlar el scroll
+  let scrollPosition = 0;
 
-    // Función para bloquear el scroll
-    function disableScroll() {
-        scrollPosition = window.pageYOffset;
-        document.body.style.overflow = 'hidden';
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${scrollPosition}px`;
-        document.body.style.width = '100%';
-        
-        // Prevenir scroll en dispositivos móviles
-        document.addEventListener('touchmove', preventTouch, { passive: false });
+  // Función para bloquear el scroll
+  function disableScroll() {
+    scrollPosition = window.pageYOffset;
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = "100%";
+
+    // Prevenir scroll en dispositivos móviles
+    document.addEventListener("touchmove", preventTouch, { passive: false });
+  }
+
+  // Función para restaurar el scroll
+  function enableScroll() {
+    document.body.style.removeProperty("overflow");
+    document.body.style.removeProperty("position");
+    document.body.style.removeProperty("top");
+    document.body.style.removeProperty("width");
+    window.scrollTo(0, scrollPosition);
+
+    // Restaurar scroll en dispositivos móviles
+    document.removeEventListener("touchmove", preventTouch);
+  }
+
+  // Prevenir touch scroll
+  function preventTouch(e) {
+    e.preventDefault();
+  }
+
+  // Función para abrir el modal
+  function openModal(imageSrc, imageAlt) {
+    const modal = document.getElementById("zoomModal");
+    const zoomedImage = document.getElementById("zoomedImage");
+
+    if (modal && zoomedImage) {
+      // Bloquear scroll
+      disableScroll();
+
+      // Configurar la imagen
+      zoomedImage.src = imageSrc;
+      zoomedImage.alt = imageAlt;
+
+      // Mostrar el modal
+      modal.classList.add("zoom-modal-open");
+      document.body.classList.add("modal-open");
+
+      // Focus en el modal para accesibilidad
+      modal.focus();
     }
+  }
 
-    // Función para restaurar el scroll
-    function enableScroll() {
-        document.body.style.removeProperty('overflow');
-        document.body.style.removeProperty('position');
-        document.body.style.removeProperty('top');
-        document.body.style.removeProperty('width');
-        window.scrollTo(0, scrollPosition);
-        
-        // Restaurar scroll en dispositivos móviles
-        document.removeEventListener('touchmove', preventTouch);
+  // Función para cerrar el modal
+  function closeModal() {
+    const modal = document.getElementById("zoomModal");
+
+    if (modal) {
+      modal.classList.remove("zoom-modal-open");
+      document.body.classList.remove("modal-open");
+
+      // Restaurar scroll después de la animación
+      setTimeout(() => {
+        enableScroll();
+      }, 300);
     }
+  }
 
-    // Prevenir touch scroll
-    function preventTouch(e) {
-        e.preventDefault();
-    }
+  // Event listeners
+  document.addEventListener("DOMContentLoaded", function () {
+    // Agregar click listeners a todas las imágenes con clase zoom-image
+    const zoomImages = document.querySelectorAll(".zoom-image");
 
-    // Función para abrir el modal
-    function openModal(imageSrc, imageAlt) {
-        const modal = document.getElementById('zoomModal');
-        const zoomedImage = document.getElementById('zoomedImage');
-        
-        if (modal && zoomedImage) {
-            // Bloquear scroll
-            disableScroll();
-            
-            // Configurar la imagen
-            zoomedImage.src = imageSrc;
-            zoomedImage.alt = imageAlt;
-            
-            // Mostrar el modal
-            modal.classList.add('zoom-modal-open');
-            document.body.classList.add('modal-open');
-            
-            // Focus en el modal para accesibilidad
-            modal.focus();
+    zoomImages.forEach((img) => {
+      img.addEventListener("click", function () {
+        const imageSrc = this.getAttribute("data-zoom-src") || this.src;
+        const imageAlt = this.alt;
+        openModal(imageSrc, imageAlt);
+      });
+
+      // Agregar soporte para teclado (Enter/Space)
+      img.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          const imageSrc = this.getAttribute("data-zoom-src") || this.src;
+          const imageAlt = this.alt;
+          openModal(imageSrc, imageAlt);
         }
-    }
-
-    // Función para cerrar el modal
-    function closeModal() {
-        const modal = document.getElementById('zoomModal');
-        
-        if (modal) {
-            modal.classList.remove('zoom-modal-open');
-            document.body.classList.remove('modal-open');
-            
-            // Restaurar scroll después de la animación
-            setTimeout(() => {
-                enableScroll();
-            }, 300);
-        }
-    }
-
-    // Event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-        // Agregar click listeners a todas las imágenes con clase zoom-image
-        const zoomImages = document.querySelectorAll('.zoom-image');
-        
-        zoomImages.forEach(img => {
-            img.addEventListener('click', function() {
-                const imageSrc = this.getAttribute('data-zoom-src') || this.src;
-                const imageAlt = this.alt;
-                openModal(imageSrc, imageAlt);
-            });
-
-            // Agregar soporte para teclado (Enter/Space)
-            img.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    const imageSrc = this.getAttribute('data-zoom-src') || this.src;
-                    const imageAlt = this.alt;
-                    openModal(imageSrc, imageAlt);
-                }
-            });
-        });
-
-        // Cerrar modal con el botón X
-        const closeButton = document.getElementById('closeModal');
-        if (closeButton) {
-            closeButton.addEventListener('click', closeModal);
-            
-            // Mejorar accesibilidad táctil
-            closeButton.addEventListener('touchstart', function() {
-                this.style.transform = 'scale(0.95)';
-            });
-            
-            closeButton.addEventListener('touchend', function() {
-                this.style.transform = 'scale(1)';
-            });
-        }
-
-        // Cerrar modal al hacer click en el fondo
-        const modal = document.getElementById('zoomModal');
-        if (modal) {
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
-
-            // Prevenir cierre accidental en móviles
-            modal.addEventListener('touchstart', function(e) {
-                if (e.target === this) {
-                    e.preventDefault();
-                }
-            });
-        }
-
-        // Cerrar modal con la tecla Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-
-        // Manejar cambios de orientación en móviles
-        window.addEventListener('orientationchange', function() {
-            const modal = document.getElementById('zoomModal');
-            if (modal && modal.classList.contains('zoom-modal-open')) {
-                // Pequeño delay para que la orientación se complete
-                setTimeout(() => {
-                    disableScroll();
-                }, 100);
-            }
-        });
-
-        // Prevenir zoom con gestos en móviles dentro del modal
-        document.addEventListener('gesturestart', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('gesturechange', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('gestureend', function(e) {
-            e.preventDefault();
-        });
+      });
     });
+
+    // Cerrar modal con el botón X
+    const closeButton = document.getElementById("closeModal");
+    if (closeButton) {
+      closeButton.addEventListener("click", closeModal);
+
+      // Mejorar accesibilidad táctil
+      closeButton.addEventListener("touchstart", function () {
+        this.style.transform = "scale(0.95)";
+      });
+
+      closeButton.addEventListener("touchend", function () {
+        this.style.transform = "scale(1)";
+      });
+    }
+
+    // Cerrar modal al hacer click en el fondo
+    const modal = document.getElementById("zoomModal");
+    if (modal) {
+      modal.addEventListener("click", function (e) {
+        if (e.target === this) {
+          closeModal();
+        }
+      });
+
+      // Prevenir cierre accidental en móviles
+      modal.addEventListener("touchstart", function (e) {
+        if (e.target === this) {
+          e.preventDefault();
+        }
+      });
+    }
+
+    // Cerrar modal con la tecla Escape
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    });
+
+    // Manejar cambios de orientación en móviles
+    window.addEventListener("orientationchange", function () {
+      const modal = document.getElementById("zoomModal");
+      if (modal && modal.classList.contains("zoom-modal-open")) {
+        // Pequeño delay para que la orientación se complete
+        setTimeout(() => {
+          disableScroll();
+        }, 100);
+      }
+    });
+
+    // Prevenir zoom con gestos en móviles dentro del modal
+    document.addEventListener("gesturestart", function (e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener("gesturechange", function (e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener("gestureend", function (e) {
+      e.preventDefault();
+    });
+  });
 </script>
-</Layout>

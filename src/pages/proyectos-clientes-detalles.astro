@@ -1,16 +1,17 @@
 ---
-import { fetchProyectos } from '../utils/db';
+import { fetchProyectos } from "../utils/db";
 
-// 1. Verificamos autenticación
-const user = Astro.locals.user;
-if (!user?.sub || user.role !== 'cliente') {
-  return Astro.redirect('/login-cliente');
+const user = (
+  Astro.locals as { user: { sub: string; role: string; ruc: string } }
+).user;
+if (!user?.sub || user.role !== "cliente") {
+  return Astro.redirect("/login-cliente");
 }
 
-// 2. Obtenemos todos los proyectos con sus detalles para este cliente
-const proyectos = await fetchProyectos(user.sub); // sub = id del cliente
+const proyectos = await fetchProyectos(Number(user.sub));
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -18,61 +19,164 @@ const proyectos = await fetchProyectos(user.sub); // sub = id del cliente
     <title>Mis proyectos</title>
   </head>
   <body class="bg-gray-50 min-h-screen p-6 font-sans">
-    <section class="max-w-6xl mx-auto space-y-8">
-      <h1 class="text-2xl font-bold text-indigo-700 mb-4">
-        Proyectos registrados para RUC {user.ruc}
-      </h1>
+    <main class="max-w-6xl mx-auto">
+      <div class="mb-4 sm:mb-6">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors mb-4"
+        >
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Volver a la Documentación
+        </a>
+        <h1 class="text-3xl font-light text-gray-900 tracking-tight mb-2">
+          RUC: <span class="font-normal text-green-950"> {user.ruc}</span>
+        </h1>
+        <p class="text-gray-600">Administra tu proyectos de forma sencilla</p>
+      </div>
+      {
+        proyectos.length === 0 && (
+          <p class="text-gray-600">No tienes proyectos aún.</p>
+        )
+      }
 
-      {proyectos.length === 0 && (
-        <p class="text-gray-600">No tienes proyectos aún.</p>
-      )}
+      <div class="grid gap-6">
+        {
+          proyectos.map((p) => (
+            <div class="bg-white shadow-sm border border-gray-200 rounded-xl">
+              <header class="flex flex-row items-center space-x-4 justify-between  p-6 pb-4">
+                <div class="flex gap-5 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-6 w-6 text-gray-500"
+                  >
+                    <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+                  </svg>
+                  <h3 class="text-xl font-semibold text-gray-800">
+                    {p.nombreProyecto}
+                  </h3>
+                  <p class="text-sm text-gray-500 italic">{p.observacion}</p>
+                </div>
+                <span
+                  class={`ml-auto inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${p.estado ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
+                >
+                  {p.estado ? "Activo" : "Inactivo"}
+                </span>
+              </header>
 
-      {proyectos.map(p => (
-        <div class="bg-white shadow rounded-xl p-6 border border-gray-200" key={p.id}>
-          <header class="mb-4">
-            <h2 class="text-xl font-semibold text-indigo-600">
-              {p.nombreProyecto}
-            </h2>
-            <p class="text-sm text-gray-500 italic">{p.observacion}</p>
-            <p class="text-sm mt-1">
-              Estado: <span class={p.estado ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'}>
-                {p.estado ? 'Activo' : 'Inactivo'}
-              </span>
-            </p>
-          </header>
-
-          {p.detalles.length > 0 ? (
-            <div class="overflow-x-auto">
-              <table class="min-w-full text-sm border-t border-gray-200">
-                <thead class="bg-gray-100 text-left">
-                  <tr>
-                    <th class="py-2 px-3">#</th>
-                    <th class="py-2 px-3">Característica</th>
-                    <th class="py-2 px-3">Observación</th>
-                    <th class="py-2 px-3">Estado</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {p.detalles.map((d, idx) => (
-                    <tr class="border-b last:border-0" key={d.id}>
-                      <td class="py-2 px-3">{idx + 1}</td>
-                      <td class="py-2 px-3">{d.caracteristica.titulo}</td>
-                      <td class="py-2 px-3">{d.observacion ?? '-'}</td>
-                      <td class="py-2 px-3">
-                        <span class={d.estado ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
-                          {d.estado ? 'Activo' : 'Inactivo'}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <div class="p-6 pt-0">
+                {p.detalles.length > 0 ? (
+                  <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm border-collapse">
+                      <thead class="bg-gray-50">
+                        <tr>
+                          <th class="py-2 px-3 text-left font-medium text-gray-600 w-[50px]">
+                            #
+                          </th>
+                          <th class="py-2 px-3 text-left font-medium text-gray-600">
+                            Característica
+                          </th>
+                          <th class="py-2 px-3 text-left font-medium text-gray-600">
+                            Observación
+                          </th>
+                          <th class="py-2 px-3 text-left font-medium text-gray-600">
+                            Estado
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {p.detalles.map(
+                          (
+                            d: {
+                              caracteristica: { titulo: unknown };
+                              observacion: any;
+                              estado: any;
+                            },
+                            idx: number
+                          ) => (
+                            <tr class="border-b border-gray-200 last:border-0">
+                              <td class="py-2 px-3 font-medium">{idx + 1}</td>
+                              <td class="py-2 px-3">
+                                {d.caracteristica.titulo}
+                              </td>
+                              <td class="py-2 px-3 text-gray-500">
+                                {d.observacion ?? "-"}
+                              </td>
+                              <td class="py-2 px-3">
+                                <span
+                                  class={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${d.estado ? "text-green-600 border-green-200" : "text-red-600 border-red-200"}`}
+                                >
+                                  {d.estado ? (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="12"
+                                      height="12"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      class="h-3 w-3 mr-1"
+                                    >
+                                      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                                      <path d="m9 12 2 2 4-4" />
+                                    </svg>
+                                  ) : (
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="12"
+                                      height="12"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      class="h-3 w-3 mr-1"
+                                    >
+                                      <circle cx="12" cy="12" r="10" />
+                                      <path d="m15 9-6 6" />
+                                      <path d="m9 9 6 6" />
+                                    </svg>
+                                  )}
+                                  {d.estado ? "Activo" : "Inactivo"}
+                                </span>
+                              </td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <p class="text-gray-500 italic text-sm">
+                    No hay detalles registrados para este proyecto.
+                  </p>
+                )}
+              </div>
             </div>
-          ) : (
-            <p class="text-gray-500 italic">No hay detalles registrados para este proyecto.</p>
-          )}
-        </div>
-      ))}
-    </section>
+          ))
+        }
+      </div>
+    </main>
   </body>
 </html>
