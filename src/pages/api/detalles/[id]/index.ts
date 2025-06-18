@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { removeDetalle } from "../../../utils/proyectoStore";
+import { removeDetalle } from "../../../../utils/proyectoStore";
 
 export const DELETE: APIRoute = async ({ params }) => {
   const id = Number(params.id);

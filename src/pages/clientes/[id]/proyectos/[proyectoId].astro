@@ -146,13 +146,33 @@ if (!proyecto) {
                     <div class="flex items-center gap-3 flex-shrink-0 ml-4">
                       <span
                         class={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                          d.estado
-                            ? "bg-green-100 text-green-800"
-                            : "bg-red-100 text-red-800"
+                          d.estado === 1
+                            ? "bg-gray-100 text-gray-800"
+                            : d.estado === 2
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-green-100 text-green-800"
                         }`}
                       >
-                        {d.estado ? "Activo" : "Inactivo"}
+                        {d.estado === 1
+                          ? "Por hacer"
+                          : d.estado === 2
+                            ? "En progreso"
+                            : "Completado"}
                       </span>
+                      <select
+                        onchange={`cambiarEstadoDetalle(${d.id}, this.value)`}
+                        class="text-xs border rounded px-2 py-1"
+                      >
+                        <option value="1" selected={d.estado === 1}>
+                          Por hacer
+                        </option>
+                        <option value="2" selected={d.estado === 2}>
+                          En progreso
+                        </option>
+                        <option value="3" selected={d.estado === 3}>
+                          Completado
+                        </option>
+                      </select>
 
                       <button
                         type="button"
@@ -350,4 +370,13 @@ if (!proyecto) {
       });
     });
   })();
+  window.cambiarEstadoDetalle = async (id, nuevoEstado) => {
+    const res = await fetch(`/api/detalles/${id}/estado`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ estado: Number(nuevoEstado) }),
+    });
+    if (res.ok) location.reload();
+    else alert("No se pudo cambiar el estado");
+  };
 </script>

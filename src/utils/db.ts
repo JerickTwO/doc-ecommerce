@@ -59,7 +59,7 @@ export async function fetchProyectos(clienteId: number) {
       map.get(r.id).detalles.push({
         id: r.detalleId,
         observacion: r.detalleObservacion,
-        estado: !!r.detalleEstado,
+        estado: Number(r.detalleEstado),
         caracteristica: { titulo: r.caracteristicaTitulo },
       });
     }

@@ -30,3 +30,18 @@ export async function removeDetalle(id: number): Promise<boolean> {
     conn.release();
   }
 }
+export async function cambiarEstadoProyecto(
+  id: number,
+  estado: 1 | 2 | 3
+): Promise<boolean> {
+  const conn = await pool.getConnection();
+  try {
+    const res: any = await conn.query(
+      "UPDATE proyectos_clientes SET estado = ? WHERE id = ?",
+      [estado, id]
+    );
+    return res.affectedRows > 0;
+  } finally {
+    conn.release();
+  }
+}

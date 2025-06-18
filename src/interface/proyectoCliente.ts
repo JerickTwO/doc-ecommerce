@@ -3,5 +3,5 @@ export interface ProyectoCliente {
   clienteid: number;
   nombre_proyecto: string;
   observacion: string | null;
-  estado: 0 | 1;
+  estado: 1 | 2 | 3;
 }

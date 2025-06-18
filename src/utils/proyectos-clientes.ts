@@ -5,7 +5,7 @@ export interface ProyectoCliente {
   clienteid: number;
   nombre_proyecto: string;
   observacion: string | null;
-  estado: 0 | 1;
+  estado: 1 | 2 | 3; // tinyint 1-3
 }
 
 export const getProyectosByCliente = async (clienteId: string) => {
@@ -69,7 +69,7 @@ export const getProyectoConDetalles = async (proyectoId: string) => {
     // adapta el formato al que esperas en el .astro
     proyecto.detalles = detalles.map((row) => ({
       id: row.id,
-      estado: !!row.estado,
+      estado: Number(row.estado),
       observacion: row.observacion,
       caracteristica: { titulo: row.caracteristica_titulo },
     }));

@@ -194,4 +194,22 @@ const { proyectoId, onSaved } = Astro.props;
       }
     });
   });
+  window.cambiarEstadoDetalle = async (detalleId, nuevoEstado) => {
+    try {
+      const response = await fetch(`/api/detalles/${detalleId}/estado`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ estado: Number(nuevoEstado) }),
+      });
+
+      if (response.ok) {
+        location.reload();
+      } else {
+        alert("Error al cambiar el estado de la característica");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error al cambiar el estado de la característica");
+    }
+  };
 </script>

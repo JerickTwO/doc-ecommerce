@@ -2,7 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import { pool } from "../utils/db";
 
-/* ─── Traemos las características globales ────────────────── */
 interface Caracteristica {
   id: number;
   titulo: string;
@@ -327,7 +326,7 @@ const caracteristicas = await pool.query<Caracteristica[]>(
           "p-3 rounded-md text-sm bg-red-50 text-red-800 border border-red-200";
       }
 
-      setTimeout(() => boxMsg.classList.add("hidden"), 100);
+      setTimeout(() => boxMsg.classList.add("hidden"), 5000);
     });
   </script>
 </Layout>
