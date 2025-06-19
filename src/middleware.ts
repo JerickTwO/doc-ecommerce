@@ -16,6 +16,9 @@ const publicRoutes = [
   "/api/auth",
   "/api/clientes",
   "/api/detalles",
+  "/requisitos",
+  "/caracteristicas",
+  "/implementacion",
 ].map(ensureSlash);
 const adminOnlyRoutes = [
   "/dashboard",

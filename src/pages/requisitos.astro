@@ -49,6 +49,7 @@ import twoImageRequirements from "../assets/requirementsTwo.png";
                     alt="segunda imagen de ejemplo de requerimientos."
                     data-zoom-src={twoImageRequirements.src}
                   />
+                  <img src="" alt="" />
                 </div>
               </div>
             </div>
@@ -245,10 +246,8 @@ import twoImageRequirements from "../assets/requirementsTwo.png";
 </style>
 
 <script>
-  // Variables para controlar el scroll
   let scrollPosition = 0;
 
-  // Función para bloquear el scroll
   function disableScroll() {
     scrollPosition = window.pageYOffset;
     document.body.style.overflow = "hidden";
@@ -256,50 +255,39 @@ import twoImageRequirements from "../assets/requirementsTwo.png";
     document.body.style.top = `-${scrollPosition}px`;
     document.body.style.width = "100%";
 
-    // Prevenir scroll en dispositivos móviles
     document.addEventListener("touchmove", preventTouch, { passive: false });
   }
 
-  // Función para restaurar el scroll
   function enableScroll() {
     document.body.style.removeProperty("overflow");
     document.body.style.removeProperty("position");
     document.body.style.removeProperty("top");
     document.body.style.removeProperty("width");
     window.scrollTo(0, scrollPosition);
-
-    // Restaurar scroll en dispositivos móviles
     document.removeEventListener("touchmove", preventTouch);
   }
 
-  // Prevenir touch scroll
   function preventTouch(e) {
     e.preventDefault();
   }
 
-  // Función para abrir el modal
   function openModal(imageSrc, imageAlt) {
     const modal = document.getElementById("zoomModal");
     const zoomedImage = document.getElementById("zoomedImage");
 
-    if (modal && zoomedImage) {
-      // Bloquear scroll
+    if (modal && zoomedImage && zoomedImage instanceof HTMLImageElement) {
       disableScroll();
 
-      // Configurar la imagen
       zoomedImage.src = imageSrc;
       zoomedImage.alt = imageAlt;
 
-      // Mostrar el modal
       modal.classList.add("zoom-modal-open");
       document.body.classList.add("modal-open");
 
-      // Focus en el modal para accesibilidad
       modal.focus();
     }
   }
 
-  // Función para cerrar el modal
   function closeModal() {
     const modal = document.getElementById("zoomModal");
 
@@ -307,16 +295,13 @@ import twoImageRequirements from "../assets/requirementsTwo.png";
       modal.classList.remove("zoom-modal-open");
       document.body.classList.remove("modal-open");
 
-      // Restaurar scroll después de la animación
       setTimeout(() => {
         enableScroll();
       }, 300);
     }
   }
 
-  // Event listeners
   document.addEventListener("DOMContentLoaded", function () {
-    // Agregar click listeners a todas las imágenes con clase zoom-image
     const zoomImages = document.querySelectorAll(".zoom-image");
 
     zoomImages.forEach((img) => {
@@ -326,7 +311,6 @@ import twoImageRequirements from "../assets/requirementsTwo.png";
         openModal(imageSrc, imageAlt);
       });
 
-      // Agregar soporte para teclado (Enter/Space)
       img.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -337,12 +321,10 @@ import twoImageRequirements from "../assets/requirementsTwo.png";
       });
     });
 
-    // Cerrar modal con el botón X
     const closeButton = document.getElementById("closeModal");
     if (closeButton) {
       closeButton.addEventListener("click", closeModal);
 
-      // Mejorar accesibilidad táctil
       closeButton.addEventListener("touchstart", function () {
         this.style.transform = "scale(0.95)";
       });
@@ -352,7 +334,6 @@ import twoImageRequirements from "../assets/requirementsTwo.png";
       });
     }
 
-    // Cerrar modal al hacer click en el fondo
     const modal = document.getElementById("zoomModal");
     if (modal) {
       modal.addEventListener("click", function (e) {
@@ -361,7 +342,6 @@ import twoImageRequirements from "../assets/requirementsTwo.png";
         }
       });
 
-      // Prevenir cierre accidental en móviles
       modal.addEventListener("touchstart", function (e) {
         if (e.target === this) {
           e.preventDefault();
@@ -369,25 +349,21 @@ import twoImageRequirements from "../assets/requirementsTwo.png";
       });
     }
 
-    // Cerrar modal con la tecla Escape
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") {
         closeModal();
       }
     });
 
-    // Manejar cambios de orientación en móviles
     window.addEventListener("orientationchange", function () {
       const modal = document.getElementById("zoomModal");
       if (modal && modal.classList.contains("zoom-modal-open")) {
-        // Pequeño delay para que la orientación se complete
         setTimeout(() => {
           disableScroll();
         }, 100);
       }
     });
 
-    // Prevenir zoom con gestos en móviles dentro del modal
     document.addEventListener("gesturestart", function (e) {
       e.preventDefault();
     });
