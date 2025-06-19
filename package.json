@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.0.0",
-    "@astrojs/vercel": "^8.1.5",
-    "astro": "^5.8.0",
+    "@astrojs/vercel": "^8.2.0",
+    "astro": "^5.10.0",
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.5.0",
     "jsonwebtoken": "^9.0.2",
