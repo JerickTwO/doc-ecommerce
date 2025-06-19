@@ -40,8 +40,6 @@ const { user } = Astro.props;
     </nav>
   </div>
 </header>
-
-<!-- Script inline para enganchar el listener -->
 <script is:inline>
   async function handleLogout() {
     try {
@@ -62,6 +60,5 @@ const { user } = Astro.props;
     }
   }
 
-  // Conecta el botón al handler cuando el script se ejecuta
   document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
 </script>

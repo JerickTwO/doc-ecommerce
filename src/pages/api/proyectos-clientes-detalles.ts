@@ -1,5 +1,5 @@
-import type { APIRoute } from 'astro';
-import { query } from '../../utils/db';        // ← usa tu helper
+import type { APIRoute } from "astro";
+import { query } from "../../utils/db";
 
 export const prerender = false;
 
@@ -19,13 +19,13 @@ export const GET: APIRoute = async () => {
 
     return new Response(JSON.stringify({ success: true, data: rows }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
-    console.error('Error en detalles:', err);
+    console.error("Error en detalles:", err);
     return new Response(
-      JSON.stringify({ success: false, message: 'Error de servidor' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      JSON.stringify({ success: false, message: "Error de servidor" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 };

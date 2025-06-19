@@ -1,4 +1,19 @@
 ---
+/* 1. Detectar si el usuario es admin ------------------------------- */
+const rawToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+let isAdmin = false;
+
+if (rawToken) {
+  try {
+    // decodificar payload (Base64URL → JSON)
+    const payload = JSON.parse(atob(rawToken.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+    isAdmin = payload.role === "admin";
+  } catch {
+    /* token malformado: lo tratamos como no-admin */
+  }
+}
+
+/* 2. Construir dinámicamente los items ----------------------------- */
 const { currentPage } = Astro.props;
 
 const menuItems = [
@@ -6,10 +21,13 @@ const menuItems = [
   { href: "/caracteristicas", label: "Características", id: "caracteristicas" },
   { href: "/implementacion", label: "Implementación", id: "implementacion" },
   { href: "/requisitos", label: "Requisitos", id: "requisitos" },
-  { href: "/despliegue", label: "Despliegue", id: "despliegue" },
+  isAdmin
+    ? { href: "/despliegue", label: "Despliegue", id: "despliegue" }
+    : { href: "/login-cliente", label: "Mis Proyectos", id: "login" },
 ];
 ---
 
+<!-- resto del marcado idéntico -->
 <button
   id="btnToggleSidebar"
   class="md:hidden fixed top-4 left-4 p-2 bg-gray-100 rounded z-20"
@@ -45,19 +63,15 @@ const menuItems = [
   </nav>
 </aside>
 
-<script>
-  const $ = (selector: string) => document.getElementById(selector);
-
+<script type="module">
+  /* El código para el botón hamburguesa permanece igual */
+  const $ = (sel) => document.getElementById(sel);
   const btn = $("btnToggleSidebar");
   const sidebar = $("sidebar");
-  const toggleIcon = $("toggle-icon");
+  const icon = $("toggle-icon");
 
   btn?.addEventListener("click", () => {
     sidebar?.classList.toggle("-translate-x-full");
-    if (toggleIcon?.innerHTML === "☰") {
-      toggleIcon.innerHTML = "✖";
-    } else {
-      if (toggleIcon) toggleIcon.innerHTML = "☰";
-    }
+    icon.textContent = icon.textContent === "☰" ? "✖" : "☰";
   });
 </script>

@@ -295,25 +295,14 @@ if (!proyecto) {
             throw new Error(error.error || "Error al vincular característica");
           }
 
-          // Éxito
           form.reset();
 
-          // Mostrar mensaje de éxito
-          if (typeof window.mostrarMensaje === "function") {
-            window.mostrarMensaje(
-              "Característica agregada correctamente",
-              "success"
-            );
-          }
-
-          // Refrescar datos
           setTimeout(() => {
             window.refrescarDetalles?.();
           }, 100);
         } catch (error) {
           console.error("Error:", error);
 
-          // Mostrar mensaje de error
           if (typeof window.mostrarMensaje === "function") {
             window.mostrarMensaje(error.message, "error");
           } else {
@@ -322,7 +311,6 @@ if (!proyecto) {
         }
       });
 
-      /* ───────────────── 3. Eliminar características ───────────────── */
       document.addEventListener("click", async (e) => {
         const botonEliminar = e.target.closest("[data-detalle-id]");
         if (!botonEliminar) return;
@@ -346,7 +334,6 @@ if (!proyecto) {
             throw new Error(error.error || "Error al eliminar característica");
           }
 
-          // Mostrar mensaje de éxito
           if (typeof window.mostrarMensaje === "function") {
             window.mostrarMensaje(
               "Característica eliminada correctamente",
@@ -354,7 +341,6 @@ if (!proyecto) {
             );
           }
 
-          // Refrescar página
           setTimeout(() => {
             window.refrescarDetalles?.();
           }, 100);

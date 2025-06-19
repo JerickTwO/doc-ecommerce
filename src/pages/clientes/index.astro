@@ -3,7 +3,6 @@ import Layout from "../../layouts/Layout.astro";
 import type { Cliente } from "../../utils/cliente";
 
 const res = await fetch(Astro.url.origin + "/api/clientes");
-
 const json = await res.json();
 
 if (!Array.isArray(json)) {
@@ -76,27 +75,21 @@ const clientes: Cliente[] = json;
                 <label
                   for="razon_social"
                   class="block text-sm font-medium text-gray-700"
+                  >Razón Social</label
                 >
-                  Razón Social
-                </label>
                 <input
                   id="razon_social"
                   name="razon_social"
                   type="text"
                   placeholder="Ingrese la razón social"
                   required
-                  class="w-full px-3 py-2 border border-gray-200 rounded-md shadow-sm
-                   focus:outline-none focus:ring-2 focus:ring-gray-400
-                   focus:border-gray-400 transition-colors"
+                  class="w-full px-3 py-2 border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-colors"
                 />
               </div>
               <div class="space-y-2">
-                <label
-                  for="ruc"
-                  class="block text-sm font-medium text-gray-700"
+                <label for="ruc" class="block text-sm font-medium text-gray-700"
+                  >RUC</label
                 >
-                  RUC
-                </label>
                 <input
                   id="ruc"
                   name="ruc"
@@ -108,9 +101,7 @@ const clientes: Cliente[] = json;
                   pattern="[0-9]{13}"
                   inputmode="numeric"
                   title="El RUC debe contener exactamente 13 dígitos numéricos"
-                  class="w-full px-3 py-2 border border-gray-200 rounded-md shadow-sm
-         focus:outline-none focus:ring-2 focus:ring-gray-400
-         focus:border-gray-400 transition-colors"
+                  class="w-full px-3 py-2 border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-colors"
                 />
               </div>
             </div>
@@ -138,10 +129,40 @@ const clientes: Cliente[] = json;
 
       <!-- Lista de Clientes -->
       <div class="bg-white rounded-lg shadow-sm border border-gray-100">
-        <div class="px-6 py-4 border-b border-gray-100">
-          <div class="flex items-center gap-2">
+        <header class="px-6 py-4 flex items-center justify-between gap-4">
+          <div class="flex flex-col justify-center">
+            <div class="flex items-center gap-2">
+              <svg
+                class="w-5 h-5 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                ></path>
+              </svg>
+              <h2 class="text-lg font-medium text-gray-900">
+                Clientes Registrados
+              </h2>
+            </div>
+            <p class="text-sm text-gray-600 mt-1">
+              {clientes.length}
+              {
+                clientes.length === 1
+                  ? "cliente registrado"
+                  : "clientes registrados"
+              }
+            </p>
+          </div>
+
+          <!-- Campo de búsqueda con SVG -->
+          <div class="relative w-full md:w-72">
             <svg
-              class="w-5 h-5 text-gray-600"
+              class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -150,26 +171,21 @@ const clientes: Cliente[] = json;
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                d="M21 21l-4.35-4.35m1.35-4.65a7 7 0 11-14 0 7 7 0 0114 0z"
               ></path>
             </svg>
-            <h2 class="text-lg font-medium text-gray-900">
-              Clientes Registrados
-            </h2>
+            <input
+              id="search"
+              type="search"
+              placeholder="Buscar por Razón Social o RUC"
+              class="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 transition-colors"
+            />
           </div>
-          <p class="text-sm text-gray-600 mt-1">
-            {clientes.length}
-            {
-              clientes.length === 1
-                ? "cliente registrado"
-                : "clientes registrados"
-            }
-          </p>
-        </div>
+        </header>
 
         {
           clientes.length === 0 ? (
-            <div class="text-center py-12">
+            <div id="emptyState" class="text-center py-12">
               <svg
                 class="w-12 h-12 mx-auto mb-4 text-gray-300"
                 fill="none"
@@ -191,7 +207,11 @@ const clientes: Cliente[] = json;
           ) : (
             <div class="divide-y divide-gray-100">
               {clientes.map((cliente) => (
-                <div class="px-6 py-4 hover:bg-gray-50 transition-colors">
+                <div
+                  class="px-6 py-4 hover:bg-gray-50 transition-colors"
+                  data-razon-social={cliente.razon_social.toLowerCase()}
+                  data-ruc={cliente.ruc}
+                >
                   <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3 flex-1 min-w-0">
                       <div class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
@@ -255,9 +275,8 @@ const clientes: Cliente[] = json;
   <script type="module">
     document
       .querySelector("#createForm")
-      .addEventListener("submit", async (e) => {
+      ?.addEventListener("submit", async (e) => {
         e.preventDefault();
-
         const form = e.target;
         const data = Object.fromEntries(new FormData(form));
         data.ruc = (data.ruc || "").trim();
@@ -278,7 +297,6 @@ const clientes: Cliente[] = json;
           if (response.ok) {
             location.reload();
           } else {
-            // si tu API devuelve mensaje, muéstralo para depurar
             const { message } = await response.json().catch(() => ({}));
             alert(message || "Error al crear el cliente");
           }
@@ -295,7 +313,6 @@ const clientes: Cliente[] = json;
         const response = await fetch("/api/clientes/" + id, {
           method: "DELETE",
         });
-
         if (response.ok) {
           location.reload();
         } else {
@@ -306,5 +323,26 @@ const clientes: Cliente[] = json;
         alert("Error al eliminar el cliente");
       }
     };
+
+    // --- Buscador dinámico ---
+    const searchInput = document.querySelector("#search");
+    const rows = [...document.querySelectorAll("[data-razon-social]")];
+    const emptyState = document.querySelector("#emptyState");
+
+    function applyFilter(term = "") {
+      term = term.toLowerCase().trim();
+      let visible = 0;
+
+      rows.forEach((row) => {
+        const { razonSocial, ruc } = row.dataset;
+        const match = !term || razonSocial.includes(term) || ruc.includes(term);
+        row.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
+
+      if (emptyState) emptyState.style.display = visible ? "none" : "";
+    }
+
+    searchInput?.addEventListener("input", (e) => applyFilter(e.target.value));
   </script>
 </Layout>

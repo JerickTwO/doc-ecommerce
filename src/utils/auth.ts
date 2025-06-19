@@ -1,4 +1,3 @@
-// utils/auth.ts
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { query } from "./db";
@@ -15,7 +14,6 @@ export interface User {
   createdAt: Date;
 }
 
-// NUEVA ➊
 export interface Client {
   id: number;
   razon_social: string;
@@ -23,7 +21,7 @@ export interface Client {
 }
 
 /* ───────── CLIENTES ───────── */
-// NUEVA ➋  — Busca al cliente por RUC
+
 export async function authenticateClient(ruc: string): Promise<Client | null> {
   const rows = await query<Client[]>(
     "SELECT id, razon_social, ruc FROM clientes WHERE ruc = ?",
@@ -32,7 +30,6 @@ export async function authenticateClient(ruc: string): Promise<Client | null> {
   return rows[0] || null;
 }
 
-// 🔐 Hash de contraseñas
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, SALT_ROUNDS);
 }
@@ -44,7 +41,6 @@ export async function verifyPassword(
   return bcrypt.compare(password, hash);
 }
 
-// 🔐 JWT
 export function generateToken(payload: Omit<User, "createdAt">): string {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: "24h" });
 }
@@ -64,7 +60,7 @@ export function generateClientToken(cliente: Client): string {
     { expiresIn: "24h" }
   );
 }
-// 📦 Buscar usuarios
+
 export async function findUserByEmail(
   email: string
 ): Promise<null | (User & { password: string })> {
@@ -85,7 +81,6 @@ export async function findUserByUsername(
   return rows[0] || null;
 }
 
-// 🧑 Crear usuarios
 export async function createUser(data: {
   username: string;
   email: string;
@@ -106,7 +101,6 @@ export async function createUser(data: {
   };
 }
 
-// 🔐 Login
 export async function authenticateUser(
   identifier: string,
   password: string

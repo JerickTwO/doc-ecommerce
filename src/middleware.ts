@@ -14,9 +14,9 @@ const publicRoutes = [
   "/login",
   "/login-cliente",
   "/api/auth",
-  "/api/clientes",
   "/api/detalles",
   "/requisitos",
+  "/api/clientes",
   "/caracteristicas",
   "/implementacion",
 ].map(ensureSlash);
@@ -27,11 +27,10 @@ const adminOnlyRoutes = [
   "/despliegue",
   "/proyecto",
   "/clientes",
+
   "/caracteristicas-proyecto",
 ].map(ensureSlash);
 
-/* Coincide si el pathname es EXACTAMENTE la ruta
-   o empieza por "ruta/" (evitamos que "/" coincida con todo) */
 const matchRoute = (routes: string[], pathname: string) =>
   routes.some((route) => {
     const r = route.startsWith("/") ? route : "/" + route;
@@ -40,12 +39,10 @@ const matchRoute = (routes: string[], pathname: string) =>
       : pathname === r || pathname.startsWith(r + "/");
   });
 
-/* ------------------ Middleware ------------------ */
 export const onRequest: MiddlewareHandler = async (ctx, next) => {
   const { url, cookies, redirect, locals } = ctx;
   const pathname = new URL(url).pathname;
 
-  /* 1. Verificar token (y manejar errores) */
   const rawToken = cookies.get("auth-token")?.value;
   let user: ReturnType<typeof verifyToken> | null = null;
 
@@ -58,23 +55,19 @@ export const onRequest: MiddlewareHandler = async (ctx, next) => {
     }
   }
 
-  /* 2. No autenticado → solo rutas públicas */
   if (!user) {
     if (!matchRoute(publicRoutes, pathname)) return redirect("/login");
     return next();
   }
 
-  /* 3. Autenticado */
   locals.user = user;
   const role = (user.role ?? "").toLowerCase();
 
-  /* --- ADMIN --- */
   if (role === "admin") {
     if (pathname === "/login") return redirect("/dashboard");
     return next(); // acceso libre a todo
   }
 
-  /* --- CLIENTE --- */
   if (role === "cliente") {
     if (matchRoute(adminOnlyRoutes, pathname))
       return redirect("/proyectos-clientes-detalles");
@@ -82,7 +75,6 @@ export const onRequest: MiddlewareHandler = async (ctx, next) => {
     return next();
   }
 
-  /* 4. Rol desconocido → limpiar cookie y volver a /login */
   cookies.delete("auth-token", { path: "/" });
   return redirect("/login");
 };

@@ -11,13 +11,35 @@ import { Fragment } from "astro/jsx-runtime";
   </head>
 
   <body
-    class="min-h-screen bg-gray-50 flex items-center justify-center font-sans"
+    class="h-screen bg-gray-50 flex items-center justify-center flex-col font-sans py-6 px-8"
   >
-    <main class="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-      <header class="text-center mb-6">
-        <h1 class="text-2xl font-bold text-indigo-700">Área de Clientes</h1>
+    <header class="self-start justify-self-start">
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 mb-6 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Volver a la Documentación
+      </a>
+    </header>
+    <main
+      class="flex selft-center flex-col justify-center w-full h-full max-w-md bg-white rounded-xl shadow-lg p-8"
+    >
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-bold text-blue-700">Área de Clientes</h1>
         <p class="text-sm text-gray-500">Accede con tu RUC</p>
-      </header>
+      </div>
 
       <!-- Mensaje de feedback -->
       <p
@@ -33,10 +55,10 @@ import { Fragment } from "astro/jsx-runtime";
           <input
             id="ruc"
             name="ruc"
-            type="text"
-            maxlength="20"
+            maxlength="13"
+            type="number"
             required
-            class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
+            class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Ingrese su RUC"
           />
         </label>
@@ -44,10 +66,9 @@ import { Fragment } from "astro/jsx-runtime";
         <button
           id="submit-btn"
           type="submit"
-          class="w-full flex justify-center items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-50 disabled:pointer-events-none"
+          class="w-full flex justify-center items-center gap-2 rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
         >
           <span>Ingresar</span>
-          <!-- Spinner SVG (esconde/mostrar con JS) -->
           <svg
             id="spinner"
             class="h-5 w-5 animate-spin hidden"
@@ -108,11 +129,7 @@ import { Fragment } from "astro/jsx-runtime";
           const data = await res.json();
 
           if (res.ok && data.success) {
-            mostrarMensaje(`Bienvenido, ${data.user.razon_social}`, "success");
-
-            setTimeout(() => {
-              window.location.href = `/proyectos-clientes-detalles`;
-            }, 100);
+            window.location.href = `/proyectos-clientes-detalles`;
           } else {
             mostrarMensaje(data.message || "RUC no encontrado");
           }
