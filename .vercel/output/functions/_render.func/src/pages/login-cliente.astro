@@ -1,0 +1,148 @@
+---
+import { Fragment } from "astro/jsx-runtime";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login de Cliente</title>
+  </head>
+
+  <body
+    class="h-screen bg-gray-50 flex items-center justify-center flex-col  py-6 px-8"
+  >
+    <header class="self-start justify-self-start">
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 mb-6 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Volver a la Documentación
+      </a>
+    </header>
+    <main
+      class="flex flex-1 selft-center flex-col justify-center w-full max-w-md "
+    >
+      <div class="bg-white rounded-xl p-8 shadow-lg">
+        <div class="text-center mb-6">
+          <h1 class="text-2xl font-bold text-blue-700">Área de Clientes</h1>
+          <p class="text-sm text-gray-500">Accede con tu RUC</p>
+        </div>
+
+        <!-- Mensaje de feedback -->
+        <p
+          id="mensaje"
+          class="mb-4 text-center text-sm font-medium transition-opacity duration-200 opacity-0"
+        >
+        </p>
+
+        <!-- Formulario -->
+        <form id="login-form" class="space-y-4">
+          <label class="block">
+            <span class="text-gray-700 text-sm font-medium">RUC</span>
+            <input
+              id="ruc"
+              name="ruc"
+              maxlength="13"
+              type="number"
+              required
+              class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ingrese su RUC"
+            />
+          </label>
+
+          <button
+            id="submit-btn"
+            type="submit"
+            class="w-full flex justify-center items-center gap-2 rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition-colors hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+          >
+            <span>Ingresar</span>
+            <svg
+              id="spinner"
+              class="h-5 w-5 animate-spin hidden"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4l3.5-3.5L12 0v4a8 8 0 00-8 8h4z"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <!-- Script inline (is:inline para SSR) -->
+    <script is:inline type="module">
+      const form = document.getElementById("login-form");
+      const mensajeEl = document.getElementById("mensaje");
+      const btn = document.getElementById("submit-btn");
+      const spinner = document.getElementById("spinner");
+
+      const mostrarMensaje = (texto, tipo = "error") => {
+        mensajeEl.textContent = texto;
+        mensajeEl.classList.remove(
+          "opacity-0",
+          "text-red-500",
+          "text-green-600"
+        );
+        mensajeEl.classList.add(
+          "opacity-100",
+          tipo === "success" ? "text-green-600" : "text-red-500"
+        );
+      };
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const ruc = form.ruc.value.trim();
+        if (!ruc) return mostrarMensaje("Ingrese su RUC");
+
+        // UI: bloquea botón y muestra spinner
+        btn.disabled = true;
+        spinner.classList.remove("hidden");
+
+        try {
+          const res = await fetch("/api/auth/login-cliente", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ruc }),
+          });
+          const data = await res.json();
+
+          if (res.ok && data.success) {
+            window.location.href = `/proyectos-clientes-detalles`;
+          } else {
+            mostrarMensaje(data.message || "RUC no encontrado");
+          }
+        } catch (err) {
+          console.error(err);
+          mostrarMensaje("No se pudo contactar al servidor");
+        } finally {
+          btn.disabled = false;
+          spinner.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

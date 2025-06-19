@@ -1,0 +1,294 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureCard from "../components/FeatureCard.astro";
+---
+
+<Layout title="Perseo Ecommerce - Documentación">
+  <Hero />
+
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 animate-on-scroll" data-animation="fade-up">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">
+          Características Principales
+        </h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          El Ecommerce de Perseo es una plataforma de completa diseñada para
+          ofrecer la mejor experiencia tanto para desarrolladores como para
+          usuarios finales.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          class="animate-on-scroll scroll-cards"
+          data-animation="slide-up"
+          data-delay="100"
+        >
+          <FeatureCard
+            title="Gestión de Productos"
+            description="Soporte para productos simples, configurables y virtuales."
+            icon="🚀"
+          />
+        </div>
+        <div
+          class="animate-on-scroll scroll-cards"
+          data-animation="slide-up"
+          data-delay="200"
+        >
+          <FeatureCard
+            title="Gestión de Inventario"
+            description="Control avanzado de inventario y stock."
+            icon="📊"
+          />
+        </div>
+        <div
+          class="animate-on-scroll scroll-cards"
+          data-animation="slide-up"
+          data-delay="300"
+        >
+          <FeatureCard
+            title="Sistema de Roles y Permisos"
+            description="Control de acceso para diferentes usuarios."
+            icon="🛒"
+          />
+        </div>
+        <div
+          class="animate-on-scroll scroll-cards"
+          data-animation="slide-up"
+          data-delay="400"
+        >
+          <FeatureCard
+            title="SEO Integrado"
+            description="Herramientas para optimización en motores de búsqueda."
+            icon="👥"
+          />
+        </div>
+        <div
+          class="animate-on-scroll scroll-cards"
+          data-animation="slide-up"
+          data-delay="500"
+        >
+          <FeatureCard
+            title="Soporte Multilingüe y Multimoneda"
+            description="Vende en diferentes idiomas y monedas."
+            icon="💳"
+          />
+        </div>
+        <div
+          class="animate-on-scroll scroll-cards"
+          data-animation="slide-up"
+          data-delay="600"
+        >
+          <FeatureCard
+            title="Extensible"
+            description="Gran cantidad de extensiones y personalizaciones disponibles."
+            icon="📱"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        class="bg-blue-600 rounded-2xl p-8 text-center text-white animate-on-scroll"
+        data-animation="scale-up"
+      >
+        <h2 class="text-3xl font-bold mb-4">¿Listo para comenzar?</h2>
+        <p class="text-xl mb-8 opacity-90">
+          Sigue nuestra guía de instalación y ten tu ecommerce funcionando en
+          minutos
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/installation"
+            class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 animate-on-scroll"
+            data-animation="slide-left"
+            data-delay="200"
+          >
+            Guía de Instalación
+          </a>
+          <a
+            href="/api"
+            class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover-lift-alt animate-on-scroll"
+            data-animation="slide-right"
+            data-delay="400"
+          >
+            Ver API Reference
+          </a>
+        </div>
+      </div>
+    </div>
+  </section> -->
+</Layout>
+
+<style>
+  /* Estilos CSS para las animaciones */
+  .animate-on-scroll {
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .animate-on-scroll.animated {
+    opacity: 1;
+  }
+
+  /* Animación Fade Up */
+  .animate-on-scroll[data-animation="fade-up"] {
+    transform: translateY(30px);
+  }
+
+  .animate-on-scroll[data-animation="fade-up"].animated {
+    transform: translateY(0);
+  }
+
+  /* Animación Slide Up */
+  .animate-on-scroll[data-animation="slide-up"] {
+    transform: translateY(50px);
+  }
+
+  .animate-on-scroll[data-animation="slide-up"].animated {
+    transform: translateY(0);
+  }
+
+  /* Animación Slide Left */
+  .animate-on-scroll[data-animation="slide-left"] {
+    transform: translateX(-50px);
+  }
+
+  .animate-on-scroll[data-animation="slide-left"].animated {
+    transform: translateX(0);
+  }
+
+  /* Animación Slide Right */
+  .animate-on-scroll[data-animation="slide-right"] {
+    transform: translateX(50px);
+  }
+
+  .animate-on-scroll[data-animation="slide-right"].animated {
+    transform: translateX(0);
+  }
+
+  /* Animación Scale Up */
+  .animate-on-scroll[data-animation="scale-up"] {
+    transform: scale(0.9);
+  }
+
+  .animate-on-scroll[data-animation="scale-up"].animated {
+    transform: scale(1);
+  }
+
+  /* Mejoras en los hover effects */
+  .hover\:scale-105:hover {
+    transform: scale(1.05);
+  }
+
+  .hover\:shadow-lg:hover {
+    box-shadow:
+      0 10px 25px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+</style>
+
+<script>
+  // JavaScript para manejar las animaciones de scroll
+  document.addEventListener("DOMContentLoaded", function () {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          const delay = (element as HTMLElement).dataset.delay || 0;
+
+          setTimeout(
+            () => {
+              element.classList.add("animated");
+            },
+            parseInt(String(delay)),
+          );
+
+          // Una vez animado, dejamos de observar el elemento
+          observer.unobserve(element);
+        }
+      });
+    }, observerOptions);
+
+    // Observar todos los elementos con la clase animate-on-scroll
+    const animatedElements = document.querySelectorAll(".animate-on-scroll");
+    animatedElements.forEach((el) => observer.observe(el));
+
+    // Animación adicional para elementos que ya están en viewport al cargar
+    setTimeout(() => {
+      animatedElements.forEach((el, index) => {
+        const rect = el.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (isVisible && !el.classList.contains("animated")) {
+          const delay = (el as HTMLElement).dataset.delay || index * 100;
+          setTimeout(
+            () => {
+              el.classList.add("animated");
+            },
+            parseInt(String(delay)),
+          );
+        }
+      });
+    }, 100);
+  });
+
+  // Smooth scroll para los enlaces internos
+  document.querySelectorAll('a[href^="/"]').forEach((link) => {
+    link.addEventListener("click", function (e) {
+      // Agregar efecto de ripple al hacer clic
+      const ripple = document.createElement("span");
+      ripple.classList.add("ripple");
+      this.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+  });
+</script>
+
+<style>
+  /* Efecto ripple para los botones */
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+  }
+
+  @keyframes ripple-animation {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+
+  /* Mejoras adicionales para la experiencia de usuario */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-on-scroll {
+      transition: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Optimización para dispositivos móviles */
+  @media (max-width: 768px) {
+    .animate-on-scroll {
+      transition-duration: 0.6s;
+    }
+  }
+</style>
