@@ -1,19 +1,4 @@
 ---
-/* 1. Detectar si el usuario es admin ------------------------------- */
-const rawToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-let isAdmin = false;
-
-if (rawToken) {
-  try {
-    // decodificar payload (Base64URL → JSON)
-    const payload = JSON.parse(atob(rawToken.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
-    isAdmin = payload.role === "admin";
-  } catch {
-    /* token malformado: lo tratamos como no-admin */
-  }
-}
-
-/* 2. Construir dinámicamente los items ----------------------------- */
 const { currentPage } = Astro.props;
 
 const menuItems = [
@@ -21,9 +6,7 @@ const menuItems = [
   { href: "/caracteristicas", label: "Características", id: "caracteristicas" },
   { href: "/implementacion", label: "Implementación", id: "implementacion" },
   { href: "/requisitos", label: "Requisitos", id: "requisitos" },
-  isAdmin
-    ? { href: "/despliegue", label: "Despliegue", id: "despliegue" }
-    : { href: "/login-cliente", label: "Mis Proyectos", id: "login" },
+  { href: "/despliegue", label: "Despliegue", id: "despliegue" },
 ];
 ---
 
