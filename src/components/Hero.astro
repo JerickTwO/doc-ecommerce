@@ -1,39 +1,70 @@
 ---
-
 ---
 
-<section
-  class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20"
->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h1 class="text-5xl md:text-6xl font-bold mb-6">Perseo Ecommerce</h1>
-    <p class="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
-      Plataforma de comercio electrónico moderna, escalable y fácil de usar.
-      Construye tu tienda online con las mejores prácticas y tecnologías
-      actuales.
-    </p>
+<section class="bg-white pt-14 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div>
+        <p class="text-red-600 font-semibold text-sm uppercase tracking-wide mb-3">
+          Documentación oficial
+        </p>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
+          E-Commerce <span class="text-red-600">Premium</span>
+        </h1>
+        <p class="text-lg text-gray-600 mb-8 max-w-md">
+          Plataforma de comercio electrónico moderna, escalable y fácil de
+          usar. Construye tu tienda online con las mejores prácticas y
+          tecnologías actuales.
+        </p>
 
-    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-      <a
-        href="/caracteristicas"
-        class="hover-lift-alt border-2 px-8 py-4 rounded-lg font-semibold"
-      >
-        Ver Detalles
-      </a>
-    </div>
+        <div class="flex flex-wrap gap-3 mb-10">
+          <a
+            href="/caracteristicas"
+            class="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-red-700 transition-colors"
+          >
+            Ver características
+          </a>
+          <a
+            href="/implementacion"
+            class="inline-flex items-center gap-2 border border-gray-300 text-gray-700 px-6 py-3 rounded-full font-semibold text-sm hover:border-gray-900 hover:text-gray-900 transition-colors"
+          >
+            Cómo se implementa
+          </a>
+        </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto">
-      <div class="text-center">
-        <div class="text-3xl font-bold">10+</div>
-        <div class="text-blue-200">Componentes</div>
+       
       </div>
-      <div class="text-center">
-        <div class="text-3xl font-bold">100%</div>
-        <div class="text-blue-200">Sincronizado</div>
-      </div>
-      <div class="text-center">
-        <div class="text-3xl font-bold">24/7</div>
-        <div class="text-blue-200">Soporte</div>
+
+      <div class="relative mx-auto max-w-md lg:max-w-none">
+        <!-- Mockup de laptop -->
+        <div class="bg-gray-900 rounded-2xl p-3 shadow-2xl rotate-1">
+          <div class="bg-white rounded-lg overflow-hidden">
+            <div class="h-7 bg-gray-100 flex items-center gap-1.5 px-3">
+              <span class="w-2 h-2 rounded-full bg-red-400"></span>
+              <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+              <span class="w-2 h-2 rounded-full bg-green-400"></span>
+            </div>
+            <div class="p-4 space-y-2.5">
+              <div class="h-3 w-2/3 bg-gray-200 rounded"></div>
+              <div class="h-3 w-1/2 bg-gray-100 rounded"></div>
+              <div class="grid grid-cols-3 gap-2 pt-2">
+                <div class="aspect-square bg-red-100 rounded-md"></div>
+                <div class="aspect-square bg-gray-100 rounded-md"></div>
+                <div class="aspect-square bg-gray-100 rounded-md"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mockup de celular flotante -->
+        <div class="absolute -bottom-8 -left-6 w-28 bg-gray-900 rounded-2xl p-1.5 shadow-xl hidden sm:block">
+          <div class="bg-white rounded-xl overflow-hidden p-2 space-y-1.5">
+            <div class="h-2 w-full bg-red-100 rounded"></div>
+            <div class="h-10 w-full bg-gray-100 rounded"></div>
+            <div class="h-2 w-2/3 bg-gray-200 rounded"></div>
+            <div class="h-2 w-1/2 bg-gray-200 rounded"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

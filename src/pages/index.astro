@@ -4,83 +4,120 @@ import Hero from "../components/Hero.astro";
 import FeatureCard from "../components/FeatureCard.astro";
 ---
 
-<Layout title="Perseo Ecommerce - Documentación">
+<Layout title="Perseo Ecommerce - Documentación" currentPage="home">
   <Hero />
 
-  <section class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <p class="text-red-600 font-semibold text-sm uppercase tracking-wide mb-3">
+            Descripción general
+          </p>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            Tu tienda online, conectada a tu contabilidad
+          </h2>
+          <p class="text-gray-600 mb-6">
+            Perseo Ecommerce te permite crear una tienda online escalable y
+            personalizable, facilitando la gestión de productos, pedidos,
+            stock y más, con integración directa por API al sistema contable
+            Perseo.
+          </p>
+          <div class="rounded-2xl bg-gray-950 text-white p-6">
+            <h3 class="font-semibold mb-2">Sincronización de pedidos</h3>
+            <p class="text-gray-400 text-sm">
+              Gracias a la integración directa con Perseo por API, puedes
+              sincronizar los pedidos para gestionarlos directamente desde el
+              sistema contable, con stock siempre actualizado.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-red-600 font-semibold text-sm uppercase tracking-wide mb-3">
+            Beneficios para el comprador
+          </p>
+          <ul class="space-y-3">
+            {
+              [
+                "Plataforma robusta y escalable",
+                "Fácil integración con métodos de pago y envío",
+                "Conexión en tiempo real con sistema contable Perseo",
+                "Stock siempre actualizado",
+                "Panel de administración intuitivo",
+              ].map((item) => (
+                <li class="flex items-start gap-3 rounded-xl border border-gray-100 p-4 text-sm text-gray-700">
+                  <span class="text-red-600 font-bold">✓</span>
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-12 animate-on-scroll" data-animation="fade-up">
+        <p class="text-red-600 font-semibold text-sm uppercase tracking-wide mb-2">
+          Todo en un solo lugar
+        </p>
         <h2 class="text-3xl font-bold text-gray-900 mb-4">
           Características Principales
         </h2>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-          El Ecommerce de Perseo es una plataforma de completa diseñada para
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          El Ecommerce de Perseo es una plataforma completa diseñada para
           ofrecer la mejor experiencia tanto para desarrolladores como para
           usuarios finales.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div
-          class="animate-on-scroll scroll-cards"
-          data-animation="slide-up"
-          data-delay="100"
-        >
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="animate-on-scroll" data-animation="slide-up" data-delay="50">
+          <FeatureCard
+            title="Sincronización con Perseo"
+            description="Integración directa por API con el sistema contable Perseo para gestionar tus pedidos."
+            icon="🔗"
+          />
+        </div>
+        <div class="animate-on-scroll" data-animation="slide-up" data-delay="100">
           <FeatureCard
             title="Gestión de Productos"
             description="Soporte para productos simples, configurables y virtuales."
             icon="🚀"
           />
         </div>
-        <div
-          class="animate-on-scroll scroll-cards"
-          data-animation="slide-up"
-          data-delay="200"
-        >
+        <div class="animate-on-scroll" data-animation="slide-up" data-delay="200">
           <FeatureCard
             title="Gestión de Inventario"
             description="Control avanzado de inventario y stock."
             icon="📊"
           />
         </div>
-        <div
-          class="animate-on-scroll scroll-cards"
-          data-animation="slide-up"
-          data-delay="300"
-        >
+        <div class="animate-on-scroll" data-animation="slide-up" data-delay="300">
           <FeatureCard
             title="Sistema de Roles y Permisos"
             description="Control de acceso para diferentes usuarios."
             icon="🛒"
           />
         </div>
-        <div
-          class="animate-on-scroll scroll-cards"
-          data-animation="slide-up"
-          data-delay="400"
-        >
+        <div class="animate-on-scroll" data-animation="slide-up" data-delay="400">
           <FeatureCard
             title="SEO Integrado"
             description="Herramientas para optimización en motores de búsqueda."
             icon="👥"
           />
         </div>
-        <div
-          class="animate-on-scroll scroll-cards"
-          data-animation="slide-up"
-          data-delay="500"
-        >
+        <div class="animate-on-scroll" data-animation="slide-up" data-delay="500">
           <FeatureCard
             title="Soporte Multilingüe y Multimoneda"
             description="Vende en diferentes idiomas y monedas."
             icon="💳"
           />
         </div>
-        <div
-          class="animate-on-scroll scroll-cards"
-          data-animation="slide-up"
-          data-delay="600"
-        >
+        <div class="animate-on-scroll" data-animation="slide-up" data-delay="600">
           <FeatureCard
             title="Extensible"
             description="Gran cantidad de extensiones y personalizaciones disponibles."
@@ -91,38 +128,114 @@ import FeatureCard from "../components/FeatureCard.astro";
     </div>
   </section>
 
-  <!-- <section class="py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <p class="text-red-600 font-semibold text-sm uppercase tracking-wide mb-2">
+          Caso de éxito
+        </p>
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">
+          Tu tienda, tu marca
+        </h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Cada implementación se adapta a la identidad del negocio. Así fue
+          el proyecto para <span class="font-semibold text-gray-900">Turrones</span>,
+          una tienda online personalizada de punta a punta con Perseo
+          Ecommerce.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-20">
+        <div class="rounded-2xl border border-gray-100 p-8">
+          <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-2xl mb-4">
+            🍬
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">
+            Tienda de Turrones
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Tu tienda personalizada, tal como la imaginaste. Un ejemplo de
+            cómo Perseo Ecommerce se adapta a marcas con catálogos
+            especializados.
+          </p>
+        </div>
+
+        <div class="rounded-2xl bg-red-600 text-white p-8">
+          <h3 class="text-lg font-bold mb-2">Comienza tu proyecto hoy</h3>
+          <p class="text-red-100 text-sm mb-4">
+            Cuéntanos sobre tu negocio y te ayudamos a definir el plan que
+            mejor se adapte a tu catálogo.
+          </p>
+          <a
+            href="/implementacion"
+            class="inline-flex items-center gap-2 bg-white text-red-600 px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-red-50 transition-colors"
+          >
+            Ver proceso de implementación
+          </a>
+        </div>
+      </div>
+
+      <div class="text-center mb-10">
+        <p class="text-red-600 font-semibold text-sm uppercase tracking-wide mb-2">
+          Planes referenciales
+        </p>
+        <h2 class="text-3xl font-bold text-gray-900">Inversión estimada</h2>
+        <p class="text-gray-600 text-sm mt-2">
+          * Valores más IVA. Sujetos a confirmación según alcance del
+          proyecto.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto mb-16">
+        <div class="rounded-2xl border-2 border-red-600 p-8 text-center">
+          <p class="text-sm font-semibold text-red-600 uppercase tracking-wide mb-2">
+            Implementación completa
+          </p>
+          <p class="text-4xl font-extrabold text-gray-900 mb-1">
+            $1,500<span class="text-base font-medium text-gray-500">+IVA</span>
+          </p>
+          <p class="text-gray-500 text-sm">Pago único</p>
+        </div>
+        <div class="rounded-2xl border border-gray-200 p-8 text-center">
+          <p class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
+            Plan básico
+          </p>
+          <p class="text-4xl font-extrabold text-gray-900 mb-1">
+            $750<span class="text-base font-medium text-gray-500">+IVA</span>
+          </p>
+          <p class="text-gray-500 text-sm">Pago único</p>
+        </div>
+      </div>
+
       <div
-        class="bg-blue-600 rounded-2xl p-8 text-center text-white animate-on-scroll"
+        class="bg-gray-950 rounded-3xl px-8 py-14 sm:px-16 text-center text-white animate-on-scroll"
         data-animation="scale-up"
       >
-        <h2 class="text-3xl font-bold mb-4">¿Listo para comenzar?</h2>
-        <p class="text-xl mb-8 opacity-90">
-          Sigue nuestra guía de instalación y ten tu ecommerce funcionando en
-          minutos
+        <p class="text-red-500 font-semibold text-sm uppercase tracking-wide mb-3">
+          ¿Listo para comenzar?
+        </p>
+        <h2 class="text-3xl font-bold mb-4">Lleva tu tienda al siguiente nivel</h2>
+        <p class="text-gray-400 mb-8 max-w-xl mx-auto">
+          Conoce el proceso de implementación y los requisitos técnicos para
+          poner en marcha tu ecommerce con Perseo.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="/installation"
-            class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 animate-on-scroll"
-            data-animation="slide-left"
-            data-delay="200"
+            href="/implementacion"
+            class="bg-red-600 text-white px-8 py-3 rounded-full font-semibold text-sm hover:bg-red-700 transition-colors"
           >
-            Guía de Instalación
+            Guía de Implementación
           </a>
           <a
-            href="/api"
-            class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover-lift-alt animate-on-scroll"
-            data-animation="slide-right"
-            data-delay="400"
+            href="/requisitos"
+            class="border border-gray-700 text-white px-8 py-3 rounded-full font-semibold text-sm hover:border-white transition-colors"
           >
-            Ver API Reference
+            Ver Requisitos
           </a>
         </div>
       </div>
     </div>
-  </section> -->
+  </section>
 </Layout>
 
 <style>
@@ -136,7 +249,6 @@ import FeatureCard from "../components/FeatureCard.astro";
     opacity: 1;
   }
 
-  /* Animación Fade Up */
   .animate-on-scroll[data-animation="fade-up"] {
     transform: translateY(30px);
   }
@@ -145,7 +257,6 @@ import FeatureCard from "../components/FeatureCard.astro";
     transform: translateY(0);
   }
 
-  /* Animación Slide Up */
   .animate-on-scroll[data-animation="slide-up"] {
     transform: translateY(50px);
   }
@@ -154,47 +265,24 @@ import FeatureCard from "../components/FeatureCard.astro";
     transform: translateY(0);
   }
 
-  /* Animación Slide Left */
-  .animate-on-scroll[data-animation="slide-left"] {
-    transform: translateX(-50px);
-  }
-
-  .animate-on-scroll[data-animation="slide-left"].animated {
-    transform: translateX(0);
-  }
-
-  /* Animación Slide Right */
-  .animate-on-scroll[data-animation="slide-right"] {
-    transform: translateX(50px);
-  }
-
-  .animate-on-scroll[data-animation="slide-right"].animated {
-    transform: translateX(0);
-  }
-
-  /* Animación Scale Up */
   .animate-on-scroll[data-animation="scale-up"] {
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
 
   .animate-on-scroll[data-animation="scale-up"].animated {
     transform: scale(1);
   }
 
-  /* Mejoras en los hover effects */
-  .hover\:scale-105:hover {
-    transform: scale(1.05);
-  }
-
-  .hover\:shadow-lg:hover {
-    box-shadow:
-      0 10px 25px -3px rgba(0, 0, 0, 0.1),
-      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  @media (prefers-reduced-motion: reduce) {
+    .animate-on-scroll {
+      transition: none;
+      opacity: 1;
+      transform: none;
+    }
   }
 </style>
 
 <script>
-  // JavaScript para manejar las animaciones de scroll
   document.addEventListener("DOMContentLoaded", function () {
     const observerOptions = {
       threshold: 0.1,
@@ -207,24 +295,18 @@ import FeatureCard from "../components/FeatureCard.astro";
           const element = entry.target;
           const delay = (element as HTMLElement).dataset.delay || 0;
 
-          setTimeout(
-            () => {
-              element.classList.add("animated");
-            },
-            parseInt(String(delay)),
-          );
+          setTimeout(() => {
+            element.classList.add("animated");
+          }, parseInt(String(delay)));
 
-          // Una vez animado, dejamos de observar el elemento
           observer.unobserve(element);
         }
       });
     }, observerOptions);
 
-    // Observar todos los elementos con la clase animate-on-scroll
     const animatedElements = document.querySelectorAll(".animate-on-scroll");
     animatedElements.forEach((el) => observer.observe(el));
 
-    // Animación adicional para elementos que ya están en viewport al cargar
     setTimeout(() => {
       animatedElements.forEach((el, index) => {
         const rect = el.getBoundingClientRect();
@@ -232,63 +314,11 @@ import FeatureCard from "../components/FeatureCard.astro";
 
         if (isVisible && !el.classList.contains("animated")) {
           const delay = (el as HTMLElement).dataset.delay || index * 100;
-          setTimeout(
-            () => {
-              el.classList.add("animated");
-            },
-            parseInt(String(delay)),
-          );
+          setTimeout(() => {
+            el.classList.add("animated");
+          }, parseInt(String(delay)));
         }
       });
     }, 100);
   });
-
-  // Smooth scroll para los enlaces internos
-  document.querySelectorAll('a[href^="/"]').forEach((link) => {
-    link.addEventListener("click", function (e) {
-      // Agregar efecto de ripple al hacer clic
-      const ripple = document.createElement("span");
-      ripple.classList.add("ripple");
-      this.appendChild(ripple);
-
-      setTimeout(() => {
-        ripple.remove();
-      }, 600);
-    });
-  });
 </script>
-
-<style>
-  /* Efecto ripple para los botones */
-  .ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.6);
-    transform: scale(0);
-    animation: ripple-animation 0.6s linear;
-    pointer-events: none;
-  }
-
-  @keyframes ripple-animation {
-    to {
-      transform: scale(4);
-      opacity: 0;
-    }
-  }
-
-  /* Mejoras adicionales para la experiencia de usuario */
-  @media (prefers-reduced-motion: reduce) {
-    .animate-on-scroll {
-      transition: none;
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  /* Optimización para dispositivos móviles */
-  @media (max-width: 768px) {
-    .animate-on-scroll {
-      transition-duration: 0.6s;
-    }
-  }
-</style>

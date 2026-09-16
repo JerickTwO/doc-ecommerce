@@ -1,105 +1,80 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Sidebar from "../components/Sidebar.astro";
 ---
 
-<Layout title="Características - Perseo Ecommerce">
-  <div class="flex min-h-screen bg-white">
-    <Sidebar currentPage="caracteristicas" />
+<Layout title="Características - Perseo Ecommerce" currentPage="caracteristicas">
+  <section class="bg-gray-950 text-white py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="text-red-500 font-semibold text-sm uppercase tracking-wide mb-3">
+        Documentación
+      </p>
+      <h1 class="text-4xl font-extrabold mb-3">Características</h1>
+      <p class="text-gray-400 max-w-xl">
+        Todo lo que necesitas para adaptar tu tienda a tu marca, sincronizar
+        tu catálogo y ofrecer pagos y envíos flexibles.
+      </p>
+    </div>
+  </section>
 
-    <main class="flex-1 py-8 px-16 bg-gray-50 antialiased">
-      <div class="mx-auto">
-        <h1 class="text-3xl font-bold text-gray-900 mb-8">Características</h1>
-
-        <!-- Proceso de Implementación -->
-        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
-          <div class="flex-1">
-            <h3 class="text-2xl font-semibold mb-2">Personalización</h3>
-            <div class="p-4">
-              <h3 class="font-semibold mb-2">
-                Características de la sincronización:
-              </h3>
-              <ul class="space-y-1">
-                <li>• Configuración de colores y logotipo corporativo</li>
-                <li>
-                  • Adaptación de la estructura de categorías de productos
-                </li>
-                <li>
-                  • Personalización de campos de productos según tu industria
-                </li>
-                <li>• Configuración de políticas de venta y términos de uso</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="flex items-start space-x-4">
-            <div class="flex-1">
-              <div class="rounded-lg p-4">
-                <h3 class="font-semibold mb-2">
-                  Características de la sincronización:
-                </h3>
-                <ul class="space-y-1">
-                  <li>• Importación automática de catálogo de productos</li>
-                  <li>• Actualización de inventarios en tiempo real</li>
-                  <li>• Sincronización de precios y promociones</li>
-                  <li>• Gestión automática de stock y disponibilidad</li>
-                  <li>• Integración de códigos de barras y SKUs</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+  <main class="max-w-6xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-2 gap-6 mb-6">
+      <div class="rounded-2xl border border-gray-100 p-8 hover:border-red-200 hover:shadow-lg transition-all">
+        <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-2xl mb-4">
+          🎨
         </div>
-
-        <div class="bg-white rounded-xl shadow-sm p-8 mb-8">
-          <div class="flex items-start space-x-4">
-            <div class="flex-1">
-              <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                Configuración de Pagos y Envíos
-              </h3>
-
-              <div class="px-4 mb-4">
-                <h4 class="font-semibold mb-2">Métodos de Pago Disponibles:</h4>
-                <ul class="space-y-1">
-                  <li>• Pago contra entrega</li>
-                  <li>• Pagos con PagoPlux y DataFast</li>
-                </ul>
-              </div>
-              <div class="px-4">
-                <h4 class="font-semibold mb-2">Opciones de Envío:</h4>
-                <ul class="space-y-1">
-                  <li>• Envío a domicilio con empresas courier</li>
-                  <li>• Retiro en punto de venta</li>
-                  <li>• Envío express y programado</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h2 class="text-xl font-bold text-gray-900 mb-3">Personalización</h2>
+        <ul class="space-y-2 text-gray-600 text-sm">
+          <li>Configuración de colores y logotipo corporativo</li>
+          <li>Adaptación de la estructura de categorías de productos</li>
+          <li>Personalización de campos de productos según tu industria</li>
+          <li>Configuración de políticas de venta y términos de uso</li>
+        </ul>
       </div>
 
-      <!-- Call to Action -->
-      <!-- <div
-        class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-20 rounded-lg shadow-sm p-8 text-center text-white"
-        >
-          <h3 class="text-2xl font-semibold mb-4">¿Listo para comenzar?</h3>
-          <p class="text-blue-100 mb-6 max-w-2xl mx-auto">
-            Nuestro equipo de expertos está listo para implementar tu tienda
-            online de manera rápida y eficiente. Contacta con nosotros para
-            comenzar el proceso de implementación.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              class="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg hover:bg-blue-50 transition-colors"
-            >
-              Solicitar Implementación
-            </button>
-            <button
-              class="border-2 border-white font-semibold py-3 px-8 rounded-lg hover-lift-alt"
-            >
-              Agendar Consulta
-            </button>
-          </div>
-        </div> -->
-    </main>
-  </div>
+      <div class="rounded-2xl border border-gray-100 p-8 hover:border-red-200 hover:shadow-lg transition-all">
+        <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-2xl mb-4">
+          🔄
+        </div>
+        <h2 class="text-xl font-bold text-gray-900 mb-3">Sincronización</h2>
+        <ul class="space-y-2 text-gray-600 text-sm">
+          <li>Importación automática de catálogo de productos</li>
+          <li>Actualización de inventarios en tiempo real</li>
+          <li>Sincronización de precios y promociones</li>
+          <li>Gestión automática de stock y disponibilidad</li>
+          <li>Integración de códigos de barras y SKUs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rounded-2xl bg-gray-950 text-white p-8 sm:p-10">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center text-2xl">
+          💳
+        </div>
+        <h2 class="text-xl font-bold">Configuración de Pagos y Envíos</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-sm font-semibold text-red-400 uppercase tracking-wide mb-3">
+            Métodos de Pago Disponibles
+          </h3>
+          <ul class="space-y-2 text-gray-300 text-sm">
+            <li>Pago contra entrega</li>
+            <li>Pagos con PagoPlux y DataFast</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-red-400 uppercase tracking-wide mb-3">
+            Opciones de Envío
+          </h3>
+          <ul class="space-y-2 text-gray-300 text-sm">
+            <li>Envío a domicilio con empresas courier</li>
+            <li>Retiro en punto de venta</li>
+            <li>Envío express y programado</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
 </Layout>
